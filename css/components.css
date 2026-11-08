@@ -1,0 +1,1471 @@
+/**
+ * PulseTV - Components Styles
+ * Hardware-friendly styles for TV components, modals, sidebar, and overlays
+ */
+
+/* ==========================================================================
+   1. Splash Screen
+   ========================================================================== */
+#screen-splash {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #0c0e12;
+  background-color: var(--bg-canvas, #0c0e12);
+  text-align: center;
+}
+
+.splash-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transform: translate3d(0, 0, 0);
+  transition: transform 400ms ease, opacity 400ms ease;
+}
+
+.splash-logo-container {
+  width: 140px;
+  height: 140px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.splash-logo-circle {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ff6b35, #ffd166);
+  background: var(--splash-gradient, linear-gradient(135deg, #ff2a5f, #00f0ff));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.splash-title {
+  font-size: 3.2rem;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  margin-bottom: 8px;
+  color: #ffffff;
+  color: var(--text-primary, #ffffff);
+}
+
+.splash-title span {
+  color: #ffd166;
+  color: var(--color-accent, #ffd166);
+}
+
+.splash-subtitle {
+  font-size: 1.35rem;
+  color: #94a3b8;
+  color: var(--text-muted, #94a3b8);
+  margin-bottom: 36px;
+  max-width: 600px;
+}
+
+.splash-prompt {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #cbd5e1;
+  padding: 12px 28px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* ==========================================================================
+   2. Profile Selection Screen
+   ========================================================================== */
+#screen-profiles {
+  background-color: #0c0e12;
+  background-color: var(--bg-canvas, #0c0e12);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.profiles-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 1400px;
+}
+
+.profiles-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.profiles-header h1 {
+  font-size: 2.8rem;
+  font-weight: 800;
+  margin-bottom: 8px;
+  color: #ffffff;
+}
+
+.profiles-header p {
+  font-size: 1.3rem;
+  color: #94a3b8;
+  color: var(--text-muted, #94a3b8);
+}
+
+.profiles-grid {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+
+.profile-card {
+  width: 220px;
+  height: 270px;
+  margin: 16px;
+  background-color: #161b22;
+  background-color: var(--bg-surface, #161b22);
+  border-radius: 18px;
+  border-radius: var(--radius-lg, 18px);
+  border: 2px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+  position: relative;
+}
+
+.profile-avatar-wrap {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background: #21262d;
+  background: var(--bg-surface-elevated, #21262d);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+  overflow: hidden;
+  border: 3px solid rgba(255, 255, 255, 0.1);
+}
+
+.profile-avatar-wrap svg {
+  width: 75%;
+  height: 75%;
+}
+
+.profile-name {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #ffffff;
+  color: var(--text-primary, #ffffff);
+  margin-bottom: 8px;
+  max-width: 190px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.profile-badge {
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  background-color: rgba(255, 255, 255, 0.12);
+  color: #e2e8f0;
+}
+
+.profile-badge.badge-kid {
+  background-color: rgba(255, 107, 53, 0.25);
+  color: #ff9f1c;
+  border: 1px solid rgba(255, 107, 53, 0.4);
+}
+
+.profile-badge.badge-adult {
+  background-color: rgba(0, 240, 255, 0.2);
+  color: #00f0ff;
+  border: 1px solid rgba(0, 240, 255, 0.35);
+}
+
+.profile-card-add {
+  border: 2px dashed rgba(255, 255, 255, 0.25);
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+.profile-add-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  color: #ffffff;
+}
+
+.profile-action-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  color: #94a3b8;
+  color: var(--text-muted, #94a3b8);
+}
+
+.profile-action-hint {
+  display: flex;
+  align-items: center;
+  margin: 0 16px;
+}
+
+.key-cap {
+  display: inline-block;
+  background: #334155;
+  color: #f8fafc;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin: 0 6px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* ==========================================================================
+   3. Main TV Screen Layout (YouTube TV Style)
+   ========================================================================== */
+#screen-main {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Collapsible Left Sidebar Rail */
+.tv-sidebar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 96px;
+  background-color: #0e1117;
+  background-color: var(--bg-sidebar, #0e1117);
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  padding: 28px 0;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  transition: width 240ms cubic-bezier(0.16, 1, 0.3, 1), background-color 240ms ease;
+  will-change: width;
+  overflow: hidden;
+}
+
+.tv-sidebar.is-expanded {
+  width: 300px;
+  background-color: #0e1117;
+  background-color: var(--bg-sidebar, #0e1117);
+  box-shadow: 16px 0 36px rgba(0, 0, 0, 0.6);
+}
+
+/* Sidebar Profile Widget */
+.sidebar-profile {
+  display: flex;
+  align-items: center;
+  padding: 12px 20px;
+  margin: 0 12px 24px 12px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.04);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.sidebar-profile-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #21262d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  overflow: hidden;
+}
+
+.sidebar-profile-avatar svg {
+  width: 70%;
+  height: 70%;
+}
+
+.sidebar-profile-info {
+  margin-left: 16px;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  transition: opacity 180ms ease;
+}
+
+.tv-sidebar.is-expanded .sidebar-profile-info {
+  opacity: 1;
+}
+
+.sidebar-profile-name {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #ffffff;
+  max-width: 170px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sidebar-profile-sub {
+  font-size: 0.85rem;
+  color: #94a3b8;
+}
+
+/* Sidebar Nav Items */
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 0 12px;
+}
+
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  height: 56px;
+  padding: 0 20px;
+  margin-bottom: 8px;
+  border-radius: 12px;
+  color: #94a3b8;
+  color: var(--text-muted, #94a3b8);
+  font-size: 1.15rem;
+  font-weight: 600;
+  white-space: nowrap;
+  position: relative;
+  cursor: pointer;
+}
+
+.sidebar-item-icon {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.sidebar-item-icon svg {
+  width: 26px;
+  height: 26px;
+  stroke: currentColor;
+  stroke-width: 2;
+  fill: none;
+}
+
+.sidebar-item-label {
+  margin-left: 20px;
+  opacity: 0;
+  transition: opacity 160ms ease;
+}
+
+.tv-sidebar.is-expanded .sidebar-item-label {
+  opacity: 1;
+}
+
+.sidebar-item.is-active {
+  color: #ffffff;
+  color: var(--text-primary, #ffffff);
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.sidebar-item.is-active .sidebar-item-icon svg {
+  stroke: #ff6b35;
+  stroke: var(--color-primary, #ff6b35);
+}
+
+.sidebar-item.is-active::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 10px;
+  bottom: 10px;
+  width: 4px;
+  border-radius: 0 4px 4px 0;
+  background-color: #ff6b35;
+  background-color: var(--color-primary, #ff6b35);
+}
+
+/* Top TV Header Bar (Brand Logo, Clock, Music Button) */
+.tv-main-stage {
+  flex: 1;
+  margin-left: 96px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+.tv-header-bar {
+  height: 80px;
+  padding: 0 4vw;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 30;
+  flex-shrink: 0;
+}
+
+.tv-header-left {
+  display: flex;
+  align-items: center;
+}
+
+.tv-brand-logo {
+  display: flex;
+  align-items: center;
+  font-size: 1.6rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+}
+
+.tv-brand-badge {
+  margin-left: 10px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background-color: #ff6b35;
+  background-color: var(--color-primary, #ff6b35);
+  color: #ffffff;
+}
+
+.tv-header-right {
+  display: flex;
+  align-items: center;
+}
+
+.tv-clock {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #cbd5e1;
+  margin-right: 28px;
+  font-variant-numeric: tabular-nums;
+}
+
+.btn-header-music {
+  display: flex;
+  align-items: center;
+  padding: 8px 18px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-header-music svg {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+
+.music-playing-indicator {
+  display: flex;
+  align-items: center;
+  height: 14px;
+  margin-left: 8px;
+}
+
+.music-bar {
+  width: 3px;
+  height: 100%;
+  margin: 0 1px;
+  background-color: #00f0ff;
+  background-color: var(--color-accent, #00f0ff);
+  border-radius: 2px;
+}
+
+/* ==========================================================================
+   4. Content Area & Hero Billboard
+   ========================================================================== */
+.tv-content-scroll {
+  flex: 1;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  position: relative;
+  padding: 0 4vw 4vh 4vw;
+  box-sizing: border-box;
+}
+
+/* Hero Billboard */
+.hero-billboard {
+  width: 100%;
+  height: 380px;
+  border-radius: 20px;
+  border-radius: var(--radius-lg, 20px);
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 32px;
+  background-color: #161b22;
+  background-color: var(--bg-surface, #161b22);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 36px 48px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.4);
+}
+
+.hero-art-backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.hero-art-backdrop svg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-scrim {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  background: linear-gradient(180deg, rgba(12, 14, 18, 0.1) 0%, rgba(12, 14, 18, 0.7) 50%, rgba(12, 14, 18, 0.96) 100%);
+}
+
+.hero-body {
+  position: relative;
+  z-index: 3;
+  max-width: 850px;
+}
+
+.hero-meta {
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: #ffd166;
+  color: var(--color-accent, #ffd166);
+}
+
+.hero-meta span {
+  margin: 0 8px;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.hero-title {
+  font-size: 2.7rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  margin-bottom: 12px;
+  color: #ffffff;
+  line-height: 1.15;
+}
+
+.hero-desc {
+  font-size: 1.25rem;
+  color: #cbd5e1;
+  color: var(--text-secondary, #cbd5e1);
+  margin-bottom: 24px;
+  line-height: 1.45;
+  max-width: 720px;
+}
+
+.hero-actions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.btn-hero-play {
+  display: flex;
+  align-items: center;
+  padding: 14px 34px;
+  border-radius: 14px;
+  border-radius: var(--radius-md, 14px);
+  background-color: #ff6b35;
+  background-color: var(--color-primary, #ff6b35);
+  color: #ffffff;
+  font-size: 1.25rem;
+  font-weight: 800;
+  margin-right: 18px;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-hero-play svg {
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+}
+
+.btn-hero-secondary {
+  display: flex;
+  align-items: center;
+  padding: 14px 28px;
+  border-radius: 14px;
+  border-radius: var(--radius-md, 14px);
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  font-size: 1.15rem;
+  font-weight: 700;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  cursor: pointer;
+}
+
+/* ==========================================================================
+   5. Horizontal Rows & 16:9 Banner Cards
+   ========================================================================== */
+.rows-container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+}
+
+.banner-row {
+  margin-bottom: 34px;
+  position: relative;
+}
+
+.row-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.row-title {
+  font-size: 1.55rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.01em;
+}
+
+.row-tag {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #94a3b8;
+  color: var(--text-muted, #94a3b8);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Horizontal Track with translate3d for Cobalt efficiency */
+.row-track-viewport {
+  width: 100%;
+  overflow: visible;
+  position: relative;
+}
+
+.row-track {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  transform: translate3d(0, 0, 0);
+  transition: transform 260ms cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+/* 16:9 Banner Card */
+.banner-card {
+  width: 320px;
+  height: 180px;
+  margin-right: 20px;
+  flex-shrink: 0;
+  border-radius: 14px;
+  border-radius: var(--radius-md, 14px);
+  background-color: #161b22;
+  background-color: var(--bg-surface, #161b22);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 16px 20px;
+}
+
+.card-art-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+}
+
+.card-art-container svg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-scrim {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.5) 45%, rgba(0, 0, 0, 0.92) 100%);
+}
+
+.card-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 3;
+  padding: 3px 10px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  background: rgba(0, 0, 0, 0.65);
+  color: #ffd166;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.card-content {
+  position: relative;
+  z-index: 3;
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 4px;
+  line-height: 1.2;
+}
+
+.card-meta {
+  font-size: 0.9rem;
+  color: #cbd5e1;
+  color: var(--text-secondary, #cbd5e1);
+  display: flex;
+  align-items: center;
+}
+
+.card-meta-sep {
+  margin: 0 6px;
+  opacity: 0.5;
+}
+
+/* ==========================================================================
+   6. Sub-Pages (Virtual Run, Relaxing, Cardio, Coaches, AI Coach)
+   ========================================================================== */
+.subpage-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 520px;
+  padding: 40px;
+  text-align: center;
+  background-color: #161b22;
+  background-color: var(--bg-surface, #161b22);
+  border-radius: 20px;
+  border-radius: var(--radius-lg, 20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.subpage-art-wrap {
+  width: 180px;
+  height: 180px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.subpage-art-wrap svg {
+  width: 100%;
+  height: 100%;
+}
+
+.subpage-title {
+  font-size: 2.4rem;
+  font-weight: 800;
+  margin-bottom: 12px;
+  color: #ffffff;
+}
+
+.subpage-desc {
+  font-size: 1.25rem;
+  color: #94a3b8;
+  max-width: 650px;
+  line-height: 1.5;
+  margin-bottom: 32px;
+}
+
+.subpage-features {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 36px;
+  flex-wrap: wrap;
+}
+
+.subpage-feature-pill {
+  display: flex;
+  align-items: center;
+  padding: 8px 18px;
+  margin: 6px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 1rem;
+  font-weight: 600;
+  color: #e2e8f0;
+}
+
+/* ==========================================================================
+   7. Settings Screen Component
+   ========================================================================== */
+.settings-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding-bottom: 60px;
+}
+
+.settings-group {
+  margin-bottom: 32px;
+  background-color: #161b22;
+  background-color: var(--bg-surface, #161b22);
+  border-radius: 16px;
+  border-radius: var(--radius-md, 16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 24px 32px;
+}
+
+.settings-group-title {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #ffd166;
+  color: var(--color-accent, #ffd166);
+  margin-bottom: 18px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.settings-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.settings-row:last-child {
+  border-bottom: none;
+}
+
+.settings-row-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.settings-row-label {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.settings-row-desc {
+  font-size: 0.95rem;
+  color: #94a3b8;
+  margin-top: 4px;
+}
+
+.settings-segmented {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background: #0e1117;
+  padding: 4px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.settings-seg-btn {
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #94a3b8;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  margin: 0 2px;
+}
+
+.settings-seg-btn.is-active {
+  background-color: #ff6b35;
+  background-color: var(--color-primary, #ff6b35);
+  color: #ffffff;
+}
+
+/* ==========================================================================
+   8. Music Player Slide-In Panel
+   ========================================================================== */
+.music-overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 480px;
+  background-color: #0e1117;
+  background-color: var(--bg-sidebar, #0e1117);
+  box-shadow: -16px 0 40px rgba(0, 0, 0, 0.7);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  padding: 36px 32px;
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  transform: translate3d(100%, 0, 0);
+  transition: transform 280ms cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+.music-overlay.is-open {
+  transform: translate3d(0, 0, 0);
+}
+
+.music-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.music-header h2 {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.music-player-card {
+  background-color: #161b22;
+  background-color: var(--bg-surface, #161b22);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 24px;
+  margin-bottom: 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.music-track-title {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 6px;
+  text-align: center;
+}
+
+.music-track-artist {
+  font-size: 1rem;
+  color: #94a3b8;
+  margin-bottom: 20px;
+}
+
+.music-progress-bar {
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  margin-bottom: 24px;
+  overflow: hidden;
+  position: relative;
+}
+
+.music-progress-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 35%;
+  background-color: #00f0ff;
+  background-color: var(--color-accent, #00f0ff);
+}
+
+.music-controls-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.music-ctrl-btn {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  margin: 0 10px;
+  cursor: pointer;
+}
+
+.music-ctrl-btn.btn-play-pause {
+  width: 68px;
+  height: 68px;
+  background-color: #ff6b35;
+  background-color: var(--color-primary, #ff6b35);
+  border: none;
+}
+
+.music-ctrl-btn svg {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+}
+
+.music-track-list {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow-y: hidden;
+}
+
+.music-list-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  border-radius: 10px;
+  margin-bottom: 8px;
+  background: rgba(255, 255, 255, 0.03);
+  cursor: pointer;
+}
+
+.music-list-item.is-playing {
+  background: rgba(255, 255, 255, 0.1);
+  border-left: 3px solid #00f0ff;
+}
+
+.music-item-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.music-item-time {
+  font-size: 0.95rem;
+  color: #94a3b8;
+}
+
+/* ==========================================================================
+   9. Modals (Create Profile, Game Detail, Confirm Dialog)
+   ========================================================================== */
+.modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.85);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+  transition: opacity 220ms ease;
+}
+
+.modal-overlay.is-active {
+  opacity: 1;
+  pointer-events: auto;
+  visibility: visible;
+}
+
+.modal-card {
+  width: 820px;
+  max-width: 90vw;
+  background-color: #12161f;
+  background-color: var(--bg-surface, #12161f);
+  border-radius: 20px;
+  border-radius: var(--radius-lg, 20px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 36px 44px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.modal-title {
+  font-size: 2.1rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.modal-step-indicator {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #ffd166;
+  color: var(--color-accent, #ffd166);
+}
+
+.modal-body {
+  margin-bottom: 32px;
+}
+
+.modal-actions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.btn-modal {
+  padding: 12px 28px;
+  border-radius: 12px;
+  border-radius: var(--radius-md, 12px);
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-left: 14px;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-modal-cancel {
+  background: rgba(255, 255, 255, 0.08);
+  color: #cbd5e1;
+}
+
+.btn-modal-primary {
+  background-color: #ff6b35;
+  background-color: var(--color-primary, #ff6b35);
+  color: #ffffff;
+}
+
+/* Profile Creation Steps */
+.type-selector-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.type-option-card {
+  width: 240px;
+  padding: 28px 20px;
+  margin: 0 16px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+}
+
+.type-option-card.is-selected {
+  border-color: #ffd166;
+  border-color: var(--color-accent, #ffd166);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.type-option-icon {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 16px;
+}
+
+.type-option-title {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 6px;
+}
+
+.type-option-desc {
+  font-size: 0.95rem;
+  color: #94a3b8;
+}
+
+/* Avatar Selection Grid */
+.avatar-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-height: 320px;
+  overflow-y: hidden;
+  padding: 10px 0;
+}
+
+.avatar-option {
+  width: 76px;
+  height: 76px;
+  margin: 8px;
+  border-radius: 50%;
+  background: #21262d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid rgba(255, 255, 255, 0.12);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.avatar-option svg {
+  width: 70%;
+  height: 70%;
+}
+
+.avatar-option.is-selected {
+  border-color: #00f0ff;
+  border-color: var(--color-accent, #00f0ff);
+  background-color: rgba(0, 240, 255, 0.15);
+}
+
+/* ==========================================================================
+   10. On-Screen TV Keyboard
+   ========================================================================== */
+.keyboard-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-top: 16px;
+}
+
+.keyboard-display-field {
+  width: 100%;
+  max-width: 480px;
+  padding: 14px 20px;
+  font-size: 1.6rem;
+  font-weight: 700;
+  text-align: center;
+  border-radius: 12px;
+  background: #0e1117;
+  color: #ffffff;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  margin-bottom: 20px;
+  letter-spacing: 0.08em;
+}
+
+.keyboard-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+.key-btn {
+  width: 52px;
+  height: 52px;
+  margin: 0 4px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  font-size: 1.25rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.key-btn-wide {
+  width: 90px;
+  font-size: 1rem;
+}
+
+.key-btn-space {
+  width: 160px;
+  font-size: 1rem;
+}
+
+/* ==========================================================================
+   11. Number Stepper Picker
+   ========================================================================== */
+.stepper-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 24px 0;
+}
+
+.stepper-btn {
+  width: 64px;
+  height: 64px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  font-size: 2rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.stepper-value-wrap {
+  min-width: 180px;
+  margin: 0 24px;
+  text-align: center;
+}
+
+.stepper-value {
+  font-size: 3.2rem;
+  font-weight: 900;
+  color: #ffffff;
+  font-variant-numeric: tabular-nums;
+}
+
+.stepper-unit {
+  font-size: 1.25rem;
+  color: #94a3b8;
+  font-weight: 600;
+  margin-left: 6px;
+}
+
+/* ==========================================================================
+   12. Diagnostics Panel (Cobalt TV Telemetry)
+   ========================================================================== */
+#diagnostics-panel {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  width: 440px;
+  background: rgba(10, 12, 16, 0.94);
+  border: 2px solid #00f0ff;
+  border-radius: 12px;
+  padding: 20px;
+  z-index: 9999;
+  font-family: monospace, "Courier New", Courier;
+  font-size: 0.9rem;
+  line-height: 1.45;
+  color: #e2e8f0;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.85);
+  pointer-events: auto;
+}
+
+.diag-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #334155;
+  padding-bottom: 8px;
+  margin-bottom: 12px;
+  font-weight: bold;
+  color: #00f0ff;
+  font-size: 1rem;
+}
+
+.diag-fps-badge {
+  background: #00f0ff;
+  color: #000;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 900;
+}
+
+.diag-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.diag-label {
+  color: #94a3b8;
+}
+
+.diag-val {
+  color: #f1f5f9;
+  font-weight: bold;
+}
+
+.diag-val.is-ok {
+  color: #10b981;
+}
+
+.diag-val.is-warn {
+  color: #f59e0b;
+}
+
+.diag-val.is-fail {
+  color: #ef4444;
+}
+
+/* ==========================================================================
+   13. Toast Notification
+   ========================================================================== */
+#toast-container {
+  position: absolute;
+  bottom: 40px;
+  right: 40px;
+  z-index: 10000;
+  pointer-events: none;
+}
+
+.tv-toast {
+  padding: 16px 28px;
+  border-radius: 12px;
+  background: #1e293b;
+  color: #ffffff;
+  border: 2px solid #38bdf8;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  font-size: 1.15rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  opacity: 0;
+  transform: translate3d(0, 20px, 0);
+  transition: opacity 220ms ease, transform 220ms ease;
+}
+
+.tv-toast.is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}

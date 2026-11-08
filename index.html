@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en" class="theme-kids">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <!-- Strict Content Security Policy compatible with Cobalt TV engine:
+         Self only, data/blob for vector SVGs and synthesized audio buffers, no remote CDNs or inline evals -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: blob:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; media-src 'self' data: blob:; connect-src 'self' data: blob:; font-src 'self' data:;" />
+
+    <title>PulseTV Fitness &amp; Games</title>
+    <meta name="description" content="High-performance fitness and games platform designed for TV environments (Cobalt/YouTube TV) and modern browsers." />
+    <meta property="og:title" content="PulseTV Fitness &amp; Games" />
+    <meta property="og:description" content="High-performance fitness and games platform designed for TV environments (Cobalt/YouTube TV) and modern browsers." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Pure CSS stylesheets with relative paths for GitHub Pages & Cobalt -->
+    <link rel="stylesheet" href="./css/base.css" />
+    <link rel="stylesheet" href="./css/theme-kids.css" />
+    <link rel="stylesheet" href="./css/theme-adult.css" />
+    <link rel="stylesheet" href="./css/components.css" />
+  </head>
+  <body>
+    <div id="app-root">
+
+      <!-- ===================================================================
+           SCREEN 1: SPLASH SCREEN
+           =================================================================== -->
+      <section id="screen-splash" class="screen-view is-active" aria-label="PulseTV Splash Screen">
+        <div class="splash-content">
+          <div class="splash-logo-container">
+            <div class="splash-logo-circle">
+              <!-- PulseTV Logo Mark -->
+              <svg viewBox="0 0 100 100" width="80" height="80" xmlns="http://www.w3.org/2000/svg">
+                <path d="M15 50 L35 50 L45 20 L55 80 L65 40 L75 50 L85 50" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+                <circle cx="55" cy="80" r="5" fill="#FFD166" />
+              </svg>
+            </div>
+          </div>
+          <h1 class="splash-title">PULSE<span>TV</span></h1>
+          <p class="splash-subtitle">Interactive Fitness, Sports &amp; Games for Children &amp; Adults</p>
+          <div class="splash-prompt focus-target" id="splash-start-prompt" tabindex="0">
+            Press <span class="key-cap">OK</span> or Any Key to Start
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           SCREEN 2: PROFILE SELECTION
+           =================================================================== -->
+      <section id="screen-profiles" class="screen-view" aria-label="Profile Selection">
+        <div class="tv-safe-zone flex-col items-center justify-center">
+          <div class="profiles-wrapper">
+            <div class="profiles-header">
+              <h1>Who is Working Out Today?</h1>
+              <p>Select your profile or add a new family member to customize games and intensity</p>
+            </div>
+
+            <!-- Profile Cards Grid (Leo, Maya, Alex, + Add Profile) -->
+            <div class="profiles-grid" id="profiles-grid-container"></div>
+
+            <div class="profile-action-bar">
+              <div class="profile-action-hint">
+                <span class="key-cap">▲ ▼ ◄ ►</span> Navigate
+              </div>
+              <div class="profile-action-hint">
+                <span class="key-cap">OK</span> Select Profile
+              </div>
+              <div class="profile-action-hint">
+                Hold <span class="key-cap">OK</span> for Options / Delete
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           SCREEN 3: MAIN APPLICATION SCREEN (YouTube TV Style)
+           =================================================================== -->
+      <section id="screen-main" class="screen-view" aria-label="PulseTV Main Screen">
+        <!-- Left Collapsible Sidebar Rail (~96px to 300px) -->
+        <aside class="tv-sidebar" id="tv-sidebar" aria-label="Main Navigation"></aside>
+
+        <!-- Main Stage Container -->
+        <main class="tv-main-stage">
+          <!-- Top TV Header Bar -->
+          <header class="tv-header-bar">
+            <div class="tv-header-left">
+              <div class="tv-brand-logo">
+                PULSE<span style="color:var(--color-accent, #ffd166);">TV</span>
+                <span class="tv-brand-badge">FIT &amp; PLAY</span>
+              </div>
+            </div>
+
+            <div class="tv-header-right">
+              <!-- Header Music Button -->
+              <button type="button" class="btn-header-music focus-target" id="btn-header-music" title="Workout Music Player">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+                </svg>
+                <span>Music</span>
+                <div class="music-playing-indicator" id="header-music-eq" style="display:none;">
+                  <div class="music-bar"></div>
+                  <div class="music-bar" style="height:70%;"></div>
+                  <div class="music-bar" style="height:40%;"></div>
+                </div>
+              </button>
+
+              <!-- 30-Second Header Clock (HH:MM AM/PM) -->
+              <div class="tv-clock" id="tv-clock-display">10:00 AM</div>
+            </div>
+          </header>
+
+          <!-- Scrollable Content Viewport -->
+          <div class="tv-content-scroll" id="tv-content-container"></div>
+        </main>
+      </section>
+
+      <!-- ===================================================================
+           OVERLAY 1: MUSIC PLAYLIST DRAWER
+           =================================================================== -->
+      <aside class="music-overlay" id="music-overlay-panel" aria-label="Music Player Drawer"></aside>
+
+      <!-- ===================================================================
+           MODAL 1: PROFILE CREATION WIZARD (5 STEPS)
+           =================================================================== -->
+      <div class="modal-overlay" id="modal-create-profile" role="dialog" aria-modal="true">
+        <div class="modal-card">
+          <div class="modal-header">
+            <h2 class="modal-title" id="wizard-step-title">Create New Profile</h2>
+            <span class="modal-step-indicator" id="wizard-step-num">Step 1 of 5</span>
+          </div>
+          <div class="modal-body" id="wizard-step-body"></div>
+          <div class="modal-actions">
+            <button type="button" class="btn-modal btn-modal-cancel focus-target" id="btn-wizard-back">Cancel</button>
+            <button type="button" class="btn-modal btn-modal-primary focus-target" id="btn-wizard-next">Next Step →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===================================================================
+           MODAL 2: PROFILE OPTIONS / DELETE CONFIRM
+           =================================================================== -->
+      <div class="modal-overlay" id="modal-profile-options" role="dialog" aria-modal="true">
+        <div class="modal-card" style="width: 580px;">
+          <div class="modal-header">
+            <h2 class="modal-title">Profile Options</h2>
+          </div>
+          <div class="modal-body">
+            <p style="font-size:1.3rem; color:#f8fafc; margin-bottom:8px;">Manage profile for <strong id="opt-profile-name" style="color:var(--color-accent, #ffd166);">User</strong></p>
+            <p style="color:#94a3b8; font-size:1.05rem;">You can activate this profile or delete it from the device storage.</p>
+          </div>
+          <div class="modal-actions">
+            <button type="button" class="btn-modal btn-modal-cancel focus-target" onclick="window.PulseTV.router.closeModal('modal-profile-options')">Close</button>
+            <button type="button" class="btn-modal focus-target" style="background:#ef4444; color:#fff;" id="btn-opt-delete">Delete Profile</button>
+            <button type="button" class="btn-modal btn-modal-primary focus-target" id="btn-opt-select">Select &amp; Start</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===================================================================
+           MODAL 3: GAME DETAIL & WORKOUT MINIGAME
+           =================================================================== -->
+      <div class="modal-overlay" id="modal-game-detail" role="dialog" aria-modal="true">
+        <div class="modal-card">
+          <div class="modal-header">
+            <div>
+              <span id="game-modal-badge" style="font-size:0.85rem; font-weight:800; color:var(--color-accent, #ffd166); letter-spacing:0.05em;">CARDIO GAME</span>
+              <h2 class="modal-title" id="game-modal-title">Game Title</h2>
+              <div id="game-modal-meta" style="font-size:1rem; color:#94a3b8; margin-top:4px;">15 min · 180 kcal</div>
+            </div>
+          </div>
+          <div class="modal-body" id="game-modal-body"></div>
+          <div class="modal-actions">
+            <button type="button" class="btn-modal btn-modal-cancel focus-target" id="btn-game-close">Close (Back)</button>
+            <button type="button" class="btn-modal btn-modal-primary focus-target" id="btn-game-start">Start Workout Session</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Toast Notification Container -->
+      <div id="toast-container"></div>
+    </div>
+
+    <!-- Application Scripts in Exact Dependency Order (Plain Vanilla JS, No Build Step Required) -->
+    <script src="./js/compat.js"></script>
+    <script src="./js/storage.js"></script>
+    <script src="./js/audio.js"></script>
+    <script src="./js/profiles.js"></script>
+    <script src="./js/input.js"></script>
+    <script src="./js/router.js"></script>
+    <script src="./js/ui/keyboard.js"></script>
+    <script src="./js/ui/number-picker.js"></script>
+    <script src="./js/ui/diagnostics.js"></script>
+    <script src="./js/ui/sidebar.js"></script>
+    <script src="./js/ui/hero.js"></script>
+    <script src="./js/ui/rows.js"></script>
+    <script src="./js/ui/music-player.js"></script>
+    <script src="./js/ui/toast.js"></script>
+    <script src="./js/ui/profiles-view.js"></script>
+    <script src="./js/ui/game-modal.js"></script>
+    <script src="./js/ui/main-content.js"></script>
+    <script src="./js/app.js"></script>
+  </body>
+</html>

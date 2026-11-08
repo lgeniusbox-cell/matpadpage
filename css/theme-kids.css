@@ -1,0 +1,79 @@
+/**
+ * PulseTV - Kids Theme
+ * Energetic, playful, vibrant, large rounded radii, high contrast
+ */
+
+:root, .theme-kids {
+  --theme-name: "kids";
+
+  /* Canvas & Surfaces */
+  --bg-canvas: #0d1b2a;
+  --bg-surface: #1b263b;
+  --bg-surface-elevated: #24344d;
+  --bg-surface-hover: #324a6d;
+  --bg-sidebar: #0f1c2e;
+
+  /* Playful Brand Accents */
+  --color-primary: #ff6b35; /* Punchy Orange */
+  --color-secondary: #06d6a0; /* Energetic Mint */
+  --color-accent: #ffd166; /* Star Yellow */
+  --color-blue: #118ab2; /* Sky Blue */
+  --color-pink: #ef476f; /* Cheerful Coral */
+
+  /* Text & Contrast */
+  --text-primary: #ffffff;
+  --text-secondary: #e0e1dd;
+  --text-muted: #9bb1c9;
+  --text-on-accent: #0d1b2a;
+
+  /* Geometry & Radii */
+  --radius-sm: 12px;
+  --radius-md: 18px;
+  --radius-lg: 24px;
+  --radius-pill: 9999px;
+  --radius-focus: 22px;
+  --radius-glow: 26px;
+
+  /* Focus Indicator */
+  --focus-ring-color: #ffd166;
+  --focus-glow-color: rgba(255, 209, 102, 0.4);
+  --focus-border-width: 4px;
+
+  /* Card Accents */
+  --card-border: 2px solid rgba(255, 255, 255, 0.12);
+  --card-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+/* Fallback class rules for non-variable engines */
+.theme-kids {
+  background-color: #0d1b2a;
+  color: #ffffff;
+}
+
+.theme-kids .tv-sidebar {
+  background-color: #0f1c2e;
+  border-right: 2px solid rgba(255, 209, 102, 0.15);
+}
+
+.theme-kids .banner-card {
+  border-radius: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+}
+
+.theme-kids .banner-badge {
+  background-color: #ff6b35;
+  color: #ffffff;
+  border-radius: 9999px;
+  font-weight: 800;
+}
+
+.theme-kids .btn-primary {
+  background-color: #ff6b35;
+  color: #ffffff;
+  border-radius: 18px;
+  font-weight: 800;
+}
+
+.theme-kids .focus-target.is-focused::after {
+  border-color: #ffd166;
+}

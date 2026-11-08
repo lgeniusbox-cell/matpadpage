@@ -1,0 +1,6 @@
+{
+  "name": "PulseTV Fitness & Games",
+  "description": "High-performance fitness and games platform designed for TV environments (Cobalt/YouTube TV) and modern browsers with dual kid/adult themes and D-pad spatial navigation.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
