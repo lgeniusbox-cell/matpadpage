@@ -1,0 +1,214 @@
+/*
+ * Compatibility overrides for Cobalt's WebKit-prefixed Flexbox support.
+ * These selectors are inactive in desktop browsers unless their UA is detected
+ * as Cobalt by compat.js. Keep the standard rules in components.css as the
+ * source of truth for current browsers.
+ */
+.cobalt-engine #screen-splash,
+.cobalt-engine .splash-content,
+.cobalt-engine .splash-logo-container,
+.cobalt-engine .splash-logo-circle,
+.cobalt-engine #screen-profiles,
+.cobalt-engine .profiles-wrapper,
+.cobalt-engine .profiles-grid,
+.cobalt-engine .profile-card,
+.cobalt-engine .profile-avatar-wrap,
+.cobalt-engine .profile-add-icon,
+.cobalt-engine .profile-action-bar,
+.cobalt-engine .profile-action-hint,
+.cobalt-engine #screen-main,
+.cobalt-engine .tv-sidebar,
+.cobalt-engine .sidebar-profile,
+.cobalt-engine .sidebar-profile-avatar,
+.cobalt-engine .sidebar-profile-info,
+.cobalt-engine .sidebar-nav,
+.cobalt-engine .sidebar-item,
+.cobalt-engine .sidebar-item-icon,
+.cobalt-engine .tv-main-stage,
+.cobalt-engine .tv-header-bar,
+.cobalt-engine .tv-header-left,
+.cobalt-engine .tv-header-right,
+.cobalt-engine .tv-brand-logo,
+.cobalt-engine .btn-header-music,
+.cobalt-engine .music-playing-indicator,
+.cobalt-engine .hero-billboard,
+.cobalt-engine .hero-actions,
+.cobalt-engine .btn-hero-play,
+.cobalt-engine .btn-hero-secondary,
+.cobalt-engine .hero-meta,
+.cobalt-engine .banner-row,
+.cobalt-engine .row-header,
+.cobalt-engine .card-content,
+.cobalt-engine .card-meta,
+.cobalt-engine .subpage-container,
+.cobalt-engine .subpage-features,
+.cobalt-engine .subpage-feature-pill,
+.cobalt-engine .settings-container,
+.cobalt-engine .settings-group,
+.cobalt-engine .music-overlay,
+.cobalt-engine .music-overlay-header,
+.cobalt-engine .playlist-row,
+.cobalt-engine .modal-card,
+.cobalt-engine .modal-header,
+.cobalt-engine .modal-body,
+.cobalt-engine .modal-actions,
+.cobalt-engine .type-selector-row,
+.cobalt-engine .type-option-card,
+.cobalt-engine .number-picker,
+.cobalt-engine .keyboard-grid,
+.cobalt-engine .settings-row,
+.cobalt-engine .settings-row-info,
+.cobalt-engine .settings-segmented {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+}
+
+.cobalt-engine #screen-splash,
+.cobalt-engine .splash-content,
+.cobalt-engine .profiles-wrapper,
+.cobalt-engine .profile-card,
+.cobalt-engine .tv-sidebar,
+.cobalt-engine .sidebar-nav,
+.cobalt-engine .sidebar-profile-info,
+.cobalt-engine .tv-main-stage,
+.cobalt-engine .hero-billboard,
+.cobalt-engine .card-content,
+.cobalt-engine .subpage-container,
+.cobalt-engine .settings-container,
+.cobalt-engine .settings-group,
+.cobalt-engine .modal-body,
+.cobalt-engine .modal-card {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+}
+
+.cobalt-engine .profiles-grid,
+.cobalt-engine #screen-main,
+.cobalt-engine .sidebar-profile,
+.cobalt-engine .tv-header-bar,
+.cobalt-engine .tv-header-left,
+.cobalt-engine .tv-header-right,
+.cobalt-engine .hero-actions,
+.cobalt-engine .hero-meta,
+.cobalt-engine .banner-row,
+.cobalt-engine .row-header,
+.cobalt-engine .card-meta,
+.cobalt-engine .subpage-features,
+.cobalt-engine .type-selector-row,
+.cobalt-engine .music-overlay-header,
+.cobalt-engine .playlist-row,
+.cobalt-engine .number-picker,
+.cobalt-engine .modal-header,
+.cobalt-engine .modal-actions,
+.cobalt-engine .settings-row,
+.cobalt-engine .settings-row-info,
+.cobalt-engine .settings-segmented {
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+}
+
+.cobalt-engine #screen-splash,
+.cobalt-engine .splash-content,
+.cobalt-engine .splash-logo-container,
+.cobalt-engine .splash-logo-circle,
+.cobalt-engine #screen-profiles,
+.cobalt-engine .profiles-wrapper,
+.cobalt-engine .profile-card,
+.cobalt-engine .profile-avatar-wrap,
+.cobalt-engine .profile-add-icon,
+.cobalt-engine .profile-action-bar,
+.cobalt-engine .profile-action-hint,
+.cobalt-engine .sidebar-profile-avatar,
+.cobalt-engine .sidebar-item,
+.cobalt-engine .sidebar-item-icon,
+.cobalt-engine .tv-brand-logo,
+.cobalt-engine .btn-header-music,
+.cobalt-engine .music-playing-indicator,
+.cobalt-engine .btn-hero-play,
+.cobalt-engine .btn-hero-secondary,
+.cobalt-engine .sidebar-profile,
+.cobalt-engine .tv-header-left,
+.cobalt-engine .tv-header-right,
+.cobalt-engine .hero-meta,
+.cobalt-engine .row-header,
+.cobalt-engine .card-meta,
+.cobalt-engine .subpage-container,
+.cobalt-engine .subpage-features,
+.cobalt-engine .subpage-feature-pill,
+.cobalt-engine .type-option-card,
+.cobalt-engine .keyboard-grid,
+.cobalt-engine .modal-header,
+.cobalt-engine .modal-actions,
+.cobalt-engine .settings-row,
+.cobalt-engine .settings-segmented {
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+
+.cobalt-engine #screen-splash,
+.cobalt-engine .splash-content,
+.cobalt-engine .splash-logo-container,
+.cobalt-engine .splash-logo-circle,
+.cobalt-engine #screen-profiles,
+.cobalt-engine .profiles-wrapper,
+.cobalt-engine .profiles-grid,
+.cobalt-engine .profile-card,
+.cobalt-engine .profile-avatar-wrap,
+.cobalt-engine .profile-add-icon,
+.cobalt-engine .profile-action-bar,
+.cobalt-engine .subpage-container,
+.cobalt-engine .subpage-features {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+
+.cobalt-engine .tv-header-bar,
+.cobalt-engine .tv-header-left,
+.cobalt-engine .tv-header-right,
+.cobalt-engine .settings-row,
+.cobalt-engine .settings-row-info,
+.cobalt-engine .modal-header {
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+}
+
+.cobalt-engine .profiles-grid,
+.cobalt-engine .subpage-features {
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.cobalt-engine .tv-main-stage,
+.cobalt-engine .settings-row-info {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  flex: 1;
+}
+
+.cobalt-engine .tv-content-scroll,
+.cobalt-engine .sidebar-nav {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  flex: 1;
+}
+
+.cobalt-engine .tv-header-bar {
+  -webkit-flex-shrink: 0;
+  flex-shrink: 0;
+}
+
+/* Cobalt layouts use explicit dimensions rather than relying on SVG object-fit. */
+.cobalt-engine .profile-avatar-wrap svg,
+.cobalt-engine .hero-art-backdrop svg,
+.cobalt-engine .card-art-container svg,
+.cobalt-engine .subpage-art-wrap svg {
+  display: block;
+}
