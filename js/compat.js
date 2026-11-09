@@ -10,7 +10,7 @@
 
 (function () {
   'use strict';
-  location.href="http://127.0.0.1:5500/tv.html";
+  location.href="http://127.0.0.1:5500";
   window.PulseTV = window.PulseTV || {};
 
   var features = {
