@@ -17,7 +17,9 @@
     UP: [38, 0x800C],
     RIGHT: [39, 0x800F],
     DOWN: [40, 0x800D],
-    ENTER: [13, 32, 0x8000],
+    // Include Android TV's Select/Start gamepad buttons as some remotes send
+    // these instead of the D-pad center / A button for their OK action.
+    ENTER: [13, 32, 0x8000, 0x8008, 0x8009],
     BACK: [27, 8, 461, 10009, 0x8001, 0xA6],
     PLAY_PAUSE: [179, 415],
     RED: [403, 82], // R or TV Red key
@@ -40,6 +42,16 @@
       if (keyList[i] === keyCode) return true;
     }
     return false;
+  }
+
+  function isSelectEvent(e, keyCode) {
+    var key = (e.key || '').toLowerCase();
+    var code = (e.code || '').toLowerCase();
+    return isKey(keyCode, KEYS.ENTER) ||
+      key === 'enter' || key === 'select' || key === 'ok' ||
+      key === ' ' || key === 'space' || key === 'spacebar' ||
+      code === 'enter' || code === 'numpadenter' || code === 'select' ||
+      code === 'gamepad1';
   }
 
   // Get currently active scope container (Modals > Music Overlay > Active Screen)
@@ -231,9 +243,7 @@
     var keyName = (e.key || e.code || '').toLowerCase();
     var isBackKey = isKey(keyCode, KEYS.BACK) || keyName === 'back' ||
       keyName === 'goback' || keyName === 'browserback' || keyName === 'escape';
-    var isSelectKey = isKey(keyCode, KEYS.ENTER) || keyName === 'enter' ||
-      keyName === 'select' || keyName === 'ok' || keyName === ' ' ||
-      keyName === 'space' || keyName === 'spacebar';
+    var isSelectKey = isSelectEvent(e, keyCode);
 
     // Record secret sequence for diagnostics (Up, Up, Down, Down)
     keySequence.push(keyCode);
@@ -346,10 +356,7 @@
 
   function handleKeyUp(e) {
     var keyCode = e.keyCode || e.which || 0;
-    var keyName = (e.key || e.code || '').toLowerCase();
-    if (isKey(keyCode, KEYS.ENTER) || keyName === 'enter' ||
-        keyName === 'select' || keyName === 'ok' || keyName === ' ' ||
-        keyName === 'space' || keyName === 'spacebar') {
+    if (isSelectEvent(e, keyCode)) {
       if (longPressTimer) {
         clearTimeout(longPressTimer);
         longPressTimer = null;
