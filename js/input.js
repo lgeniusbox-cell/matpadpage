@@ -18,7 +18,7 @@
     RIGHT: [39, 0x800F],
     DOWN: [40, 0x800D],
     ENTER: [13, 32, 0x8000],
-    BACK: [27, 8, 461, 10009],
+    BACK: [27, 8, 461, 10009, 0x8001, 0xA6],
     PLAY_PAUSE: [179, 415],
     RED: [403, 82], // R or TV Red key
     GREEN: [404, 71],
@@ -28,7 +28,10 @@
   var currentFocusedElement = null;
   var focusHistory = {}; // screenId -> lastFocusedSelector or element
   var longPressTimer = null;
+  var selectFallbackTimer = null;
   var isLongPress = false;
+  var selectTriggeredOnDown = false;
+  var selectWasRepeated = false;
   var keySequence = [];
   var DIAGNOSTIC_CODE = [38, 38, 40, 40]; // Up, Up, Down, Down
 
@@ -224,7 +227,13 @@
 
   // Global Keydown Handler (Single centralized listener for Cobalt)
   function handleKeyDown(e) {
-    var keyCode = e.keyCode || e.which;
+    var keyCode = e.keyCode || e.which || 0;
+    var keyName = (e.key || e.code || '').toLowerCase();
+    var isBackKey = isKey(keyCode, KEYS.BACK) || keyName === 'back' ||
+      keyName === 'goback' || keyName === 'browserback' || keyName === 'escape';
+    var isSelectKey = isKey(keyCode, KEYS.ENTER) || keyName === 'enter' ||
+      keyName === 'select' || keyName === 'ok' || keyName === ' ' ||
+      keyName === 'space' || keyName === 'spacebar';
 
     // Record secret sequence for diagnostics (Up, Up, Down, Down)
     keySequence.push(keyCode);
@@ -247,32 +256,47 @@
     }
 
     // 1. Navigation Direction Keys
-    if (isKey(keyCode, KEYS.UP)) {
+    if (isKey(keyCode, KEYS.UP) || keyName === 'arrowup') {
       moveFocus('up');
       e.preventDefault();
       return;
     }
-    if (isKey(keyCode, KEYS.DOWN)) {
+    if (isKey(keyCode, KEYS.DOWN) || keyName === 'arrowdown') {
       moveFocus('down');
       e.preventDefault();
       return;
     }
-    if (isKey(keyCode, KEYS.LEFT)) {
+    if (isKey(keyCode, KEYS.LEFT) || keyName === 'arrowleft') {
       moveFocus('left');
       e.preventDefault();
       return;
     }
-    if (isKey(keyCode, KEYS.RIGHT)) {
+    if (isKey(keyCode, KEYS.RIGHT) || keyName === 'arrowright') {
       moveFocus('right');
       e.preventDefault();
       return;
     }
 
     // 2. OK / Enter Key with Long-Press Handling
-    if (isKey(keyCode, KEYS.ENTER)) {
+    if (isSelectKey) {
+      e.preventDefault();
+      if (longPressTimer) {
+        if (e.repeat) selectWasRepeated = true;
+        return;
+      }
+      if (e.repeat) return;
+      selectTriggeredOnDown = false;
+      selectWasRepeated = false;
+      // Gamepad select / OK may be reported as a down-only input. Activate
+      // non-profile controls immediately so they are not dependent on keyup.
+      if (!currentFocusedElement || !currentFocusedElement.hasAttribute('data-profile-id')) {
+        triggerActiveElement();
+        selectTriggeredOnDown = true;
+      }
       if (!isLongPress && !longPressTimer) {
         isLongPress = false;
         longPressTimer = setTimeout(function () {
+          longPressTimer = null;
           isLongPress = true;
           if (currentFocusedElement && currentFocusedElement.hasAttribute('data-profile-id')) {
             // Trigger profile options/delete dialog
@@ -283,12 +307,23 @@
           }
         }, 700);
       }
-      e.preventDefault();
+      if (selectFallbackTimer) clearTimeout(selectFallbackTimer);
+      selectFallbackTimer = setTimeout(function () {
+        selectFallbackTimer = null;
+        if (!selectWasRepeated && !selectTriggeredOnDown && !isLongPress) {
+          triggerActiveElement();
+          selectTriggeredOnDown = true;
+          if (longPressTimer) {
+            clearTimeout(longPressTimer);
+            longPressTimer = null;
+          }
+        }
+      }, 250);
       return;
     }
 
     // 3. Back Key
-    if (isKey(keyCode, KEYS.BACK)) {
+    if (isBackKey) {
       if (window.PulseTV.audio) {
         window.PulseTV.audio.playNavBack();
       }
@@ -310,16 +345,25 @@
   }
 
   function handleKeyUp(e) {
-    var keyCode = e.keyCode || e.which;
-    if (isKey(keyCode, KEYS.ENTER)) {
+    var keyCode = e.keyCode || e.which || 0;
+    var keyName = (e.key || e.code || '').toLowerCase();
+    if (isKey(keyCode, KEYS.ENTER) || keyName === 'enter' ||
+        keyName === 'select' || keyName === 'ok' || keyName === ' ' ||
+        keyName === 'space' || keyName === 'spacebar') {
       if (longPressTimer) {
         clearTimeout(longPressTimer);
         longPressTimer = null;
       }
-      if (!isLongPress) {
+      if (selectFallbackTimer) {
+        clearTimeout(selectFallbackTimer);
+        selectFallbackTimer = null;
+      }
+      if (!isLongPress && !selectTriggeredOnDown) {
         triggerActiveElement();
       }
       isLongPress = false;
+      selectTriggeredOnDown = false;
+      selectWasRepeated = false;
       e.preventDefault();
     }
   }
