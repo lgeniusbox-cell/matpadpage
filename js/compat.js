@@ -10,7 +10,7 @@
 
 (function () {
   'use strict';
- // location.href="https://lgeniusbox-cell.github.io/matpadpage/";
+  location.href="http://192.168.100.2:5500";
   window.PulseTV = window.PulseTV || {};
 
   var features = {
