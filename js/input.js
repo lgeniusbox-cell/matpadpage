@@ -10,12 +10,14 @@
   window.PulseTV = window.PulseTV || {};
 
   // Standard Smart TV & Cobalt Key Codes
+  // Android Starboard sends D-pad and select buttons using its extended
+  // gamepad key values rather than the browser arrow/enter key values.
   var KEYS = {
-    LEFT: [37],
-    UP: [38],
-    RIGHT: [39],
-    DOWN: [40],
-    ENTER: [13, 32],
+    LEFT: [37, 0x800E],
+    UP: [38, 0x800C],
+    RIGHT: [39, 0x800F],
+    DOWN: [40, 0x800D],
+    ENTER: [13, 32, 0x8000],
     BACK: [27, 8, 461, 10009],
     PLAY_PAUSE: [179, 415],
     RED: [403, 82], // R or TV Red key
