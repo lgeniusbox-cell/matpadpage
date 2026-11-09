@@ -10,7 +10,7 @@
 
 (function () {
   'use strict';
-
+ // location.href="https://lgeniusbox-cell.github.io/matpadpage/";
   window.PulseTV = window.PulseTV || {};
 
   var features = {
@@ -35,6 +35,9 @@
   // 1. Detect Cobalt User Agent
   var ua = features.userAgent.toLowerCase();
   features.isCobalt = ua.indexOf('cobalt') !== -1 || ua.indexOf('starboard') !== -1;
+  if (features.isCobalt) {
+    document.documentElement.classList.add('cobalt-engine');
+  }
 
   // 2. Detect and Test LocalStorage with Try/Catch
   try {
