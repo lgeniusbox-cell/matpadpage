@@ -79,11 +79,7 @@
 
   function renderCardArt(item) {
     return '<svg viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg">' +
-      '<defs><linearGradient id="g_' + item.id + '" x1="0%" y1="0%" x2="100%" y2="100%">' +
-      '<stop offset="0%" stop-color="#161B22"/>' +
-      '<stop offset="100%" stop-color="' + item.artColor + '" stop-opacity="0.75"/>' +
-      '</linearGradient></defs>' +
-      '<rect width="320" height="180" fill="url(#g_' + item.id + ')"/>' +
+      '<rect width="320" height="180" fill="' + item.artColor + '"/>' +
       item.icon +
       '</svg>';
   }
