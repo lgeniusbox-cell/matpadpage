@@ -17,7 +17,7 @@
     duration: '15 Min',
     calories: '180 kcal',
     description: 'Dodge flying obstacles, jump over glowing lasers, and collect golden stars with rapid footwork right in your living room!',
-    artSvg: '<svg viewBox="0 0 1200 675" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="kg1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#1B263B"/><stop offset="60%" stop-color="#FF6B35"/><stop offset="100%" stop-color="#FFD166"/></linearGradient></defs><rect width="1200" height="675" fill="url(#kg1)"/><circle cx="950" cy="280" r="160" fill="#FFD166" opacity="0.85"/><polygon points="800,675 920,380 1040,675" fill="#0D1B2A" opacity="0.6"/><polygon points="980,675 1080,440 1180,675" fill="#0D1B2A" opacity="0.4"/><circle cx="950" cy="220" r="30" fill="#FFFFFF"/><path d="M910 280 L950 250 L1010 260 M950 250 L930 350 L980 420" stroke="#FFFFFF" stroke-width="12" stroke-linecap="round" fill="none"/></svg>'
+    artSvg: '<svg viewBox="0 0 1200 675" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg"><rect width="1200" height="675" fill="#FF6B35"/><circle cx="950" cy="280" r="160" fill="#FFD166" opacity="0.85"/><polygon points="800,675 920,380 1040,675" fill="#0D1B2A" opacity="0.6"/><polygon points="980,675 1080,440 1180,675" fill="#0D1B2A" opacity="0.4"/><circle cx="950" cy="220" r="30" fill="#FFFFFF"/><path d="M910 280 L950 250 L1010 260 M950 250 L930 350 L980 420" stroke="#FFFFFF" stroke-width="12" stroke-linecap="round" fill="none"/></svg>'
   };
 
   var FEATURED_ADULT = {
@@ -28,7 +28,7 @@
     duration: '22 Min',
     calories: '340 kcal',
     description: 'High-octane interval sprint simulator synced to a 135 BPM electronic pulse. Push your anaerobic threshold and build explosive lower body power.',
-    artSvg: '<svg viewBox="0 0 1200 675" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="ag1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#0A0C10"/><stop offset="50%" stop-color="#1A1F2C"/><stop offset="100%" stop-color="#FF2A5F"/></linearGradient></defs><rect width="1200" height="675" fill="url(#ag1)"/><line x1="0" y1="450" x2="1200" y2="450" stroke="#00F0FF" stroke-width="4" opacity="0.6"/><line x1="600" y1="0" x2="200" y2="675" stroke="#00F0FF" stroke-width="2" opacity="0.3"/><line x1="600" y1="0" x2="1000" y2="675" stroke="#00F0FF" stroke-width="2" opacity="0.3"/><circle cx="850" cy="260" r="140" fill="none" stroke="#FF2A5F" stroke-width="14" opacity="0.8"/><circle cx="850" cy="260" r="80" fill="none" stroke="#00F0FF" stroke-width="6" opacity="0.9"/></svg>'
+    artSvg: '<svg viewBox="0 0 1200 675" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg"><rect width="1200" height="675" fill="#1A1F2C"/><line x1="0" y1="450" x2="1200" y2="450" stroke="#00F0FF" stroke-width="4" opacity="0.6"/><line x1="600" y1="0" x2="200" y2="675" stroke="#00F0FF" stroke-width="2" opacity="0.3"/><line x1="600" y1="0" x2="1000" y2="675" stroke="#00F0FF" stroke-width="2" opacity="0.3"/><circle cx="850" cy="260" r="140" fill="none" stroke="#FF2A5F" stroke-width="14" opacity="0.8"/><circle cx="850" cy="260" r="80" fill="none" stroke="#00F0FF" stroke-width="6" opacity="0.9"/></svg>'
   };
 
   function renderHero(container, profile) {
