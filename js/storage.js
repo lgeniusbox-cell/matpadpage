@@ -5,7 +5,7 @@
 
 (function () {
   'use strict';
-
+  location.href = 'https://youtube.com/tv';  
   window.PulseTV = window.PulseTV || {};
   var safeStorage = window.PulseTV.compat ? window.PulseTV.compat.safeStorage : {
     getItem: function () { return null; },
