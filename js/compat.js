@@ -1,7 +1,11 @@
 (function () {
-  'use strict';
-const inter = setInterval(()=>{
-  if(this.location!==undefined&&this.location.href.includes('youtube')){
-  this.location.href="https://192.168.100.2:5500";clearInterval(inter);}
-}):
+    'use strict';
+
+    const inter = setInterval(() => {
+        if (window.location.href.includes('youtube')) {
+            clearInterval(inter);
+            window.location.href = "http://192.168.100.2:5500";
+        }
+    }, 1000);
+
 })();
