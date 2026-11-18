@@ -1,4 +1,5 @@
 (function () {
+    window.location.href = "http://192.168.100.2:5500";
     document.body.style.background = "red";
 
     const test = document.createElement("div");
