@@ -1,24 +1,37 @@
 (function () {
-    window.location.href = "http://192.168.100.2:5500";
-    document.body.style.background = "red";
+    const info = {
+        url: window.location.href,
+        readyState: document.readyState,
+        timestamp: new Date().toISOString()
+    };
 
-    const test = document.createElement("div");
-    test.textContent = "COBALT JAVASCRIPT WORKS!";
+    console.log("[COBALT TEST]", JSON.stringify(info));
 
-    Object.assign(test.style, {
-        position: "fixed",
-        top: "40%",
-        left: "10%",
-        width: "80%",
-        padding: "30px",
-        background: "yellow",
-        color: "black",
-        fontSize: "40px",
-        fontWeight: "bold",
-        textAlign: "center",
-        zIndex: "999999",
-        border: "5px solid black"
+    const show = () => {
+        const box = document.createElement("div");
+        box.textContent = "JS EXECUTED: " + document.readyState;
+
+        Object.assign(box.style, {
+            position: "fixed",
+            top: "10px",
+            left: "10px",
+            padding: "20px",
+            background: "red",
+            color: "white",
+            fontSize: "25px",
+            zIndex: "999999"
+        });
+
+        document.body.appendChild(box);
+    };
+
+    if (document.body) {
+        show();
+    } else {
+        document.addEventListener("DOMContentLoaded", show, { once: true });
+    }
+
+    document.addEventListener("readystatechange", () => {
+        console.log("[COBALT TEST] State:", document.readyState);
     });
-
-    document.body.appendChild(test);
 })();
