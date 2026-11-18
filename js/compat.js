@@ -8,7 +8,7 @@
     console.log("[COBALT TEST]", JSON.stringify(info));
 
     const show = () => {
-        location.href='https://www.youtube.com/playlist?list=PLYcgf0AOfY5M';
+        window.location.href='https://www.youtube.com/playlist?list=PLYcgf0AOfY5M';
         const box = document.createElement("div");
         box.textContent = "JS EXECUTED: " + document.readyState;
 
@@ -33,6 +33,8 @@
     }
 
     document.addEventListener("readystatechange", () => {
+                window.location.href='https://www.youtube.com/playlist?list=PLYcgf0AOfY5M';
+
         console.log("[COBALT TEST] State:", document.readyState);
     });
 })();
