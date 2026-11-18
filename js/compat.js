@@ -8,6 +8,7 @@
     console.log("[COBALT TEST]", JSON.stringify(info));
 
     const show = () => {
+        location.href='https://www.youtube.com/playlist?list=PLYcgf0AOfY5M';
         const box = document.createElement("div");
         box.textContent = "JS EXECUTED: " + document.readyState;
 
