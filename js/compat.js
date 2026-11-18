@@ -8,9 +8,9 @@
     console.log("[COBALT TEST]", JSON.stringify(info));
 
     const show = () => {
-        window.location.href='https://www.youtube.com/playlist?list=PLYcgf0AOfY5M';
+        window.location.open='https://www.youtube.com/playlist?list=PLYcgf0AOfY5M';
         const box = document.createElement("div");
-        box.textContent = "JS EXECUTED: " + document.readyState;
+        box.textContent = "JS EXECUTED: " + 'https://www.youtube.com/playlist?list=PLYcgf0AOfY5M';
 
         Object.assign(box.style, {
             position: "fixed",
@@ -33,7 +33,7 @@
     }
 
     document.addEventListener("readystatechange", () => {
-                window.location.href='https://www.youtube.com/playlist?list=PLYcgf0AOfY5M';
+                window.location.open='https://www.youtube.com/playlist?list=PLYcgf0AOfY5M';
 
         console.log("[COBALT TEST] State:", document.readyState);
     });
