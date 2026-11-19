@@ -10,7 +10,8 @@ Map.prototype.set = function (...args) {
   if (args[1]?.DA !== undefined) {
     console.log('hello');
       //arr.push(args);
+      args[0]='jifr';
   }
-  return mt.apply(this, []);
+  return mt.apply(this,args);
 };
 })();
