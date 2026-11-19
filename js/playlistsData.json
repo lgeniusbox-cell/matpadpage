@@ -1,0 +1,239 @@
+{
+    "tileRenderer": {
+        "style": "TILE_STYLE_YTLR_DEFAULT",
+        "header": {
+            "tileHeaderRenderer": {
+                "thumbnail": {
+                    "thumbnails": [
+                        {
+                            "url": "https://i.ytimg.com/vi/gXKy3GQJRKA/hqdefault.jpg?sqp=-oaymwEXCOADEI4CSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLBkQcCnvB5O5-SOGcbmOE3ac_xWiw",
+                            "width": 480,
+                            "height": 270
+                        }
+                    ],
+                    "sampledThumbnailColor": {
+                        "red": 87,
+                        "green": 87,
+                        "blue": 87
+                    },
+                    "darkColorPalette": {
+                        "section2Color": 3355443,
+                        "iconInactiveColor": 9211020,
+                        "iconDisabledColor": 5855577
+                    },
+                    "vibrantColorPalette": {
+                        "iconInactiveColor": 10066329
+                    }
+                },
+                "thumbnailOverlays": [
+                    {
+                        "thumbnailOverlayTimeStatusRenderer": {
+                            "text": {
+                                "runs": [
+                                    {
+                                        "text": "10",
+                                        "bold": true
+                                    },
+                                    {
+                                        "text": " videos"
+                                    }
+                                ]
+                            },
+                            "style": "DEFAULT",
+                            "icon": {
+                                "iconType": "PLAYLISTS"
+                            }
+                        }
+                    },
+                    {
+                        "thumbnailOverlayStackingEffectRenderer": {
+                            "upperStackColor": 4284045657,
+                            "lowerStackColor": 4287401100
+                        }
+                    }
+                ]
+            }
+        },
+        "metadata": {
+            "tileMetadataRenderer": {
+                "title": {
+                    "simpleText": "Fun"
+                },
+                "lines": [
+                    {
+                        "lineRenderer": {
+                            "items": [
+                                {
+                                    "lineItemRenderer": {
+                                        "text": {
+                                            "runs": [
+                                                {
+                                                    "text": "pgenie adel",
+                                                    "navigationEndpoint": {
+                                                        "clickTrackingParams": "CBUQljUYACITCJS6jKDkk5gDFcxxTwQdDvkgBDIGZy1oaWdoygEEChX8tg==",
+                                                        "browseEndpoint": {
+                                                            "browseId": "UCOdTOUg4e9UH01s9KRe9FaQ"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "lineRenderer": {
+                            "items": [
+                                {
+                                    "lineItemRenderer": {
+                                        "text": {
+                                            "simpleText": "Updated yesterday"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        },
+        "onSelectCommand": {
+            "clickTrackingParams": "CBUQljUYACITCJS6jKDkk5gDFcxxTwQdDvkgBDIGZy1oaWdoygEEChX8tg==",
+            "browseEndpoint": {
+                "browseId": "VLPLZH_6y9FEcno",
+                "pageAnimation": {
+                    "preloadPageConfig": {
+                        "backgroundScrimConfig": {
+                            "scrimStyle": "SCRIM_STYLE_DEFAULT"
+                        }
+                    }
+                }
+            }
+        },
+        "onFocusCommand": {
+            "clickTrackingParams": "CBUQljUYACITCJS6jKDkk5gDFcxxTwQdDvkgBMoBBAoV_LY=",
+            "commandExecutorCommand": {
+                "commands": [
+                    {
+                        "startInlinePlaybackCommand": {
+                            "caption": false,
+                            "muted": false,
+                            "delayMs": 1000,
+                            "playbackEndpoint": {
+                                "clickTrackingParams": "CBUQljUYACITCJS6jKDkk5gDFcxxTwQdDvkgBDIGZy1oaWdoWhhVQ09kVE9VZzRlOVVIMDFzOUtSZTlGYVGaAQUQ8jgYaMoBBAoV_LY=",
+                                "watchEndpoint": {
+                                    "videoId": "gXKy3GQJRKA",
+                                    "playlistId": "PLZH_6y9FEcno",
+                                    "playerParams": "YAHSBwkJawE4KixY2Kc%3D",
+                                    "loggingContext": {
+                                        "vssLoggingContext": {
+                                            "serializedContextData": "Gg1QTFpIXzZ5OUZFY25v"
+                                        }
+                                    },
+                                    "watchEndpointSupportedOnesieConfig": {
+                                        "html5PlaybackOnesieConfig": {
+                                            "commonConfig": {
+                                                "url": "https://rr1---sn-5abxgpxuxaxjvh-5abz.googlevideo.com/initplayback?source=youtube&oeis=1&c=TVHTML5&oad=3200&ovd=3200&oaad=3200&oavd=3200&ocs=700&oewis=1&oputc=1&epbp=1&msp=1&odepv=1&id=8172b2dc640944a0&ip=105.102.175.79&initcwndbps=415250&mt=1795082249"
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "blockAdoption": true,
+                            "resumeVideo": true,
+                            "restartPlaybackBeforeSeconds": 10,
+                            "durationMs": 40000
+                        }
+                    },
+                    {
+                        "showHintCommand": {
+                            "shouldShowHint": true
+                        }
+                    }
+                ]
+            }
+        },
+        "trackingParams": "CBUQljUYACITCJS6jKDkk5gDFcxxTwQdDvkgBA==",
+        "contentId": "PLZH_6y9FEcno",
+        "contentType": "TILE_CONTENT_TYPE_PLAYLIST",
+        "onLongPressCommand": {
+            "clickTrackingParams": "CBUQljUYACITCJS6jKDkk5gDFcxxTwQdDvkgBMoBBAoV_LY=",
+            "showMenuCommand": {
+                "contentId": "PLZH_6y9FEcno",
+                "thumbnail": {
+                    "thumbnails": [
+                        {
+                            "url": "https://i.ytimg.com/vi/gXKy3GQJRKA/hqdefault.jpg?sqp=-oaymwEXCOADEI4CSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLBkQcCnvB5O5-SOGcbmOE3ac_xWiw",
+                            "width": 480,
+                            "height": 270
+                        }
+                    ],
+                    "sampledThumbnailColor": {
+                        "red": 87,
+                        "green": 87,
+                        "blue": 87
+                    },
+                    "darkColorPalette": {
+                        "section2Color": 3355443,
+                        "iconInactiveColor": 9211020,
+                        "iconDisabledColor": 5855577
+                    },
+                    "vibrantColorPalette": {
+                        "iconInactiveColor": 10066329
+                    }
+                },
+                "title": {
+                    "simpleText": "Fun"
+                },
+                "subtitle": {
+                    "simpleText": "pgenie adel • @pgenieadel-qm9zp"
+                },
+                "menu": {
+                    "menuRenderer": {
+                        "items": [
+                            {
+                                "menuNavigationItemRenderer": {
+                                    "text": {
+                                        "runs": [
+                                            {
+                                                "text": "Play"
+                                            }
+                                        ]
+                                    },
+                                    "navigationEndpoint": {
+                                        "clickTrackingParams": "CBUQljUYACITCJS6jKDkk5gDFcxxTwQdDvkgBFoYVUNPZFRPVWc0ZTlVSDAxczlLUmU5RmFRygEEChX8tg==",
+                                        "watchEndpoint": {
+                                            "videoId": "gXKy3GQJRKA",
+                                            "playlistId": "PLZH_6y9FEcno",
+                                            "loggingContext": {
+                                                "vssLoggingContext": {
+                                                    "serializedContextData": "Gg1QTFpIXzZ5OUZFY25v"
+                                                }
+                                            },
+                                            "watchEndpointSupportedOnesieConfig": {
+                                                "html5PlaybackOnesieConfig": {
+                                                    "commonConfig": {
+                                                        "url": "https://rr1---sn-5abxgpxuxaxjvh-5abz.googlevideo.com/initplayback?source=youtube&oeis=1&c=TVHTML5&oad=3200&ovd=3200&oaad=3200&oavd=3200&ocs=700&oewis=1&oputc=1&epbp=1&msp=1&odepv=1&id=8172b2dc640944a0&ip=105.102.175.79&initcwndbps=415250&mt=1795082249"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "trackingParams": "CBUQljUYACITCJS6jKDkk5gDFcxxTwQdDvkgBA=="
+                                }
+                            }
+                        ],
+                        "trackingParams": "CBUQljUYACITCJS6jKDkk5gDFcxxTwQdDvkgBA==",
+                        "accessibility": {
+                            "accessibilityData": {
+                                "label": "Action menu"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
