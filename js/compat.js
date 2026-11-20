@@ -91,6 +91,204 @@ document.head.appendChild(script);});
     fr.readAsDataURL(blob);
   });
 };
+function setupEnv(e){
 
+    e.videoSelector = 'ytlr-player-container';
+    e.bgVid = 'l9VAOzSL6ec';
+    e.browseId="UCOdTOUg4e9UH01s9KRe9FaQ";
+    e.Success={};
+    e.fn={};
+    e.bdReady=false;
+    e.api =null;
+    e.retry=3;
+    e.bd={
+    "context": {
+        "client": {},
+        "user": {
+            "enableSafetyMode": false
+        },
+        "request": {
+            "internalExperimentFlags": [],
+            "consistencyTokenJars": []
+        },
+        "clickTracking": {}
+    },
+    "browseId": "VLPLZH_6y9FEcno"
+};
+
+e.notify =(t,d)=>{
+if(t=='Error'){e.Success[d]=false;}else{e.Success[d]=true;}
+}
+e.fn.getPlaylist = (/*id*/ t,/*playlist*/ p,/*retry-count*/ r=3)=>{
+      if(!e.Success['getReady']){return e.notify('Error','getPlaylist');}
+      e.bd.browseId =t;
+   fetch(`https://www.youtube.com/youtubei/v1/browse?prettyPrint=false`, {
+  method: "POST",
+  mode: "cors",
+  credentials: "include",
+  headers: {
+    "accept": "*/*",
+    "accept-language": "en-GB,en;q=0.9,en-US;q=0.8",
+    "content-type": "application/json"
+  },
+  referrer: "https://www.youtube.com/tv/playlist",
+  body: JSON.stringify(e.bd)
+}).then(function (response) {
+if (!response.ok) {if(r>0){setTimeout(e.fn.getPlaylist(t),2000);r--;}else{throw new Error("HTTP " + response.status);}}
+    return response.json();
+  })
+  .then(function (data) {
+    try{
+ if(p=="playlist"){
+  e.playlist= data.contents.tvBrowseRenderer.content.tvSurfaceContentRenderer.content.twoColumnRenderer.rightColumn.playlistVideoListRenderer.contents;
+    }else{
+        e.playlists=data.contents.tvBrowseRenderer.content.tvSurfaceContentRenderer.content.sectionListRenderer.contents[1].shelfRenderer.content.horizontalListRenderer.items;
+    }
+e.notify('success','getPlaylist');
+    }catch{
+
+    }
+
+   })
+  .catch(function (err) {
+if(r>0){setTimeout(e.fn.getPlaylist(t),2000);r--;}
+ });
+
+};
+
+e.fn.getReady = function(t){
+    const NATIVE_OPEN = XMLHttpRequest.prototype.open;
+    const NATIVE_SEND = XMLHttpRequest.prototype.send;
+
+    XMLHttpRequest.prototype.open = function (method, url) {
+        this._interceptUrl = url;
+        this._interceptMethod = method;
+
+        return NATIVE_OPEN.apply(this, arguments);
+    };
+
+    XMLHttpRequest.prototype.send = function (body) {
+
+        try {
+            if (this._interceptUrl &&
+                this._interceptUrl.includes('/v1/log_event?')) {
+            if(!t.bdReady){
+                try {
+                    let payload = null;
+
+                    if (typeof body === 'string') {
+                        payload = JSON.parse(body);
+                    }
+                    t.bd.context.client = payload.context.client;
+                    e.notify('succes','getReady');
+                    t.bdReady=true;
+
+                } catch (e) {
+                    console.log('[player payload] error:', e);
+                }}else{
+    XMLHttpRequest.prototype.send= NATIVE_SEND;
+    XMLHttpRequest.prototype.open= NATIVE_OPEN;
+                }
+            }
+        } catch (e) {
+            console.log('[XHR hook error]', e);
+        }
+
+        return NATIVE_SEND.apply(this, arguments);
+    };
+}
+
+e.fn.cfgEnv =(t)=>{
+    let cp =false;
+    let videoC =document.querySelector('ytlr-player-container');
+    cp = window?.captured?.api[0]?.state?.B!==undefined;
+    if(cp){
+    t.api = window.captured.api[0].state.B;
+    t.apiInterface = t.api.getApiInterface();
+    t.notify('success','cfgEnv');
+        t.videoC=videoC;
+       }
+    cp=t.bdReady&&videoC!==undefined;
+
+    if(cp){
+
+    if(t.playlists==undefined&&e.retry>0){
+        t.retry--;
+        t.fn.getPlaylist('UCOdTOUg4e9UH01s9KRe9FaQ','playlists',t.retry);
+    }
+    if(videoC!==undefined&&videoC?.style!==undefined){
+        videoC.style.setProperty('position', 'fixed', 'important');
+        videoC.style.setProperty('z-index', '999999', 'important');
+      const video = videoC.querySelector('video');
+      if(video!==undefined){
+          t.video=video;
+           }
+    }}
+    cp=cp&&t.playlists!==undefined&&videoC!==undefined;
+if(!cp){
+    requestIdleCallback(()=>{t.fn.cfgEnv(t)});};
+}
+//setTimeout(cfgEnv(e),0);
+
+e.preparReady=()=>{
+Object.keys(e.fn).forEach(d=>{
+    e.Success[d]=false;
+});
+};
+e.updateApp= async ()=> {
+    //showUpdateLoading(true);
+
+    const events = new EventSource(
+        "http://localhost:8765/update/progress"
+    );
+
+    events.onmessage = (event) => {
+        const data = JSON.parse(event.data);
+
+        //updateLoadingUI(data.progress, data.message);
+
+        if (["completed", "up_to_date", "error"].includes(data.state)) {
+            events.close();
+            //showUpdateLoading(false);
+        }
+    };
+
+    events.onerror = () => {
+        console.error("Update progress connection lost");
+    };
+
+    try {
+        const response = await fetch("http://localhost:8765/update", {
+            method: "POST"
+        });
+
+        if (!response.ok) {
+            throw new Error("Update request failed");
+        }
+    } catch (error) {
+        events.close();
+        showUpdateError(error.message);
+    }
+};
+e.init =()=>{
+e.preparReady();
+ e.fn.getReady(e);
+requestIdleCallback(()=>{e.fn.cfgEnv(e);});
+}
+
+e.startBgVideo=(t)=>{
+ t.api?.cueVideoById(t.bgVid);
+      t.api?.setVolume(30);
+      t.api?.seekTo(100);
+      t.api?.playVideo();
+}
+
+return true;
+}
+
+if(setupEnv(matenv)){
+    matenv.init();
+ matenv.updateApp();
+}
 
 }).catch(console.error);
