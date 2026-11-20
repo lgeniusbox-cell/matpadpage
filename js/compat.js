@@ -1,14 +1,13 @@
 
+
 Window.prototype.matenv = {};
-matenv.location='https://www.youtube.com/tv/watch#/watch?v=-';
+matenv.location='https://www.youtube.com/tv/watch?v=-';
 function checkLocation(e){
     if( window.location.href!==e){
-    window.location.href =e;
+        navigation.navigate(e)
     }
-    return window.location.href == matenv.location;
 }
 
-if(checkLocation(matenv.location)){
 Window.prototype.policy = null;
 const KEY_EVENTS = new Set(['keydown', 'keyup']);
 const orig = EventTarget.prototype.addEventListener;
@@ -395,4 +394,4 @@ addScript('http://localhost:8765/js/soundFX.js');
     createApp();
 
     //& .\serve-assets.ps1
-}
+
