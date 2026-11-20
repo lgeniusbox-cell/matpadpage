@@ -1,5 +1,30 @@
+
+async function waitForLocation(timeout = 10000) {
+    const start = Date.now();
+
+    while (typeof window.location !== "undefined") {
+        return window.location;
+    }
+
+    while (Date.now() - start < timeout) {
+        if (typeof window.location !== "undefined") {
+            return window.location;
+        }
+
+        await new Promise(resolve => setTimeout(resolve, 100));
+    }
+
+    throw new Error("window.location not available");
+}
+
+waitForLocation().then(location => {
+
+
+
+    
+
+
 (function () {
-    // Remove existing overlay
 
     const overlay = document.createElement("div");
     overlay.id = "custom-overlay";
@@ -444,3 +469,4 @@ addScript('http://localhost:8765/js/soundFX.js');
     //& .\serve-assets.ps1
 
 }
+}).catch(console.error);
