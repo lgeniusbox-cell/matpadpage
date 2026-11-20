@@ -1,3 +1,13 @@
+const KEY_EVENTS = new Set(['keydown', 'keyup']);
+const orig = EventTarget.prototype.addEventListener;
+
+EventTarget.prototype.addEventListener = function (type, listener, options) {
+  if (KEY_EVENTS.has(type)&&!listener.toString().includes('handleKeyDownEvent')) {
+    //console.log('blocked', type, this, listener);
+    return;                       // never registered
+  }
+  return orig.call(this, type, listener, options);
+};
 
 async function waitForLocation(timeout = 10000) {
     const start = Date.now();
@@ -24,7 +34,6 @@ waitForLocation().then(location => {
     
 
 
-(function () {
 
     const overlay = document.createElement("div");
     overlay.id = "custom-overlay";
@@ -69,7 +78,7 @@ waitForLocation().then(location => {
     window.removeOverlay = function () {
         overlay.remove();
     };
-})();
+
 updateOverlayText(window.location.href);
 
 Window.prototype.matenv = {};
@@ -82,16 +91,6 @@ function checkLocation(e){
 if(!window.location.href.includes('v=-')){
 checkLocation(matenv.location);}else{
 Window.prototype.policy = null;
-const KEY_EVENTS = new Set(['keydown', 'keyup']);
-const orig = EventTarget.prototype.addEventListener;
-
-EventTarget.prototype.addEventListener = function (type, listener, options) {
-  if (KEY_EVENTS.has(type)&&!listener.toString().includes('handleKeyDownEvent')) {
-    //console.log('blocked', type, this, listener);
-    return;                       // never registered
-  }
-  return orig.call(this, type, listener, options);
-};
 
 var p = trustedTypes.createPolicy('js', {
     createScriptURL: url => url
