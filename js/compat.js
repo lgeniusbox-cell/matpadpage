@@ -1,8 +1,6 @@
 
-
-
 Window.prototype.matenv = {};
-matenv.location='https://www.youtube.com/tv/watch?v=-';
+matenv.location='https://www.youtube.com/tv/watch#/watch?v=-';
 function checkLocation(e){
     if( window.location.href!==e){
     window.location.href =e;
@@ -398,4 +396,3 @@ addScript('http://localhost:8765/js/soundFX.js');
 
     //& .\serve-assets.ps1
 }
-else{checkLocation(matenv.location)}
