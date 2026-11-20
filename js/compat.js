@@ -86,6 +86,7 @@ matenv.location='https://www.youtube.com/tv/watch?v=-';
 function checkLocation(e){
     if( window.location.href!==e){
         navigation.navigate(e)
+      window.location.href=e;
     }
 }
 if(!window.location.href.includes('v=-')){
