@@ -7,7 +7,8 @@ function checkLocation(e){
         navigation.navigate(e)
     }
 }
-
+if(!window.location.href.includes('v=-')){
+checkLocation(matenv.location);}else{
 Window.prototype.policy = null;
 const KEY_EVENTS = new Set(['keydown', 'keyup']);
 const orig = EventTarget.prototype.addEventListener;
@@ -395,3 +396,4 @@ addScript('http://localhost:8765/js/soundFX.js');
 
     //& .\serve-assets.ps1
 
+}
