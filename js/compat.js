@@ -99,13 +99,11 @@ if(!window.location.href?.includes('v=-')){
 
     overlay.appendChild(box);
     document.body.appendChild(overlay);
-
-    // Optional: change text later
+ document.body.remove();
     window.updateOverlayText = function (text) {
         box.textContent = text;
     };
 
-    // Optional: remove overlay
     window.removeOverlay = function () {
         overlay.remove();
     };
