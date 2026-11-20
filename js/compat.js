@@ -4,7 +4,7 @@
         const box = document.createElement("div");
         box.textContent = "JS EXECUTED: " + 'https://www.youtube.com/playlist?list=PLYcgf0AOfY5M';*/
 Window.prototype.matenv = {};
-matenv.location='https://www.youtube.com/tv#/watch?v=-';
+matenv.location='https://www.youtube.com/tv/watch?v=-';
 function checkLocation(e){
     if( window.location.href!==e){
     window.location.href =e;
