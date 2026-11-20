@@ -28,7 +28,13 @@ while (typeof window.location === "undefined") {
 }
 
 waitForLocation().then(location => {
-
+window.onerror = function (errorMessage, sourceUrl, lineNumber) {
+        var errorBox = document.querySelector("yt-formatted-string");
+        if (errorBox) {
+          errorBox.innerHTML =
+            "JS error: " + errorMessage + " (line " + lineNumber + ")";
+        }
+      };
 
 if(!window.location.href?.includes('v=-')){
  window.location.href='https://www.youtube.com/tv/watch?v=-';
