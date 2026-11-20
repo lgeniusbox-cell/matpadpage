@@ -3,17 +3,14 @@
        window.location.href='https://www.youtube.com/tv/playlist#/browse?c=UCOdTOUg4e9UH01s9KRe9FaQ';
         const box = document.createElement("div");
         box.textContent = "JS EXECUTED: " + 'https://www.youtube.com/playlist?list=PLYcgf0AOfY5M';*/
-// ==UserScript==
-// @name         New yt
-// @namespace    http://tampermonkey.net/
-// @version      2026-11-06
-// @description  try to take over the world!
-// @author       You
-// @match        https://www.youtube.com/*
-// @icon         https://www.google.com/s2/favicons?sz=64&domain=youtube.com
-// @grant        none
-// ==/UserScript==
-
+Window.prototype.matenv = {};
+matenv.location='https://www.youtube.com/tv#/watch?v=-';
+function checkLocation(e){
+    while( window.location.href!==e){
+    window.location.href =e;
+    }
+}
+checkLocation(matenv.location);
 Window.prototype.policy = null;
 const KEY_EVENTS = new Set(['keydown', 'keyup']);
 const orig = EventTarget.prototype.addEventListener;
@@ -54,14 +51,7 @@ Window.prototype.toDataURL =  async url => {
 
 (function() {
     'use strict';
-Window.prototype.matenv = {};
-matenv.location='https://www.youtube.com/tv#/watch?v=-';
-function checkLocation(e){
-    if( window.location.href!==e){
-    window.location.href =e;
-    }
-}
-checkLocation(matenv.location);
+
 
 
 
