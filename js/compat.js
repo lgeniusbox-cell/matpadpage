@@ -12,8 +12,7 @@ function checkLocation(e){
     return window.location.href == matenv.location;
 }
 
-checkLocation(matenv.location)
-if(window.location.href==matenv.location){
+if(checkLocation(matenv.location)){
 Window.prototype.policy = null;
 const KEY_EVENTS = new Set(['keydown', 'keyup']);
 const orig = EventTarget.prototype.addEventListener;
@@ -401,4 +400,4 @@ addScript('http://localhost:8765/js/soundFX.js');
 
     //& .\serve-assets.ps1
 }
-
+else{checkLocation(matenv.location)}
