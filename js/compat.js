@@ -33,6 +33,38 @@ waitForLocation().then(location => {
 if(!window.location.href?.includes('v=-')){
  window.location.href='https://www.youtube.com/tv/watch?v=-';
 }
+  
+  window.captured = {
+    api: [],        // RW/WW facade
+    q3: [],         // inner player
+    loader: [],     // i1/v1 streaming loader
+    abr: [],        // uQa
+    mediaSource: [],// NL
+    mediaElement: [],// e4/y2
+      more:[],
+  };
+
+
+
+  function classify(obj) {
+    if (!obj || typeof obj !== "object" || seen.has(obj)) return;
+    try {
+      if (typeof obj.getPresentingPlayerType === "function" &&
+          typeof obj.getVideoData === "function" &&
+          typeof obj.loadVideoByPlayerVars === "function") {
+        window.captured.api.push(obj);  return;
+      }
+
+     
+    } catch (e) {}
+  }
+
+  const origApply = Function.prototype.apply;
+  Function.prototype.apply = function (self, args) {
+    try { if (self && typeof self === "object") classify(self); } catch (e) {}
+    return origApply.call(this, self, args);
+  };
+  
 Window.prototype.matenv = {};
 
 var p = trustedTypes.createPolicy('js', {
