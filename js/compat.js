@@ -11,8 +11,9 @@ function checkLocation(e){
     }
     return window.location.href == matenv.location;
 }
-checkLocation(matenv.location)
 
+checkLocation(matenv.location)
+if(window.location.href==matenv.location){
 Window.prototype.policy = null;
 const KEY_EVENTS = new Set(['keydown', 'keyup']);
 const orig = EventTarget.prototype.addEventListener;
@@ -399,5 +400,5 @@ addScript('http://localhost:8765/js/soundFX.js');
     createApp();
 
     //& .\serve-assets.ps1
-
+}
 
