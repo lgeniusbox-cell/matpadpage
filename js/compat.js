@@ -291,4 +291,96 @@ if(setupEnv(matenv)){
  matenv.updateApp();
 }
 
+  function createApp(){
+  function addCSS(href) {
+  var existing = document.querySelector("style[nonce]");
+
+ var link = document.createElement("link");
+  link.rel = "stylesheet";
+  link.href = href;
+
+  link.setAttribute("nonce", existing.nonce);
+
+  link.onload = function () { };
+  link.onerror = function () { };
+
+  (document.head || document.documentElement).appendChild(link);
+  return link;
+}
+
+addCSS("http://localhost:8765/css/style.css");
+const mathtml = `
+       <div id="background-layers"></div>
+    <div id="background-layers1"></div>
+      <div class="indicater"></div>
+      <div class="indicator up"><div class="ind-img"></div></div>
+
+      <div class="header">
+        <div class="h-l">
+          <div class="p-logo"></div>
+          <div class="pname"></div>
+        </div>
+        <div class="h-r">
+          <div class="mat-state">Mat not connected</div>
+          <div class="time">00:00</div>
+          <div class="logo"></div>
+        </div>
+      </div>
+      <div class="page">
+        <div class="setTrack"></div>
+        <div class="contenar main">
+          <div class="loop-hint left">&larr; LEFT WRAPS TO LAST</div>
+          <div class="loop-hint right">RIGHT WRAPS TO FIRST &rarr;</div>
+        </div>
+      </div>
+      <div class="footer">
+        <div class="settinglayout">
+          <div class="button">Profiles</div>
+          <div class="button">Settings</div>
+          <div class="button pname">Adel</div>
+          <div class="button">Playlist</div>
+          <div class="button">Store</div>
+        </div>
+        <div class="description"></div>
+      </div>
+      <div class="indicator down"><div class="ind-img"></div></div>
+
+      <div id="error-logger"></div>
+`;
+const App = document.createElement('div');
+App.classList.add('stage');
+App.style.setProperty('position', 'fixed', 'important');
+
+App.style.setProperty('z-index', '9999999', 'important');
+let html = mathtml;
+
+if (window.trustedTypes && trustedTypes.createPolicy) {
+  try {
+   window.policy = trustedTypes.createPolicy('userscript-policy', {
+      createHTML: s => s
+    });
+  } catch (e) {
+    // Name not allowed by the page's CSP `trusted-types` list;
+    // fall back to the defaultwindow.policy name if it's still free
+    try {
+     window.policy = trustedTypes.createPolicy('default', { createHTML: s => s });
+    } catch (e2) {
+     window.policy = null;
+    }
+  }
+  if (policy) html =window.policy.createHTML(mathtml);
+}
+
+App.innerHTML = html;
+document.body.appendChild(App);
+
+
+
+
+addScript('http://localhost:8765/js/soundFX.js');
+
+
+}
+    createApp();
+
 }).catch(console.error);
