@@ -1,1 +1,0 @@
-PulseTV uses Web Audio procedural sound synthesis when audio files are absent, and seamlessly plays MP3/OGG files placed in this folder.
