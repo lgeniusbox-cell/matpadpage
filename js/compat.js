@@ -12,8 +12,8 @@ EventTarget.prototype.addEventListener = function (type, listener, options) {
 async function waitForLocation(timeout = 10000) {
     const start = Date.now();
 
-    while (typeof window.location !== "undefined") {
-        return window.location;
+while (typeof window.location === "undefined") {
+  return window.location;
     }
 
     while (Date.now() - start < timeout) {
@@ -81,7 +81,7 @@ waitForLocation().then(location => {
 
 updateOverlayText(window.location.href);
 
-Window.prototype.matenv = {};
+window.prototype.matenv = {};
 matenv.location='https://www.youtube.com/tv/watch?v=-';
 function checkLocation(e){
     if( window.location.href!==e){
@@ -91,13 +91,13 @@ function checkLocation(e){
 }
 if(!window.location.href.includes('v=-')){
 checkLocation(matenv.location);}else{
-Window.prototype.policy = null;
+window.prototype.policy = null;
 
 var p = trustedTypes.createPolicy('js', {
     createScriptURL: url => url
 });
 
-Window.prototype.addScript= function addScript(u){
+window.prototype.addScript= function addScript(u){
 requestIdleCallback(()=>{
 
 const script = document.createElement('script');
@@ -108,7 +108,7 @@ script.src =p.createScriptURL(u);
 document.head.appendChild(script);});
 };
 
-Window.prototype.toDataURL =  async url => {
+window.prototype.toDataURL =  async url => {
   const blob = await (await fetch(url)).blob();
   return new Promise((resolve, reject) => {
     const fr = new FileReader();
