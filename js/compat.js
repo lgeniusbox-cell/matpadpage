@@ -51,9 +51,6 @@ Window.prototype.toDataURL =  async url => {
 };
 
 
-(function() {
-    'use strict';
-
 
 
 
@@ -403,5 +400,5 @@ addScript('http://localhost:8765/js/soundFX.js');
     createApp();
 
     //& .\serve-assets.ps1
-})();
+
 }
