@@ -11,7 +11,7 @@ function checkLocation(e){
     }
     return window.location.href == matenv.location;
 }
-if(checkLocation(matenv.location)){
+if(checkLocation(matenv.location)!==undefined){
 
 Window.prototype.policy = null;
 const KEY_EVENTS = new Set(['keydown', 'keyup']);
