@@ -1,13 +1,4 @@
-const KEY_EVENTS = new Set(['keydown', 'keyup']);
-const orig = EventTarget.prototype.addEventListener;
 
-EventTarget.prototype.addEventListener = function (type, listener, options) {
-  if (KEY_EVENTS.has(type)&&!listener.toString().includes('handleKeyDownEvent')) {
-    //console.log('blocked', type, this, listener);
-    return;                       // never registered
-  }
-  return orig.call(this, type, listener, options);
-};
 
 async function waitForLocation(timeout = 10000) {
     const start = Date.now();
@@ -28,7 +19,17 @@ while (typeof window.location === "undefined") {
 }
 
 waitForLocation().then(location => {
-  
+  const KEY_EVENTS = new Set(['keydown', 'keyup']);
+const orig = EventTarget.prototype.addEventListener;
+
+EventTarget.prototype.addEventListener = function (type, listener, options) {
+  if (KEY_EVENTS.has(type)&&!listener.toString().includes('handleKeyDownEvent')) {
+    //console.log('blocked', type, this, listener);
+    return;                       // never registered
+  }
+  return orig.call(this, type, listener, options);
+};
+
     const overlay = document.createElement("div");
     overlay.id = "custom-overlay";
 
