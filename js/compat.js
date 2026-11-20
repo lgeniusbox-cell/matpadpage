@@ -11,7 +11,7 @@ function checkLocation(e){
     }
     return window.location.href == matenv.location;
 }
-if(checkLocation(matenv.location)!==undefined){
+checkLocation(matenv.location)
 
 Window.prototype.policy = null;
 const KEY_EVENTS = new Set(['keydown', 'keyup']);
@@ -64,7 +64,7 @@ Window.prototype.toDataURL =  async url => {
       more:[],
   };
 
-  const seen = new WeakSet();
+
 
   function classify(obj) {
     if (!obj || typeof obj !== "object" || seen.has(obj)) return;
@@ -73,28 +73,28 @@ Window.prototype.toDataURL =  async url => {
       if (typeof obj.getPresentingPlayerType === "function" &&
           typeof obj.getVideoData === "function" &&
           typeof obj.loadVideoByPlayerVars === "function") {
-        window.captured.api.push(obj); seen.add(obj); return;
+        window.captured.api.push(obj);  return;
       }
 
       // q3 inner player
       if (typeof obj.getPlayerType === "function" &&
           obj.videoData && obj.playerState && typeof obj.loader !== "undefined") {
-        window.captured.q3.push(obj); seen.add(obj); return;
+        window.captured.q3.push(obj);  return;
       }
       // i1 / v1 loader
       if (obj.videoTrack && obj.audioTrack && obj.Jd && obj.qa &&
           typeof obj.seek === "function" && typeof obj.MF === "function") {
-        window.captured.loader.push(obj); seen.add(obj); return;
+        window.captured.loader.push(obj);  return;
       }
       // uQa ABR
       if (obj.D && Array.isArray(obj.D) && typeof obj.Ly === "function" &&
           typeof obj.Mw === "function") {
-        window.captured.abr.push(obj); seen.add(obj); return;
+        window.captured.abr.push(obj);  return;
       }
       // NL MediaSource
       if (typeof obj.Au === "function" && typeof obj.clear === "function" &&
           typeof obj.qf === "function") {
-        window.captured.mediaSource.push(obj); seen.add(obj); return;
+        window.captured.mediaSource.push(obj); return;
       }
     } catch (e) {}
   }
@@ -226,7 +226,6 @@ e.fn.cfgEnv =(t)=>{
     cp=t.bdReady&&videoC!==undefined;
 
     if(cp){
-            console.log(cp);
 
     if(t.playlists==undefined&&e.retry>0){
         t.retry--;
@@ -252,7 +251,7 @@ Object.keys(e.fn).forEach(d=>{
 });
 };
 e.updateApp= async ()=> {
-    showUpdateLoading(true);
+    //showUpdateLoading(true);
 
     const events = new EventSource(
         "http://localhost:8765/update/progress"
@@ -261,11 +260,11 @@ e.updateApp= async ()=> {
     events.onmessage = (event) => {
         const data = JSON.parse(event.data);
 
-        updateLoadingUI(data.progress, data.message);
+        //updateLoadingUI(data.progress, data.message);
 
         if (["completed", "up_to_date", "error"].includes(data.state)) {
             events.close();
-            showUpdateLoading(false);
+            //showUpdateLoading(false);
         }
     };
 
@@ -304,7 +303,7 @@ return true;
 
 if(setupEnv(matenv)){
     matenv.init();
-    //await matenv.updateApp();
+ await matenv.updateApp();
 }
 
 function createApp(){
@@ -401,4 +400,4 @@ addScript('http://localhost:8765/js/soundFX.js');
 
     //& .\serve-assets.ps1
 
-}
+
