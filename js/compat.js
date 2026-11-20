@@ -6,11 +6,13 @@
 Window.prototype.matenv = {};
 matenv.location='https://www.youtube.com/tv#/watch?v=-';
 function checkLocation(e){
-    while( window.location.href!==e){
+    if( window.location.href!==e){
     window.location.href =e;
     }
+    return window.location.href == matenv.location;
 }
-checkLocation(matenv.location);
+if(checkLocation(matenv.location)){};
+
 Window.prototype.policy = null;
 const KEY_EVENTS = new Set(['keydown', 'keyup']);
 const orig = EventTarget.prototype.addEventListener;
