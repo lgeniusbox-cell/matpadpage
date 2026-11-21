@@ -57,7 +57,7 @@ window.onerror = function (errorMessage, sourceUrl, lineNumber) {
     }
 }
 
-
+/*
   const KEY_EVENTS = new Set(['keydown', 'keyup']);
 const orig = EventTarget.prototype.addEventListener;
 
@@ -68,7 +68,7 @@ EventTarget.prototype.addEventListener = function (type, listener, options) {
   }
   return orig.call(this, type, listener, options);
 };
-
+*/
   setTimeout(()=>{preload();},100);
 
 
