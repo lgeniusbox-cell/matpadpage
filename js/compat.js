@@ -1,7 +1,8 @@
 function preload(){
     let p= typeof document?.createElement == 'function';
     p=typeof Object?.assign == 'function';
-    p = typeof HTMLElement.prototype.appendChild =='function';
+    p = typeof HTMLElement?.prototype?.appendChild =='function';
+    p=typeof document?.body == 'object';
     if(p){
         const overlay = document.createElement("div");
     overlay.id = "custom-overlay";
