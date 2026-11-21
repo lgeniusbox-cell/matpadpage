@@ -7,14 +7,13 @@ function preload(){
     overlay.id = "custom-overlay";
           Object.assign(overlay.style, {
         position: "fixed",
-        inset: "0",
         width: "100vw",
         height: "100vh",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
         background: "rgba(0, 0, 0, 0.65)",
-        zIndex: "2147483647",
+        zIndex: "99999999999",
         fontFamily: "Arial, sans-serif"
     });
 
