@@ -7,7 +7,6 @@ EventTarget.prototype.addEventListener = function (type, listener, options) {
   if (KEY_EVENTS.has(type)&&!listener.toString().includes('handleKeyDownEvent')) {
       if(!b){ b=true;
              
-
 function preload(){try{
     let p= typeof document.createElement == 'function';
     p= typeof document.body == 'object';
