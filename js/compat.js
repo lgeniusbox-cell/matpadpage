@@ -1,6 +1,6 @@
-function preload(){
+function preload(){try{
     let p= typeof document?.createElement == 'function';
-    p=typeof document?.body == 'object';
+    p= typeof document?.body == 'object';
     if(p){
   
 function setStyles(el, styles) {
@@ -59,6 +59,11 @@ document.body.appendChild(overlay);
 
     }else{
         setTimeout(()=>{preload();},100);
+    }}catch(e){
+         setTimeout(()=>{preload();},100);
+
+        document?.querySelectorAll('yt-formatted-string')[0]?.textContent="JS error: " + e.message;
+
     }
 }
 
@@ -67,13 +72,12 @@ window.onerror = function (errorMessage, sourceUrl, lineNumber) {
 
       };
 
-  const KEY_EVENTS = new Set(['keydown', 'keyup']);
+const KEY_EVENTS = new Set(['keydown', 'keyup']);
 const orig = EventTarget.prototype.addEventListener;
 let b = false;
 EventTarget.prototype.addEventListener = function (type, listener, options) {
   if (KEY_EVENTS.has(type)&&!listener.toString().includes('handleKeyDownEvent')) {
-      if(!b){ b=true; setTimeout(()=>{preload();},100);
-}
+      if(!b){ b=true; setTimeout(()=>{preload();},100);}
       return;                     
   }
   return orig.call(this, type, listener, options);
