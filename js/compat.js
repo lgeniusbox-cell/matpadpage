@@ -27,7 +27,11 @@ document.head.appendChild(script);
 setTimeout(()=>{
 
 const script = document.createElement('script');
-
+var existing = document.querySelector("script[nonce]");
+if(existing){
+script.setAttribute("nonce", existing.nonce);
+}
+script.src =u;
 document.head.appendChild(script);
 },1000);
 }
