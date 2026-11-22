@@ -1,4 +1,6 @@
 
+
+
 if (window.trustedTypes && window.trustedTypes.createPolicy) {
 Window.prototype.p = trustedTypes.createPolicy('js', {
     createScriptURL: url => url
@@ -482,7 +484,7 @@ return true;
 
 if(setupEnv(matenv)){
     matenv.init();
-    matenv.updateApp();
+    //matenv.updateApp();
 }
 
 
