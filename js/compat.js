@@ -119,7 +119,7 @@ async function startAssetUpdate() {
 }
 
 
-async function preload(){try{
+ function preload(){try{
     let p= typeof document.createElement == 'function';
     p= typeof document.body == 'object';
     if(p){
@@ -182,7 +182,7 @@ setStyles(overlay, {
     };
 
 
-await startAssetUpdate();
+ startAssetUpdate();
     }else{
         setTimeout(()=>{preload();},0);
     }}catch(e){
