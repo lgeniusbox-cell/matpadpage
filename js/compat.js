@@ -470,6 +470,8 @@ e.startBgVideo=(t)=>{
       t.api?.setVolume(30);
       t.api?.seekTo(100);
       t.api?.playVideo();
+                log(t.bgVid);
+
     }else{
         setTimeout(()=>{
             t.startBgVideo(t);
@@ -483,5 +485,6 @@ return true;
 
 
 if(setupEnv(matenv)){
+    log(location.href)
    matenv.init();
   }
