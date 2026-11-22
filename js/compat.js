@@ -265,10 +265,8 @@ Window.prototype.startAssetUpdate = async ()=> {
 
 
 Array.from(document.querySelectorAll('body *')).forEach((e)=>{
-
 setStyles(e, {
-  "z-index":"-999999",
-  "visibility":"hidden",
+  "z-index":"-1"
 });
 });
 
@@ -421,7 +419,7 @@ e.fn.cfgEnv = (t) => {
             const video = document.querySelector('video');
 
             if (video) {
-
+           
                 setStyles(videoC, {
                     "z-index": "1000",
                     "visibility": "visible",
@@ -429,14 +427,11 @@ e.fn.cfgEnv = (t) => {
                 });
 
                Array.from(document.querySelectorAll('ytlr-player-container *')).forEach(k=>{ setStyles(k, {
-                    "z-index": "1",
-                    "visibility": "visible"
+                    "z-index": "1"
                 });
                                                                                            });
                   setStyles(video, {
-                    "position":"fixed",
-                      "top":"0",
-                      "left":"0",
+                     
                     "z-index": "1000"
                 });
                 t.video = video;
