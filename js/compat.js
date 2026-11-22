@@ -486,7 +486,7 @@ return true;
 
 
 if(setupEnv(matenv)){
-   // matenv.init();
+   matenv.init();
     //matenv.updateApp();
 }
 
