@@ -1,3 +1,4 @@
+
 function setStyles(el, styles) {
   if(el!==undefined){
   for (var prop in styles) {
