@@ -1,62 +1,37 @@
+// ==UserScript==
+// @name         New yt
+// @namespace    http://tampermonkey.net/
+// @version      2026-11-06
+// @description  try to take over the world!
+// @author       You
+// @match        https://www.youtube.com/*
+// @icon         https://www.google.com/s2/favicons?sz=64&domain=youtube.com
+// @grant        none
+// ==/UserScript==
+
+
+/* =====================================================================
+   PART 1 : DEFINITIONS ONLY (nothing is executed here)
+   ===================================================================== */
+
 Window.prototype.cap = null;
 
-    const original = constructor.constructor.prototype.call;
+Window.prototype.log = (...args)=>{
+    if(window.boxdebug!==undefined){
+    window.boxdebug.textContent=args.join(' | ');
+      }
+}
 
-     constructor.constructor.prototype.call = function (...args) {
-       //  let d = args.filter(e=>typeof e=='string');
+function setStyles(el, styles) {
+  if(el!==undefined){
+  for (var prop in styles) {
+    if (styles.hasOwnProperty(prop)) {
+      el.style.setProperty(prop, styles[prop], 'important');
+    }
+  }}
+}
 
-      const h = args.filter(x=>x?.AdService!==undefined);
-         if(h.length>0){
-                        window.cap=h[0];
-             setTimeout(()=>{
-                 ping();
-             },1000);
-                        constructor.constructor.prototype.call=original;
-                       }
-
-        return original.apply(this, args);
-    };
-
- const NATIVE_OPEN = XMLHttpRequest.prototype.open;
-    const NATIVE_SEND = XMLHttpRequest.prototype.send;
-
-XMLHttpRequest.prototype.open = function (method, url) {
-        this._interceptUrl = url;
-        this._interceptMethod = method;
-
-        return NATIVE_OPEN.apply(this, arguments);
-    };
-
-    XMLHttpRequest.prototype.send = function (body) {
-
-        try {
-            if (this._interceptUrl &&
-                this._interceptUrl.includes('/youtubei/')) {
-            if(window.bdPayload==undefined){
-                try {
-                    let payload = null;
-
-                    if (typeof body === 'string') {
-                        payload = JSON.parse(body);
-                    }
-                    window.bdPayload = payload.context.client;
-
-
-                } catch (e) {
-                }
-            }else{
-    XMLHttpRequest.prototype.send= NATIVE_SEND;
-    XMLHttpRequest.prototype.open= NATIVE_OPEN;
-                }
-            }
-        } catch (e) {
-
-        }
-
-        return NATIVE_SEND.apply(this, arguments);
-    };
-
-function setupEnv(e){
+Window.prototype.setupEnv=(e)=>{
    window.log('setup env..');
     e.videoSelector = 'ytlr-player-container';
     e.bgVid = 'l9VAOzSL6ec';
@@ -182,13 +157,99 @@ e.startBgVideo=(t)=>{
 }
 
 }
-Window.prototype.matenv = {};
-setupEnv(window.matenv);
 
-Window.prototype.log = (...args)=>{
-    if(window.boxdebug!==undefined){
-    window.boxdebug.textContent=args.join(' | ');
-      }
+Window.prototype.addScript =(u)=>{
+setTimeout(()=>{
+
+const script = document.createElement('script');
+var existing = document.querySelector("script[nonce]");
+if(existing){
+script.setAttribute("nonce", existing.nonce);
+}
+script.src =u;
+document.head.appendChild(script);
+},1000);
+}
+
+
+Window.prototype.addCSS = (href)=> {
+ var existing = document.querySelector("style[nonce]");
+
+ var link = document.createElement("link");
+  link.rel = "stylesheet";
+  link.href = href;
+
+  link.setAttribute("nonce", existing.nonce);
+
+  link.onload = function () { };
+  link.onerror = function () { };
+
+  (document.head || document.documentElement).appendChild(link);
+  return link;
+}
+
+Window.prototype.startAssetUpdate = async ()=> {
+    try {
+       //window.log("updating start...");
+
+        // Connect to progress stream first
+        const response = await fetch(
+            "http://127.0.0.1:8765/update/progress"
+        );
+
+        if (!response.ok || !response.body) {
+            //log("Progress connection failed");
+            throw new Error("Progress connection failed");
+        }
+
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+
+        // Start synchronization
+        const updateRequest = fetch(
+            "http://127.0.0.1:8765/update",
+            { method: "POST" }
+        );
+
+        let buffer = "";
+
+        while (true) {
+            const { value, done } = await reader.read();
+            if (done) break;
+
+            buffer += decoder.decode(value, { stream: true });
+
+            const events = buffer.split("\n\n");
+            buffer = events.pop();
+
+            for (const event of events) {
+                const line = event
+                    .split("\n")
+                    .find(line => line.startsWith("data:"));
+
+                if (!line) continue;
+
+                const data = JSON.parse(line.substring(5).trim());
+
+                //log(data.progress, data.message);
+
+                if (["completed", "up_to_date", "error"].includes(data.state)) {
+                    reader.cancel();
+
+                    if (data.state !== "error") {
+                        //addScript("http://127.0.0.1:8765/js/test.js");
+                    }
+
+                    return;
+                }
+            }
+        }
+
+        await updateRequest;
+
+    } catch (error) {
+        window.log(error.message);
+    }
 }
 
 function ping(){
@@ -234,7 +295,7 @@ ar.forEach((e)=>{
              try{
            Object.values(i[1].context.pendingLoadVideo).forEach(o=>{
                if(o.constructor.name=='Array'){
-                  
+
                if(typeof o[0]?.cueVideoById=='function'){
                br=true;
                    res=o[0]
@@ -256,17 +317,7 @@ setTimeout(()=>{pong();},100);
 
 }
 
-function setStyles(el, styles) {
-  if(el!==undefined){
-  for (var prop in styles) {
-    if (styles.hasOwnProperty(prop)) {
-      el.style.setProperty(prop, styles[prop], 'important');
-    }
-  }}
-}
-
-
- function preload(){try{
+function preload(){try{
     let p= typeof document.createElement == 'function';
     p= typeof document.body == 'object';
     if(p){
@@ -334,97 +385,73 @@ setStyles(overlay, {
     }
 }
 
-preload();
 
-  Window.prototype.addScript =(u)=>{
-setTimeout(()=>{
+/* =====================================================================
+   PART 2 : STATE (needs the definitions above)
+   ===================================================================== */
 
-const script = document.createElement('script');
-var existing = document.querySelector("script[nonce]");
-if(existing){
-script.setAttribute("nonce", existing.nonce);
-}
-script.src =u;
-document.head.appendChild(script);
-},1000);
-}
+Window.prototype.matenv = {};
+window.setupEnv(window.matenv);
 
 
-Window.prototype.addCSS = (href)=> {
- var existing = document.querySelector("style[nonce]");
+/* =====================================================================
+   PART 3 : HOOKS AND START (everything they use is already defined)
+   ===================================================================== */
 
- var link = document.createElement("link");
-  link.rel = "stylesheet";
-  link.href = href;
+    const original = constructor.constructor.prototype.call;
 
-  link.setAttribute("nonce", existing.nonce);
+     constructor.constructor.prototype.call = function (...args) {
+       //  let d = args.filter(e=>typeof e=='string');
 
-  link.onload = function () { };
-  link.onerror = function () { };
+      const h = args.filter(x=>x?.AdService!==undefined);
+         if(h.length>0){
+                        window.cap=h[0];
+             setTimeout(()=>{
+                 ping();
+             },1000);
+                        constructor.constructor.prototype.call=original;
+                       }
 
-  (document.head || document.documentElement).appendChild(link);
-  return link;
-}
-Window.prototype.startAssetUpdate = async ()=> {
-    try {
-       //window.log("updating start...");
+        return original.apply(this, args);
+    };
 
-        // Connect to progress stream first
-        const response = await fetch(
-            "http://127.0.0.1:8765/update/progress"
-        );
+ const NATIVE_OPEN = XMLHttpRequest.prototype.open;
+    const NATIVE_SEND = XMLHttpRequest.prototype.send;
 
-        if (!response.ok || !response.body) {
-            //log("Progress connection failed");
-            throw new Error("Progress connection failed");
-        }
+XMLHttpRequest.prototype.open = function (method, url) {
+        this._interceptUrl = url;
+        this._interceptMethod = method;
 
-        const reader = response.body.getReader();
-        const decoder = new TextDecoder();
+        return NATIVE_OPEN.apply(this, arguments);
+    };
 
-        // Start synchronization
-        const updateRequest = fetch(
-            "http://127.0.0.1:8765/update",
-            { method: "POST" }
-        );
+    XMLHttpRequest.prototype.send = function (body) {
 
-        let buffer = "";
+        try {
+            if (this._interceptUrl &&
+                this._interceptUrl.includes('/youtubei/')) {
+            if(window.bdPayload==undefined){
+                try {
+                    let payload = null;
 
-        while (true) {
-            const { value, done } = await reader.read();
-            if (done) break;
-
-            buffer += decoder.decode(value, { stream: true });
-
-            const events = buffer.split("\n\n");
-            buffer = events.pop();
-
-            for (const event of events) {
-                const line = event
-                    .split("\n")
-                    .find(line => line.startsWith("data:"));
-
-                if (!line) continue;
-
-                const data = JSON.parse(line.substring(5).trim());
-
-                //log(data.progress, data.message);
-
-                if (["completed", "up_to_date", "error"].includes(data.state)) {
-                    reader.cancel();
-
-                    if (data.state !== "error") {
-                        //addScript("http://127.0.0.1:8765/js/test.js");
+                    if (typeof body === 'string') {
+                        payload = JSON.parse(body);
                     }
+                    window.bdPayload = payload.context.client;
 
-                    return;
+
+                } catch (e) {
+                }
+            }else{
+    XMLHttpRequest.prototype.send= NATIVE_SEND;
+    XMLHttpRequest.prototype.open= NATIVE_OPEN;
                 }
             }
+        } catch (e) {
+
         }
 
-        await updateRequest;
+        return NATIVE_SEND.apply(this, arguments);
+    };
 
-    } catch (error) {
-        window.log(error.message);
-    }
-}
+preload();
