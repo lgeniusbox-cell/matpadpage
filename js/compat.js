@@ -1,3 +1,9 @@
+//debug::
+function log(...args){
+    if(window.boxdebug!==undefined){
+    window.boxdebug.textContent=args.join(' | ');
+      }
+}
 //override::
  const NATIVE_OPEN = XMLHttpRequest.prototype.open;
     const NATIVE_SEND = XMLHttpRequest.prototype.send;
@@ -17,7 +23,7 @@ XMLHttpRequest.prototype.open = function (method, url) {
             if(window.bdPayload==undefined){
                 try {
                     let payload = null;
-
+                    
                     if (typeof body === 'string') {
                         payload = JSON.parse(body);
                     }
@@ -38,7 +44,38 @@ XMLHttpRequest.prototype.open = function (method, url) {
         return NATIVE_SEND.apply(this, arguments);
     };
 
+
+
+window.captured = {
+    api: []     
+  };
+
+  
+
+  function classify(obj) {
+    if (!obj || typeof obj !== "object" || seen.has(obj)) return;
+    try {
+      // API facade
+      if (typeof obj.getPresentingPlayerType === "function" &&
+          typeof obj.getVideoData === "function" &&
+          typeof obj.loadVideoByPlayerVars === "function") {
+        window.captured.api.push(obj); seen.add(obj); return;
+      }
+
+  
+    } catch (e) {}
+  }
+
+  const origApply = Function.prototype.apply;
+  Function.prototype.apply = function (self, args) {
+    try { if (self && typeof self === "object") classify(self); } catch (e) {}
+    return origApply.call(this, self, args);
+  };
+
 //init
+
+Window.prototype.policy = null;
+Window.prototype.matenv = {};
 
 function setStyles(el, styles) {
   if(el!==undefined){
@@ -98,12 +135,7 @@ Window.prototype.addCSS = (href)=> {
 }
 
 
-function log(...args){
-    if(window.boxdebug!==undefined){
-    window.boxdebug.textContent=args.join(' | ');
-      
-      }
-}
+
 
 
 Window.prototype.startAssetUpdate = async ()=> {
@@ -257,40 +289,7 @@ EventTarget.prototype.addEventListener = function (type, listener, options) {
   return orig.call(this, type, listener, options);
 };*/
 
-Window.prototype.policy = null;
-Window.prototype.matenv = {};
 
-window.captured = {
-    api: [],        // RW/WW facade
-    q3: [],         // inner player
-    loader: [],     // i1/v1 streaming loader
-    abr: [],        // uQa
-    mediaSource: [],// NL
-    mediaElement: [],// e4/y2
-      more:[],
-  };
-
-  
-
-  function classify(obj) {
-    if (!obj || typeof obj !== "object" || seen.has(obj)) return;
-    try {
-      // API facade
-      if (typeof obj.getPresentingPlayerType === "function" &&
-          typeof obj.getVideoData === "function" &&
-          typeof obj.loadVideoByPlayerVars === "function") {
-        window.captured.api.push(obj); seen.add(obj); return;
-      }
-
-  
-    } catch (e) {}
-  }
-
-  const origApply = Function.prototype.apply;
-  Function.prototype.apply = function (self, args) {
-    try { if (self && typeof self === "object") classify(self); } catch (e) {}
-    return origApply.call(this, self, args);
-  };
 function setupEnv(e){
       log('setup env..');
     e.videoSelector = 'ytlr-player-container';
