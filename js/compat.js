@@ -60,8 +60,13 @@ ar.forEach((e)=>{
             if(br)return;
              try{
            Object.values(i[1].context.pendingLoadVideo).forEach(o=>{
+               if(Array.isArray(o)){
+               if(typeof o[0]?.cueVideoById=='function'){
                br=true;
-              res= Array.isArray(o)?typeof o[0]?.cueVideoById=='function'?o[0]:{}:{};
+                   res=o[0]
+               }
+               }
+
            })
              }catch{}
         });
