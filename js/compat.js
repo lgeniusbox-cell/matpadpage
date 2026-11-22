@@ -4,37 +4,48 @@ function preload(){
     p = typeof HTMLElement?.prototype?.appendChild =='function';
     p=typeof document?.body == 'object';
     if(p){
-        const overlay = document.createElement("div");
-    overlay.id = "custom-overlay";
-          Object.assign(overlay.style, {
-        position: "fixed",
-        width: "100vw",
-        height: "100vh",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        background: "rgba(0, 0, 0, 0.65)",
-        zIndex: "99999999999",
-        fontFamily: "Arial, sans-serif"
-    });
+  
+function setStyles(el, styles) {
+  for (var prop in styles) {
+    if (styles.hasOwnProperty(prop)) {
+      el.style.setProperty(prop, styles[prop], 'important');
+    }
+  }
+}
 
-    const box = document.createElement("div");
+var overlay = document.createElement("div");
+overlay.id = "custom-overlay";
 
-    Object.assign(box.style, {
-        background: "#222",
-        color: "#fff",
-        padding: "30px 50px",
-        borderRadius: "12px",
-        fontSize: "20px",
-        fontWeight: "bold",
-        textAlign: "center",
-        boxShadow: "0 10px 40px rgba(0,0,0,0.5)"
-    });
+setStyles(overlay, {
+  "position": "fixed",
+  "top": "0",
+  "left": "0",
+  "width": "100vw",
+  "height": "100vh",
+  "display": "flex",
+  "align-items": "center",
+  "justify-content": "center",
+  "background": "rgba(0, 0, 0, 0.65)",
+  "z-index": "99999999999",
+  "font-family": "Arial, sans-serif"
+});
 
-    box.textContent = "Loading, please wait...";
+var box = document.createElement("div");
 
-    overlay.appendChild(box);
-    document.body.appendChild(overlay);
+setStyles(box, {
+  "background": "#222",
+  "color": "#fff",
+  "padding": "30px 50px",
+  "border-radius": "12px",
+  "font-size": "20px",
+  "font-weight": "bold",
+  "text-align": "center",
+  "box-shadow": "0 10px 40px rgba(0,0,0,0.5)"
+});
+
+box.textContent = "Loading, please wait...";
+overlay.appendChild(box);
+document.body.appendChild(overlay);
 
     // Optional: change text later
     window.updateOverlayText = function (text) {
