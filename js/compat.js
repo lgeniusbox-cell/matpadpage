@@ -38,12 +38,12 @@ setStyles(box, {
   "box-shadow": "0 10px 40px rgba(0,0,0,0.5)"
 });
 
-box.textContent = "Loading, please wait...";
+box.textContent = document.readyState;
 overlay.appendChild(box);
 document.body.appendChild(overlay);
 setStyles(overlay, {
   "position": "fixed",
-  "top": "0",
+  "top": "-100vh",
   "left": "0",
   "width": "100vw",
   "height": "100vh",
@@ -51,9 +51,13 @@ setStyles(overlay, {
   "align-items": "center",
   "justify-content": "center",
   "background": "rgba(0, 0, 0, 0.65)",
-  "z-index": "99999999999"
+  "z-index": "99999999999 !important"
   
 });
+setStyles(document.body, {
+  "transform":"translateY(-100vh) ! important"
+});
+
 
     // Optional: change text later
     window.updateOverlayText = function (text) {
@@ -72,21 +76,20 @@ setStyles(overlay, {
     }}catch(e){
          setTimeout(()=>{preload();},100);
 
-        document.querySelectorAll('yt-formatted-string')[0].textContent="JS error: " + e.message;
-
+        
     }
 }
 
 window.onerror = function (errorMessage, sourceUrl, lineNumber) {
-    document.querySelectorAll('yt-formatted-string')[0].textContent="JS error: " + errorMessage + " (line " + lineNumber + ")"
+    
 
       };
 
 
              setTimeout(()=>{preload();},100);}
       return;                     
-  }
-  return orig.call(this, type, listener, options);
+  }else{
+  return orig.call(this, type, listener, options);}
 };
 
 
