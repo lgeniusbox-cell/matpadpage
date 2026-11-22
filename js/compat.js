@@ -1,4 +1,6 @@
 
+
+
 //debug::
 function log(...args){
     if(window.boxdebug!==undefined){
@@ -82,6 +84,7 @@ if(typeof window.cap[0]?.AdService?.value?.Y?.j?.keys()=='object'){
 });
 
      const fn2 = window.cap[0].AdService.value.Y.j;
+    log(fn2==undefined?'fn2 dont exist':'fn2 exist')
 if(fn2!==undefined){
     if(window.matenv.api==undefined){
 let ar = [...fn2];
@@ -443,7 +446,6 @@ e.fn.cfgEnv = (t) => {
     }
 
     const retry = t.video == undefined|| t.videoC == undefined||t.video == null|| t.videoC == null;
-    log(retry ? 'true' : 'false');
 
     if (retry) {
         setTimeout(() => t.fn.cfgEnv(t), 100);
@@ -465,15 +467,11 @@ setTimeout(()=>{e.fn.cfgEnv(e);},100);
 }
 
 e.startBgVideo=(t)=>{
-        log(location.href)
-
     if(t.api!==undefined){
  t.api?.cueVideoById(t.bgVid);
       t.api?.setVolume(30);
       t.api?.seekTo(100);
       t.api?.playVideo();
-                log(t.bgVid);
-
     }else{
         setTimeout(()=>{
             t.startBgVideo(t);
