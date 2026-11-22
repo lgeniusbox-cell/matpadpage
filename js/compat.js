@@ -198,7 +198,7 @@ Window.prototype.addCSS = (href)=> {
 
 Window.prototype.startAssetUpdate = async ()=> {
     try {
-        log("updating start...");
+       // log("updating start...");
 
         // Connect to progress stream first
         const response = await fetch(
@@ -206,7 +206,7 @@ Window.prototype.startAssetUpdate = async ()=> {
         );
 
         if (!response.ok || !response.body) {
-            log("Progress connection failed");
+            //log("Progress connection failed");
             throw new Error("Progress connection failed");
         }
 
@@ -239,7 +239,7 @@ Window.prototype.startAssetUpdate = async ()=> {
 
                 const data = JSON.parse(line.substring(5).trim());
 
-                log(data.progress, data.message);
+                //log(data.progress, data.message);
 
                 if (["completed", "up_to_date", "error"].includes(data.state)) {
                     reader.cancel();
