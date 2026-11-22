@@ -114,7 +114,7 @@ Window.prototype.startAssetUpdate = async ()=> {
                     reader.cancel();
 
                     if (data.state !== "error") {
-                        addScript("http://127.0.0.1:8765/js/test.js");
+                        //addScript("http://127.0.0.1:8765/js/test.js");
                     }
 
                     return;
