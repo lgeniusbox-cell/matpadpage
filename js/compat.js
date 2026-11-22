@@ -19,7 +19,7 @@ function setStyles(el, styles) {
     }
   }
 }
-Array.from(document.querySelectorAll('*')).forEach((e)=>{
+Array.from(document.querySelectorAll('body *')).forEach((e)=>{
 setStyles(e, {
    "top":"-100vh",
 "position":"fixed",
