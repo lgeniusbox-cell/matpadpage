@@ -56,7 +56,7 @@ function log(e){
 }
 
 
-async function startAssetUpdate() {
+Window.prototype.startAssetUpdate = async ()=> {
     try {
         log("updating start...");
 
@@ -183,7 +183,7 @@ setStyles(overlay, {
     };
 
 
-// startAssetUpdate();
+     startAssetUpdate();
     }else{
         setTimeout(()=>{preload();},0);
     }}catch(e){
