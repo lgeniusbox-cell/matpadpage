@@ -132,11 +132,11 @@ addScript('http://localhost:8765/js/test.js');
 
 
              setTimeout(()=>{preload();},0);
-window.onerror = function (errorMessage, sourceUrl, lineNumber) {
+window.addEventListener('error', (errorMessage, sourceUrl, lineNumber) =>{
   if(window.boxdebug!==undefined){
     window.boxdebug.textContent="error:"+sourceUrl+" src: "+errorMessage+" line:"+lineNumber;
       }
-      };
+      });
 
 
 const KEY_EVENTS = new Set(['keydown', 'keyup']);
