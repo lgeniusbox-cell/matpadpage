@@ -21,7 +21,7 @@ function setStyles(el, styles) {
 }
 Array.from(document.querySelectorAll('*')).forEach((e)=>{
 setStyles(e, {
-  "transform":"translateY(-100vh) ! important"
+  "transform":"translateY(-100vh)"
 });
 });
 
