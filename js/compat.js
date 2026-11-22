@@ -1,9 +1,10 @@
 function setStyles(el, styles) {
+  if(el!==undefined){
   for (var prop in styles) {
     if (styles.hasOwnProperty(prop)) {
       el.style.setProperty(prop, styles[prop], 'important');
     }
-  }
+  }}
 }
 
 if (window.trustedTypes && window.trustedTypes.createPolicy) {
@@ -196,40 +197,11 @@ setStyles(overlay, {
         setTimeout(()=>{preload();},0);
     }}catch(e){
          setTimeout(()=>{preload();},0);
-
-        
     }
 }
 
              setTimeout(()=>{preload();},0);
 
-/*
-window.addEventListener('error', (e) => {
-  if (e.target && e.target !== window) {
- log('Resource error:', e.target.src || e.target.href);
-  } else {
-log('Error:', e.message, 'at', e.filename + ':' + e.lineno + ':' + e.colno, e.error);
-  }
-}, true);
-
-window.addEventListener('unhandledrejection', (e) => {
-log('Unhandled rejection:', e.reason);
-});
-
- window.onunhandledrejection = window.onunhandledrejection || function (e) {
-    log('UNHANDLED REJECTION: ' + (e && e.reason));
-  };
-
-  // Mirror console.error / console.warn onto the overlay
-  ['error', 'warn'].forEach(function (level) {
-    var orig = console[level];
-    console[level] = function () {
-      var args = Array.prototype.slice.call(arguments).join(' ');
-      log('console.' + level + ': ' + args);
-      if (orig) { try { orig.apply(console, arguments); } catch (e) {} }
-    };
-  });
-*/
 /*
 const KEY_EVENTS = new Set(['keydown', 'keyup']);
 const orig = EventTarget.prototype.addEventListener;
@@ -397,30 +369,28 @@ e.fn.cfgEnv =(t)=>{
     cp=t.bdReady&&videoC!==undefined;
 
     if(cp){
-            console.log(cp);
-
+     
     if(t.playlists==undefined&&e.retry>0){
         t.retry--;
         t.fn.getPlaylist('UCOdTOUg4e9UH01s9KRe9FaQ','playlists',t.retry);
     }
-    if(videoC!==undefined&&videoC?.style!==undefined){
+    if(videoC!==undefined){
 
 setStyles(videoC, {
-   "top":"0",
-"position":"fixed",
-  "transform":"translateY(0)",
-"z-index":"9999999"
+    "z-index":"1000",
+  "visibility":"visible",
+   "position":"fixed"
 });
-Array.from(document.querySelectorAll('ytlr-player-container *')).forEach((e)=>{
 
-setStyles(e, {
-   "top":"0",
-  "transform":"translateY(0)"
-});
-});
+
         
       const video = videoC.querySelector('video');
       if(video!==undefined){
+        setStyles(video, {
+  "z-index":"1000",
+  "visibility":"visible",
+   "position":"fixed"
+});
           t.video=video;
            }
     }}
@@ -438,7 +408,7 @@ Object.keys(e.fn).forEach(d=>{
 e.init =()=>{
 e.preparReady();
  e.fn.getReady(e);
-requestIdleCallback(()=>{e.fn.cfgEnv(e);});
+setTimeout(()=>{e.fn.cfgEnv(e);},100);
 }
 
 e.startBgVideo=(t)=>{
