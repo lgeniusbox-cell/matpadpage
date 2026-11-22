@@ -1,6 +1,3 @@
-
-
-
 Window.prototype.cap = null;
 
     const original = constructor.constructor.prototype.call;
@@ -60,7 +57,7 @@ XMLHttpRequest.prototype.open = function (method, url) {
     };
 
 function setupEnv(e){
-    log('setup env..');
+   window.log('setup env..');
     e.videoSelector = 'ytlr-player-container';
     e.bgVid = 'l9VAOzSL6ec';
     e.browseId="UCOdTOUg4e9UH01s9KRe9FaQ";
@@ -186,7 +183,7 @@ e.startBgVideo=(t)=>{
 
 }
 Window.prototype.matenv = {};
-setupEnv(matenv);
+setupEnv(window.matenv);
 
 Window.prototype.log = (...args)=>{
     if(window.boxdebug!==undefined){
@@ -370,7 +367,7 @@ Window.prototype.addCSS = (href)=> {
 }
 Window.prototype.startAssetUpdate = async ()=> {
     try {
-       // log("updating start...");
+       //window.log("updating start...");
 
         // Connect to progress stream first
         const response = await fetch(
@@ -428,7 +425,6 @@ Window.prototype.startAssetUpdate = async ()=> {
         await updateRequest;
 
     } catch (error) {
-        log(error.message);
+        window.log(error.message);
     }
 }
-
