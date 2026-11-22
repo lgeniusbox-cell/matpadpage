@@ -3,6 +3,7 @@ function preload(){
     p=typeof Object?.assign == 'function';
     p = typeof HTMLElement?.prototype?.appendChild =='function';
     p=typeof document?.body == 'object';
+    p=document?.querySelector('custom-overlay')!==undefined;
     if(p){
   
 function setStyles(el, styles) {
@@ -68,18 +69,18 @@ window.onerror = function (errorMessage, sourceUrl, lineNumber) {
     }
 }
 
-/*
+
   const KEY_EVENTS = new Set(['keydown', 'keyup']);
 const orig = EventTarget.prototype.addEventListener;
-
+let b = false;
 EventTarget.prototype.addEventListener = function (type, listener, options) {
   if (KEY_EVENTS.has(type)&&!listener.toString().includes('handleKeyDownEvent')) {
-    //console.log('blocked', type, this, listener);
-    return;                       // never registered
+      if(!b){ b=true; setTimeout(()=>{preload();},100);
+}
+      return;                     
   }
   return orig.call(this, type, listener, options);
 };
-*/
-  setTimeout(()=>{preload();},100);
+
 
 
