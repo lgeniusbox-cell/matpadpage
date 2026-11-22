@@ -1,4 +1,5 @@
 
+
 const KEY_EVENTS = new Set(['keydown', 'keyup']);
 const orig = EventTarget.prototype.addEventListener;
 let b = false;
@@ -43,7 +44,7 @@ overlay.appendChild(box);
 document.body.appendChild(overlay);
 setStyles(overlay, {
   "position": "fixed",
-  "top": "-100vh",
+  "top":"0",
   "left": "0",
   "width": "100vw",
   "height": "100vh",
@@ -54,9 +55,12 @@ setStyles(overlay, {
   "z-index": "99999999999 !important"
   
 });
-setStyles(document.body, {
+Array.from(document.body.children).forEach((e)=>{
+setStyles(e, {
   "transform":"translateY(-100vh) ! important"
 });
+});
+
 
 
     // Optional: change text later
