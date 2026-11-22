@@ -415,7 +415,8 @@ if(r>0){setTimeout(e.fn.getPlaylist(t),2000);r--;}
 e.fn.cfgEnv =(t)=>{
     if(t.video==undefined||t.videoC==undefined){
     let videoC =document.querySelector('ytlr-player-container');
-    const video = videoC.querySelector('video');
+        if(videoC!==undefined){
+                const video = videoC.querySelector('video');
 setStyles(videoC, {
     "z-index":"1000",
   "visibility":"visible",
@@ -428,6 +429,8 @@ setStyles(videoC, {
 });
         t.video=video;
         t.videoC=videoC;
+        }
+
     }        
     let cp = t.video!==undefined||t.videoC!==undefined;
             log(cp?'true':'false');
