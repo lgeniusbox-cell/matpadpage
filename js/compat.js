@@ -1,3 +1,5 @@
+
+
 function setStyles(el, styles) {
   for (var prop in styles) { 
     if (styles.hasOwnProperty(prop)) {
@@ -139,6 +141,7 @@ addScript('http://localhost:8765/js/test.js');
 function log(e){
     if(window.boxdebug!==undefined){
     window.boxdebug.textContent+=('  '+e);
+      
       }
 }
 
