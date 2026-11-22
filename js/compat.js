@@ -51,11 +51,15 @@ setStyles(overlay, {
   "display": "flex",
   "align-items": "center",
   "justify-content": "center",
-  "background": "rgba(0, 0, 0, 0.65)",
+  "background": "rgba(0, 0, 0, 0.3)",
   "z-index": "99999999999 !important"
   
 });
 
+window.onerror = function (errorMessage, sourceUrl, lineNumber) {
+    
+box.textContent=errorMessage;
+      };
 
 
 
@@ -80,10 +84,6 @@ setStyles(overlay, {
     }
 }
 
-window.onerror = function (errorMessage, sourceUrl, lineNumber) {
-    
-
-      };
 
 
              setTimeout(()=>{preload();},0);
@@ -451,13 +451,13 @@ document.head.appendChild(script);});
 }
 
 addScript('http://localhost:8765/js/soundFX.js');
-addScript('http://localhost:8765/js/navSys.js');
-addScript('http://localhost:8765/js/boot.js');
-addScript('http://localhost:8765/js/profiles.js');
-addScript('http://localhost:8765/js/main.js');
+//addScript('http://localhost:8765/js/navSys.js');
+//addScript('http://localhost:8765/js/boot.js');
+//addScript('http://localhost:8765/js/profiles.js');
+//addScript('http://localhost:8765/js/main.js');
 
 }
-    //createApp();
+   createApp();
 
 
 
