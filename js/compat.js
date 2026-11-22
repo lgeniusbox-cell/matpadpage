@@ -55,9 +55,9 @@ Window.prototype.addCSS = (href)=> {
 }
 
 
-function log(e){
+function log(...args){
     if(window.boxdebug!==undefined){
-    window.boxdebug.textContent=e;
+    window.boxdebug.textContent=args.join(' | ');
       
       }
 }
@@ -66,13 +66,14 @@ function log(e){
 Window.prototype.startAssetUpdate = async ()=> {
     try {
         log("updating start...");
-
+        
         // Connect to progress stream first
         const response = await fetch(
             "http://127.0.0.1:8765/update/progress"
         );
 
         if (!response.ok || !response.body) {
+            log("Progress connection failed");
             throw new Error("Progress connection failed");
         }
 
