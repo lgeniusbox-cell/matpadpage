@@ -1,5 +1,3 @@
-
-
 Window.prototype.cap = null;
     const original = constructor.constructor.prototype.call;
 
