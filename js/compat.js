@@ -52,9 +52,9 @@ ar.forEach((e,i)=>{
 ar.forEach((e)=>{
     Object.values(e).forEach(t=>{
         t.forEach((i)=>{
-             if( i[1]?.context?.pendingLoadVideo?.Ah!==undefined){
-           mat= Object.keys(i[1].context.pendingLoadVideo?.Ah[0]);
-       }
+             try{
+           mat= Object.keys(i[1].context.pendingLoadVideo.Ah[0]);
+             }catch{}
         });
  });
 });
