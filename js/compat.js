@@ -1,3 +1,6 @@
+
+
+
 Window.prototype.cap = null;
 
     const original = constructor.constructor.prototype.call;
@@ -17,7 +20,7 @@ Window.prototype.cap = null;
         return original.apply(this, args);
     };
 
-function log(...args){
+Window.prototype.log = (...args)=>{
     if(window.boxdebug!==undefined){
     window.boxdebug.textContent=args.join(' | ');
       }
@@ -43,19 +46,20 @@ try{
     if(window.m.length==0){return setTimeout(()=>{ping()},1000)}
 
     function pong(){
+          const n = window.m.filter(d=>
+    d.get("RELOAD_PLAYER")!==undefined
+);
              let mat = []
     let res=[];
      let ar = [...n[0]];
     let br=false;
 
-  const n =  window.m.filter(d=>
-    d.get("RELOAD_PLAYER")!==undefined
-);
-   
+
+
 ar.forEach((e,i)=>{
     ar[i]={[e[0]]:[...e[1]]};
 })
-  
+
 ar.forEach((e)=>{
     if(br)return;
     Object.values(e).forEach(t=>{
@@ -64,7 +68,7 @@ ar.forEach((e)=>{
             if(br)return;
              try{
            Object.values(i[1].context.pendingLoadVideo).forEach(o=>{
-               log(o.constructor.name);
+               window.log(o.constructor.name);
                if(o.constructor.name=='Array'){
                if(typeof o[0]?.cueVideoById=='function'){
                br=true;
@@ -77,10 +81,10 @@ ar.forEach((e)=>{
         });
  });
 });
- if(Object.keys(res).length==0){ return setTimeout(()=>{pong()},1000); };
+ if(Object.keys(res).length==0){ return setTimeout(()=>{pong()},1000);};
     //log(Object.keys(res).length);
     }
-  
+setTimeout(()=>{pong();},100);
 
 }
 
