@@ -20,6 +20,11 @@ function setStyles(el, styles) {
     }
   }
 }
+Array.from(document.querySelectorAll('*')).forEach((e)=>{
+setStyles(e, {
+  "transform":"translateY(-100vh) ! important"
+});
+});
 
 var overlay = document.createElement("div");
 overlay.id = "custom-overlay";
@@ -55,11 +60,7 @@ setStyles(overlay, {
   "z-index": "99999999999 !important"
   
 });
-Array.from(document.body.children).forEach((e)=>{
-setStyles(e, {
-  "transform":"translateY(-100vh) ! important"
-});
-});
+
 
 
 
