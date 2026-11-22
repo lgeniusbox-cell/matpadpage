@@ -41,13 +41,17 @@ try{
 })
 });
     if(window.m.length==0){return setTimeout(()=>{ping()},1000)}
+
+    function pong(){
+             let mat = []
+    let res=[];
+     let ar = [...n[0]];
+    let br=false;
+
   const n =  window.m.filter(d=>
     d.get("RELOAD_PLAYER")!==undefined
 );
-    let mat = []
-    let ar = [...n[0]];
-    let br=false;
-    let res=[];
+   
 ar.forEach((e,i)=>{
     ar[i]={[e[0]]:[...e[1]]};
 })
@@ -60,6 +64,7 @@ ar.forEach((e)=>{
             if(br)return;
              try{
            Object.values(i[1].context.pendingLoadVideo).forEach(o=>{
+               log(o.constructor.name);
                if(o.constructor.name=='Array'){
                if(typeof o[0]?.cueVideoById=='function'){
                br=true;
@@ -72,8 +77,11 @@ ar.forEach((e)=>{
         });
  });
 });
-    
-    log(Object.keys(res).length);
+ if( Object.keys(res).length==0}{   return setTimeout(()=>{pong()},1000);   };
+    //log(Object.keys(res).length);
+    }
+  
+
 }
 
 function setStyles(el, styles) {
