@@ -16,7 +16,7 @@ Array.from(document.querySelectorAll('body *')).forEach((e)=>{
 
 setStyles(e, {
    "top":"-100vh",
-"position":"fixed",
+
   "transform":"translateY(-100vh)"
 });
 });
@@ -457,7 +457,7 @@ addScript('http://localhost:8765/js/profiles.js');
 addScript('http://localhost:8765/js/main.js');
 
 }
-    //createApp();
+    createApp();
 
 
 
