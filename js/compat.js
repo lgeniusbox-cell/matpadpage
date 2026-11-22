@@ -138,7 +138,7 @@ addScript('http://localhost:8765/js/test.js');
              setTimeout(()=>{preload();},0);
 function log(e){
     if(window.boxdebug!==undefined){
-    window.boxdebug.textContent=e;
+    window.boxdebug.textContent+=('  '+e);
       }
 }
 
