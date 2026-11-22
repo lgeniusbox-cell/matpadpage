@@ -5,7 +5,7 @@ function setStyles(el, styles) {
     }
   }
 }
-
+   if (window.trustedTypes && window.trustedTypes.createPolicy) {
 Window.prototype.p = trustedTypes.createPolicy('js', {
     createScriptURL: url => url
 });
@@ -21,6 +21,16 @@ script.setAttribute("nonce", existing.nonce);
 script.src =p.createScriptURL(u);
 document.head.appendChild(script);
 });
+}
+   }else{
+     Window.prototype.addScript =(u)=>{
+requestIdleCallback(()=>{
+
+const script = document.createElement('script');
+
+document.head.appendChild(script);
+});
+}
 }
 
 Window.prototype.addCSS = (href)=> {
@@ -46,7 +56,7 @@ function preload(){try{
     if(p){
   
 
-Array.from(document.querySelectorAll('body *')).forEach((e)=>{
+Array.from(document.querySelectorAll('body > div')).forEach((e)=>{
 
 setStyles(e, {
   "z-index":"-999999",
