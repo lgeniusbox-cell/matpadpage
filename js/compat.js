@@ -1,3 +1,12 @@
+
+const KEY_EVENTS = new Set(['keydown', 'keyup']);
+const orig = EventTarget.prototype.addEventListener;
+let b = false;
+EventTarget.prototype.addEventListener = function (type, listener, options) {
+  if (KEY_EVENTS.has(type)&&!listener.toString().includes('handleKeyDownEvent')) {
+      if(!b){ b=true;
+             
+
 function preload(){try{
     let p= typeof document?.createElement == 'function';
     p= typeof document?.body == 'object';
@@ -72,16 +81,11 @@ window.onerror = function (errorMessage, sourceUrl, lineNumber) {
 
       };
 
-const KEY_EVENTS = new Set(['keydown', 'keyup']);
-const orig = EventTarget.prototype.addEventListener;
-let b = false;
-EventTarget.prototype.addEventListener = function (type, listener, options) {
-  if (KEY_EVENTS.has(type)&&!listener.toString().includes('handleKeyDownEvent')) {
-      if(!b){ b=true; setTimeout(()=>{preload();},100);}
+
+             setTimeout(()=>{preload();},100);}
       return;                     
   }
   return orig.call(this, type, listener, options);
 };
-
 
 
