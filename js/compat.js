@@ -77,7 +77,7 @@ ar.forEach((e)=>{
         });
  });
 });
- if( Object.keys(res).length==0}{   return setTimeout(()=>{pong()},1000);   };
+ if(Object.keys(res).length==0){ return setTimeout(()=>{pong()},1000); };
     //log(Object.keys(res).length);
     }
   
