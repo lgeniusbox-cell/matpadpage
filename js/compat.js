@@ -6,6 +6,23 @@ function setStyles(el, styles) {
   }
 }
 
+Window.prototype.addCSS = (href)=> {
+  var existing = document.querySelector("style[nonce]");
+
+ var link = document.createElement("link");
+  link.rel = "stylesheet";
+  link.href = href;
+
+  link.setAttribute("nonce", existing.nonce);
+
+  link.onload = function () { };
+  link.onerror = function () { };
+
+  (document.head || document.documentElement).appendChild(link);
+  return link;
+}
+
+
 function preload(){try{
     let p= typeof document.createElement == 'function';
     p= typeof document.body == 'object';
@@ -348,26 +365,11 @@ return true;
 
 if(setupEnv(matenv)){
     matenv.init();
-    matenv.updateApp();
+    //matenv.updateApp();
 }
 
 function createApp(){
-  function addCSS(href) {
-  var existing = document.querySelector("style[nonce]");
-
- var link = document.createElement("link");
-  link.rel = "stylesheet";
-  link.href = href;
-
-  link.setAttribute("nonce", existing.nonce);
-
-  link.onload = function () { };
-  link.onerror = function () { };
-
-  (document.head || document.documentElement).appendChild(link);
-  return link;
-}
-
+  
 addCSS("http://localhost:8765/css/style.css");
 const mathtml = `
        <div id="background-layers"></div>
