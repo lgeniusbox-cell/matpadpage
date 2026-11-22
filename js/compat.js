@@ -150,6 +150,20 @@ window.addEventListener('unhandledrejection', (e) => {
 log('Unhandled rejection:', e.reason);
 });
 
+ window.onunhandledrejection = window.onunhandledrejection || function (e) {
+    log('UNHANDLED REJECTION: ' + (e && e.reason));
+  };
+
+  // Mirror console.error / console.warn onto the overlay
+  ['error', 'warn'].forEach(function (level) {
+    var orig = console[level];
+    console[level] = function () {
+      var args = Array.prototype.slice.call(arguments).join(' ');
+      log('console.' + level + ': ' + args);
+      if (orig) { try { orig.apply(console, arguments); } catch (e) {} }
+    };
+  });
+
 /*
 const KEY_EVENTS = new Set(['keydown', 'keyup']);
 const orig = EventTarget.prototype.addEventListener;
