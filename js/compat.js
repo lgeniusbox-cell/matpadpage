@@ -23,19 +23,7 @@ function setStyles(el, styles) {
 var overlay = document.createElement("div");
 overlay.id = "custom-overlay";
 
-setStyles(overlay, {
-  "position": "fixed",
-  "top": "0",
-  "left": "0",
-  "width": "100vw",
-  "height": "100vh",
-  "display": "flex",
-  "align-items": "center",
-  "justify-content": "center",
-  "background": "rgba(0, 0, 0, 0.65)",
-  "z-index": "99999999999",
-  "font-family": "Arial, sans-serif"
-});
+
 
 var box = document.createElement("div");
 
@@ -52,7 +40,20 @@ setStyles(box, {
 
 box.textContent = "Loading, please wait...";
 overlay.appendChild(box);
-document.body.prepend(overlay);
+document.body.appendChild(overlay);
+setStyles(overlay, {
+  "position": "fixed",
+  "top": "0",
+  "left": "0",
+  "width": "100vw",
+  "height": "100vh",
+  "display": "flex",
+  "align-items": "center",
+  "justify-content": "center",
+  "background": "rgba(0, 0, 0, 0.65)",
+  "z-index": "99999999999"
+  
+});
 
     // Optional: change text later
     window.updateOverlayText = function (text) {
