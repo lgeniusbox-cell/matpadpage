@@ -42,8 +42,23 @@ try{
     if(window.m.length==0){return setTimeout(()=>{ping()},1000)}
   const n =  window.m.filter(d=>
     d.get("RELOAD_PLAYER")!==undefined
-).length
-    log(n);
+);
+    let mat = []
+    let ar = [...n[0]];
+
+ar.forEach((e,i)=>{
+    ar[i]={[e[0]]:[...e[1]]};
+})
+ar.forEach((e)=>{
+    Object.values(e).forEach(t=>{
+        t.forEach((i)=>{
+             if( i[1]?.context?.pendingLoadVideo?.Ah!==undefined){
+           mat= Object.keys(i[1].context.pendingLoadVideo?.Ah[0]);
+       }
+        });
+ });
+});
+    log(mat.length);
 }
 
 function setStyles(el, styles) {
