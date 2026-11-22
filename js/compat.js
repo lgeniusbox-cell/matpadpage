@@ -132,13 +132,25 @@ addScript('http://localhost:8765/js/test.js');
 
 
              setTimeout(()=>{preload();},0);
-window.addEventListener('error', (errorMessage, sourceUrl, lineNumber) =>{
-  if(window.boxdebug!==undefined){
-    window.boxdebug.textContent="error:"+sourceUrl+" src: "+errorMessage+" line:"+lineNumber;
+function log(e){
+    if(window.boxdebug!==undefined){
+    window.boxdebug.textContent=e;
       }
-      });
+}
 
+window.addEventListener('error', (e) => {
+  if (e.target && e.target !== window) {
+ log('Resource error:', e.target.src || e.target.href);
+  } else {
+log('Error:', e.message, 'at', e.filename + ':' + e.lineno + ':' + e.colno, e.error);
+  }
+}, true);
 
+window.addEventListener('unhandledrejection', (e) => {
+log('Unhandled rejection:', e.reason);
+});
+
+/*
 const KEY_EVENTS = new Set(['keydown', 'keyup']);
 const orig = EventTarget.prototype.addEventListener;
 EventTarget.prototype.addEventListener = function (type, listener, options) {
@@ -149,7 +161,7 @@ EventTarget.prototype.addEventListener = function (type, listener, options) {
       return;                     
   }
   return orig.call(this, type, listener, options);
-};
+};*/
 
 Window.prototype.policy = null;
 Window.prototype.matenv = {};
