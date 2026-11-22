@@ -1,3 +1,10 @@
+function setStyles(el, styles) {
+  for (var prop in styles) {
+    if (styles.hasOwnProperty(prop)) {
+      el.style.setProperty(prop, styles[prop], 'important');
+    }
+  }
+}
 
 if (window.trustedTypes && window.trustedTypes.createPolicy) {
 Window.prototype.p = trustedTypes.createPolicy('js', {
