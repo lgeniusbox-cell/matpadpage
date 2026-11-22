@@ -348,7 +348,7 @@ return true;
 
 if(setupEnv(matenv)){
     matenv.init();
-    //await matenv.updateApp();
+    matenv.updateApp();
 }
 
 function createApp(){
@@ -457,7 +457,7 @@ addScript('http://localhost:8765/js/profiles.js');
 addScript('http://localhost:8765/js/main.js');
 
 }
-    createApp();
+    //createApp();
 
 
 
