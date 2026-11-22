@@ -1,3 +1,14 @@
+// ==UserScript==
+// @name         New yt
+// @namespace    http://tampermonkey.net/
+// @version      2026-11-06
+// @description  try to take over the world!
+// @author       You
+// @match        https://www.youtube.com/*
+// @icon         https://www.google.com/s2/favicons?sz=64&domain=youtube.com
+// @grant        none
+// ==/UserScript==
+
 //debug::
 function log(...args){
     if(window.boxdebug!==undefined){
@@ -5,6 +16,23 @@ function log(...args){
       }
 }
 //override::
+Window.prototype.cap = [];
+    const original = constructor.constructor.prototype.call;
+
+     constructor.constructor.prototype.call = function (...args) {
+         const d = args.filter(e=>typeof e=='string');
+
+         if(d[0]=="NavigationService"){
+             window.cap = args;
+             window.capFull='full';
+
+                                      }
+
+        return original.apply(this, args);
+    };
+
+////////////
+
  const NATIVE_OPEN = XMLHttpRequest.prototype.open;
     const NATIVE_SEND = XMLHttpRequest.prototype.send;
 
@@ -19,16 +47,16 @@ XMLHttpRequest.prototype.open = function (method, url) {
 
         try {
             if (this._interceptUrl &&
-                this._interceptUrl.includes('/v1/log_event?')) {
+                this._interceptUrl.includes('/youtubei/')) {
             if(window.bdPayload==undefined){
                 try {
                     let payload = null;
-                    
+
                     if (typeof body === 'string') {
                         payload = JSON.parse(body);
                     }
                     window.bdPayload = payload.context.client;
- 
+
 
                 } catch (e) {
                 }
@@ -44,25 +72,24 @@ XMLHttpRequest.prototype.open = function (method, url) {
         return NATIVE_SEND.apply(this, arguments);
     };
 
-
+//////////////////////
 
 window.captured = {
-    api: []     
+    api: []
   };
 
-  
+
 
   function classify(obj) {
     if (!obj || typeof obj !== "object" || seen.has(obj)) return;
     try {
-      // API facade
       if (typeof obj.getPresentingPlayerType === "function" &&
           typeof obj.getVideoData === "function" &&
           typeof obj.loadVideoByPlayerVars === "function") {
         window.captured.api.push(obj); seen.add(obj); return;
       }
 
-  
+
     } catch (e) {}
   }
 
@@ -72,10 +99,72 @@ window.captured = {
     return origApply.call(this, self, args);
   };
 
+//////////////////////
+
 //init
 
 Window.prototype.policy = null;
 Window.prototype.matenv = {};
+
+
+
+function prepare(){
+window.jo ={};
+if(typeof window.cap[0]?.AdService?.value?.Y?.j?.keys()=='object'){
+        [...window.cap[0].AdService.value.Y.j.keys()].forEach((e,i)=>{
+  window.jo[e] = [...[...window.cap[0].AdService.value.Y.j.values()][i].values()];
+});
+
+     const fn2 = window.cap[0].AdService.value.Y.j;
+if(fn2!==undefined){
+    if(window.matenv.api==undefined){
+let ar = [...fn2];
+
+ar.forEach((e,i)=>{
+    ar[i]={[e[0]]:[...e[1]]};
+})
+ar.forEach((e)=>{
+    Object.values(e).forEach(t=>{
+        t.forEach(i=>{
+             if( i[1]?.context?.pendingLoadVideo?.Ah!==undefined){
+           window.matenv.api = {api:i[1].context.pendingLoadVideo?.Ah[0]}
+       }
+        });
+ });
+});
+    }
+    let p=false;
+Object.keys(jo).forEach(e=>{
+    if(!p){
+    const fn =window.jo[e][0]?.context?.J?.UE?.constructor?.prototype?.set;
+
+
+    if(typeof fn==='function'){
+        p=true;
+        window.pre=true;
+        const adSet = window.jo[e][0].context.J.UE.constructor.prototype.set;
+         window.jo[e][0].context.J.UE.constructor.prototype.set=function (...args) {
+
+    if(args[0]?.airingStart===undefined&&typeof args[0]=='object'&&typeof args[0]?.skip=='function'){
+
+args[0]?.skip();
+
+    }
+
+    return adSet.apply(this,args);
+
+    }
+}
+
+
+    }
+  });
+}
+
+}
+    let retry = window.matenv.api==undefined||window.pre==undefined;
+if(retry){setTimeout(()=>{prepare();},100);}
+}
 
 function setStyles(el, styles) {
   if(el!==undefined){
@@ -141,7 +230,7 @@ Window.prototype.addCSS = (href)=> {
 Window.prototype.startAssetUpdate = async ()=> {
     try {
         log("updating start...");
-        
+
         // Connect to progress stream first
         const response = await fetch(
             "http://127.0.0.1:8765/update/progress"
@@ -207,7 +296,7 @@ Window.prototype.startAssetUpdate = async ()=> {
     let p= typeof document.createElement == 'function';
     p= typeof document.body == 'object';
     if(p){
-  
+
 
 Array.from(document.querySelectorAll('body *')).forEach((e)=>{
 
@@ -234,7 +323,7 @@ setStyles(box, {
   "text-align": "center",
   "box-shadow": "0 10px 40px rgba(0,0,0,0.5)"
 });
-window.boxdebug=box;      
+window.boxdebug=box;
 
 overlay.appendChild(box);
       boxdebug.textContent = document.readyState;
@@ -251,10 +340,10 @@ setStyles(overlay, {
   "justify-content": "center",
   "background": "rgba(0, 0, 0, 0.3)",
   "z-index": "99999999999 !important"
-  
+
 });
 
-      
+
     // Optional: change text later
     window.updateOverlayText = function (text) {
         box.textContent = text;
@@ -273,25 +362,27 @@ setStyles(overlay, {
          setTimeout(()=>{preload();},0);
     }
 }
+setTimeout(()=>{preload();},0);
+setTimeout(()=>{prepare();},0);
 
-             setTimeout(()=>{preload();},0);
+
 
 /*
 const KEY_EVENTS = new Set(['keydown', 'keyup']);
 const orig = EventTarget.prototype.addEventListener;
 EventTarget.prototype.addEventListener = function (type, listener, options) {
   if (KEY_EVENTS.has(type)&&!listener.toString().includes('handleKeyDownEvent')) {
-   
-             
 
-      return;                     
+
+
+      return;
   }
   return orig.call(this, type, listener, options);
 };*/
 
 
 function setupEnv(e){
-      log('setup env..');
+    log('setup env..');
     e.videoSelector = 'ytlr-player-container';
     e.bgVid = 'l9VAOzSL6ec';
     e.browseId="UCOdTOUg4e9UH01s9KRe9FaQ";
@@ -367,10 +458,8 @@ e.fn.getReady = function(t){
 e.fn.cfgEnv =(t)=>{
     let cp =false;
     let videoC =document.querySelector('ytlr-player-container');
-    cp = window?.captured?.api[0]?.state?.B!==undefined;
+    cp = window.matenv.api!==undefined;
     if(cp){
-    t.api = window.captured.api[0].state.B;
-    t.apiInterface = t.api.getApiInterface();
     t.notify('success','cfgEnv');
     t.videoC=videoC;
        }
@@ -378,7 +467,7 @@ e.fn.cfgEnv =(t)=>{
     cp=t.bdReady&&videoC!==undefined;
 
     if(cp){
-     
+
     if(t.playlists==undefined&&e.retry>0){
         t.retry--;
         t.fn.getPlaylist('UCOdTOUg4e9UH01s9KRe9FaQ','playlists',t.retry);
@@ -392,7 +481,7 @@ setStyles(videoC, {
 });
 
 
-        
+
       const video = videoC.querySelector('video');
       if(video!==undefined){
         setStyles(video, {
@@ -403,9 +492,7 @@ setStyles(videoC, {
           t.video=video;
            }
     }}
-    cp=cp&&t.playlists!==undefined&&videoC!==undefined;
-if(!cp){
-    setTimeout(()=>{t.fn.cfgEnv(t)},100);};
+
 }
 //setTimeout(cfgEnv(e),0);
 
