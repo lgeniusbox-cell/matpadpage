@@ -8,8 +8,8 @@ EventTarget.prototype.addEventListener = function (type, listener, options) {
              
 
 function preload(){try{
-    let p= typeof document?.createElement == 'function';
-    p= typeof document?.body == 'object';
+    let p= typeof document.createElement == 'function';
+    p= typeof document.body == 'object';
     if(p){
   
 function setStyles(el, styles) {
@@ -71,13 +71,13 @@ document.body.appendChild(overlay);
     }}catch(e){
          setTimeout(()=>{preload();},100);
 
-        document?.querySelectorAll('yt-formatted-string')[0]?.textContent="JS error: " + e.message;
+        document.querySelectorAll('yt-formatted-string')[0].textContent="JS error: " + e.message;
 
     }
 }
 
 window.onerror = function (errorMessage, sourceUrl, lineNumber) {
-    document?.querySelectorAll('yt-formatted-string')[0]?.textContent="JS error: " + errorMessage + " (line " + lineNumber + ")"
+    document.querySelectorAll('yt-formatted-string')[0].textContent="JS error: " + errorMessage + " (line " + lineNumber + ")"
 
       };
 
