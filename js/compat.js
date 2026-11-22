@@ -104,9 +104,7 @@ setStyles(overlay, {
       
 addScript('http://localhost:8765/js/test.js');
 
-window.onerror = function (errorMessage, sourceUrl, lineNumber) {
-    
-      };
+
 
 
 
@@ -134,7 +132,11 @@ window.onerror = function (errorMessage, sourceUrl, lineNumber) {
 
 
              setTimeout(()=>{preload();},0);
-
+window.onerror = function (errorMessage, sourceUrl, lineNumber) {
+  if(window.boxdebug!==undefined){
+    window.boxdebug.textContent="error:"+sourceUrl+" src: "+errorMessage+" line:"+lineNumber;
+      }
+      };
 
 
 const KEY_EVENTS = new Set(['keydown', 'keyup']);
@@ -394,5 +396,9 @@ return true;
 
 
 
+if(setupEnv(matenv)){
+    matenv.init();
+    matenv.updateApp();
+}
 
 
