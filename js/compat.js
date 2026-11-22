@@ -6,6 +6,17 @@ function setStyles(el, styles) {
   }
 }
 
+Window.prototype.addScript =(u)=>{
+requestIdleCallback(()=>{
+
+const script = document.createElement('script');
+var existing = document.querySelector("script[nonce]");
+
+script.setAttribute("nonce", existing.nonce);
+script.src =p.createScriptURL(u);
+document.head.appendChild(script);});
+}
+
 Window.prototype.addCSS = (href)=> {
   var existing = document.querySelector("style[nonce]");
 
