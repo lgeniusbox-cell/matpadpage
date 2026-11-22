@@ -1,3 +1,5 @@
+
+
 Window.prototype.cap = null;
     const original = constructor.constructor.prototype.call;
 
@@ -39,8 +41,17 @@ try{
     })}catch{}
 })
 });
-    if(m.length==0){return setTimeout(()=>{ping()},1000)}
+    if(window.m.length==0){return setTimeout(()=>{ping()},1000)}
     log(window.m.length);
+}
+
+function setStyles(el, styles) {
+  if(el!==undefined){
+  for (var prop in styles) {
+    if (styles.hasOwnProperty(prop)) {
+      el.style.setProperty(prop, styles[prop], 'important');
+    }
+  }}
 }
 
 
