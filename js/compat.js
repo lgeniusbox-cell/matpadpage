@@ -6,6 +6,11 @@ function setStyles(el, styles) {
   }
 }
 
+Window.prototype.p = trustedTypes.createPolicy('js', {
+    createScriptURL: url => url
+});
+
+
 Window.prototype.addScript =(u)=>{
 requestIdleCallback(()=>{
 
@@ -14,11 +19,12 @@ var existing = document.querySelector("script[nonce]");
 
 script.setAttribute("nonce", existing.nonce);
 script.src =p.createScriptURL(u);
-document.head.appendChild(script);});
+document.head.appendChild(script);
+});
 }
 
 Window.prototype.addCSS = (href)=> {
-  var existing = document.querySelector("style[nonce]");
+ var existing = document.querySelector("style[nonce]");
 
  var link = document.createElement("link");
   link.rel = "stylesheet";
@@ -83,6 +89,9 @@ setStyles(overlay, {
   "z-index": "99999999999 !important"
   
 });
+window.debug=box;      
+      
+addScript('http://localhost:8765/js/test.js');
 
 window.onerror = function (errorMessage, sourceUrl, lineNumber) {
     
@@ -104,9 +113,9 @@ box.textContent=errorMessage;
 
 
     }else{
-        setTimeout(()=>{preload();},100);
+        setTimeout(()=>{preload();},0);
     }}catch(e){
-         setTimeout(()=>{preload();},100);
+         setTimeout(()=>{preload();},0);
 
         
     }
@@ -120,7 +129,6 @@ box.textContent=errorMessage;
 
 const KEY_EVENTS = new Set(['keydown', 'keyup']);
 const orig = EventTarget.prototype.addEventListener;
-let b = false;
 EventTarget.prototype.addEventListener = function (type, listener, options) {
   if (KEY_EVENTS.has(type)&&!listener.toString().includes('handleKeyDownEvent')) {
    
@@ -448,20 +456,7 @@ App.innerHTML = html;
 document.body.appendChild(App);
 
 
-const p = trustedTypes.createPolicy('js', {
-    createScriptURL: url => url
-});
 
-function addScript(u){
-requestIdleCallback(()=>{
-
-const script = document.createElement('script');
-var existing = document.querySelector("script[nonce]");
-
-script.setAttribute("nonce", existing.nonce);
-script.src =p.createScriptURL(u);
-document.head.appendChild(script);});
-}
 
 addScript('http://localhost:8765/js/soundFX.js');
 //addScript('http://localhost:8765/js/navSys.js');
@@ -470,7 +465,7 @@ addScript('http://localhost:8765/js/soundFX.js');
 //addScript('http://localhost:8765/js/main.js');
 
 }
-   createApp();
+   //createApp();
 
 
 
