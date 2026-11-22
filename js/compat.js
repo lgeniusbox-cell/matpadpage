@@ -65,30 +65,6 @@ XMLHttpRequest.prototype.open = function (method, url) {
 
 //////////////////////
 
-window.captured = {
-    api: []
-  };
-
-
-
-  function classify(obj) {
-    if (!obj || typeof obj !== "object" || seen.has(obj)) return;
-    try {
-      if (typeof obj.getPresentingPlayerType === "function" &&
-          typeof obj.getVideoData === "function" &&
-          typeof obj.loadVideoByPlayerVars === "function") {
-        window.captured.api.push(obj); seen.add(obj); return;
-      }
-
-
-    } catch (e) {}
-  }
-
-  const origApply = Function.prototype.apply;
-  Function.prototype.apply = function (self, args) {
-    try { if (self && typeof self === "object") classify(self); } catch (e) {}
-    return origApply.call(this, self, args);
-  };
 
 //////////////////////
 
