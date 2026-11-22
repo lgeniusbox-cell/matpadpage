@@ -415,50 +415,35 @@ if(r>0){setTimeout(e.fn.getPlaylist(t),2000);r--;}
 e.fn.getReady = function(t){
       if(window.bdPayload!==undefined){
                    t.bd.context.client = window.bdPayload;
-
                     e.notify('succes','getReady');
                     t.bdReady=true;
                   }
 }
 
 e.fn.cfgEnv =(t)=>{
-    let cp =false;
+    if(t.video==undefined||t.videoC==undefined){
     let videoC =document.querySelector('ytlr-player-container');
-    cp = window.matenv.api!==undefined;
-    if(cp){
-    t.notify('success','cfgEnv');
-    t.videoC=videoC;
-       }
-    log(cp?'true':'false');
-    cp=t.bdReady&&videoC!==undefined;
-
-    if(cp){
-
-    if(t.playlists==undefined&&e.retry>0){
-        t.retry--;
-        t.fn.getPlaylist('UCOdTOUg4e9UH01s9KRe9FaQ','playlists',t.retry);
-    }
-    if(videoC!==undefined){
-
+    const video = videoC.querySelector('video');
 setStyles(videoC, {
     "z-index":"1000",
   "visibility":"visible",
    "position":"fixed"
 });
-
-
-
-      const video = videoC.querySelector('video');
-      if(video!==undefined){
         setStyles(video, {
   "z-index":"1000",
   "visibility":"visible",
    "position":"fixed"
 });
-          t.video=video;
-           }
-    }}
+    }        
+    let cp =t.video!==undefined||t.videoC!==undefined;
+            log(cp?'true':'false');
 
+    if(!cp){
+        setTimeout(()=>{
+        t.fn.cfgEnv(t);
+    },100);}else{
+        t.startBgVideo(t);
+    }
 }
 //setTimeout(cfgEnv(e),0);
 
@@ -487,7 +472,6 @@ return true;
 
 if(setupEnv(matenv)){
    matenv.init();
-    //matenv.updateApp();
-}
+  }
 
 
