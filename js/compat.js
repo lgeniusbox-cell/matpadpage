@@ -68,8 +68,8 @@ ar.forEach((e)=>{
             if(br)return;
              try{
            Object.values(i[1].context.pendingLoadVideo).forEach(o=>{
-               window.log(o.constructor.name);
                if(o.constructor.name=='Array'){
+                  
                if(typeof o[0]?.cueVideoById=='function'){
                br=true;
                    res=o[0]
@@ -82,6 +82,8 @@ ar.forEach((e)=>{
  });
 });
  if(Object.keys(res).length==0){ return setTimeout(()=>{pong()},1000);};
+                       window.log(Object.keys(res).length);
+
     //log(Object.keys(res).length);
     }
 setTimeout(()=>{pong();},100);
