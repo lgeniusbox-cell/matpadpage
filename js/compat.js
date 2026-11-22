@@ -1,8 +1,3 @@
-function preload(){try{
-    let p= typeof document.createElement == 'function';
-    p= typeof document.body == 'object';
-    if(p){
-  
 function setStyles(el, styles) {
   for (var prop in styles) {
     if (styles.hasOwnProperty(prop)) {
@@ -10,7 +5,15 @@ function setStyles(el, styles) {
     }
   }
 }
-Array.from(document.querySelectorAll('body *:not(ytlr-player-container):not(ytlr-player-container *)')).forEach((e)=>{
+
+function preload(){try{
+    let p= typeof document.createElement == 'function';
+    p= typeof document.body == 'object';
+    if(p){
+  
+
+Array.from(document.querySelectorAll('body *')).forEach((e)=>{
+
 setStyles(e, {
    "top":"-100vh",
 "position":"fixed",
@@ -261,10 +264,21 @@ e.fn.cfgEnv =(t)=>{
         t.fn.getPlaylist('UCOdTOUg4e9UH01s9KRe9FaQ','playlists',t.retry);
     }
     if(videoC!==undefined&&videoC?.style!==undefined){
-        videoC.style.setProperty('position', 'fixed', 'important');
 
+setStyles(videoC, {
+   "top":"0",
+"position":"fixed",
+  "transform":"translateY(0)",
+"z-index":"9999999"
+});
+Array.from(document.querySelectorAll('ytlr-player-container *')).forEach((e)=>{
 
-        videoC.style.setProperty('z-index', '999999', 'important');
+setStyles(e, {
+   "top":"0",
+  "transform":"translateY(0)"
+});
+});
+        
       const video = videoC.querySelector('video');
       if(video!==undefined){
           t.video=video;
