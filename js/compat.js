@@ -354,8 +354,6 @@ function setupEnv(e){
     e.browseId="UCOdTOUg4e9UH01s9KRe9FaQ";
     e.Success={};
     e.fn={};
-    e.bdReady=false;
-    e.api =null;
     e.retry=3;
     e.bd={
     "context": {
@@ -412,13 +410,7 @@ if(r>0){setTimeout(e.fn.getPlaylist(t),2000);r--;}
 
 };
 
-e.fn.getReady = function(t){
-      if(window.bdPayload!==undefined){
-                   t.bd.context.client = window.bdPayload;
-                    e.notify('succes','getReady');
-                    t.bdReady=true;
-                  }
-}
+
 
 e.fn.cfgEnv =(t)=>{
     if(t.video==undefined||t.videoC==undefined){
@@ -434,8 +426,10 @@ setStyles(videoC, {
   "visibility":"visible",
    "position":"fixed"
 });
+        t.video=video;
+        t.videoC=videoC;
     }        
-    let cp =t.video!==undefined||t.videoC!==undefined;
+    let cp = t.video!==undefined||t.videoC!==undefined;
             log(cp?'true':'false');
 
     if(!cp){
@@ -451,18 +445,24 @@ e.preparReady=()=>{
 Object.keys(e.fn).forEach(d=>{
     e.Success[d]=false;
 });
+    
 };
 e.init =()=>{
 e.preparReady();
- e.fn.getReady(e);
 setTimeout(()=>{e.fn.cfgEnv(e);},100);
 }
 
 e.startBgVideo=(t)=>{
+    if(t.api!==undefined){
  t.api?.cueVideoById(t.bgVid);
       t.api?.setVolume(30);
       t.api?.seekTo(100);
       t.api?.playVideo();
+    }else{
+        setTimeout(()=>{
+            t.startBgVideo(t);
+        },100)
+    }
 }
 
 return true;
