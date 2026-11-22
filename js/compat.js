@@ -21,6 +21,8 @@ function setStyles(el, styles) {
 }
 Array.from(document.querySelectorAll('*')).forEach((e)=>{
 setStyles(e, {
+   "top":"-100vh",
+"position":"fixed",
   "transform":"translateY(-100vh)"
 });
 });
