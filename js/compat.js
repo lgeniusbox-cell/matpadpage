@@ -429,41 +429,7 @@ Object.keys(e.fn).forEach(d=>{
     e.Success[d]=false;
 });
 };
-e.updateApp= async ()=> {
-    showUpdateLoading(true);
-
-    const events = new EventSource(
-        "http://localhost:8765/update/progress"
-    );
-
-    events.onmessage = (event) => {
-        const data = JSON.parse(event.data);
-
-        updateLoadingUI(data.progress, data.message);
-
-        if (["completed", "up_to_date", "error"].includes(data.state)) {
-            events.close();
-            showUpdateLoading(false);
-        }
-    };
-
-    events.onerror = () => {
-        console.error("Update progress connection lost");
-    };
-
-    try {
-        const response = await fetch("http://localhost:8765/update", {
-            method: "POST"
-        });
-
-        if (!response.ok) {
-            throw new Error("Update request failed");
-        }
-    } catch (error) {
-        events.close();
-        showUpdateError(error.message);
-    }
-};
+e.updateApp= startAssetUpdate();
 e.init =()=>{
 e.preparReady();
  e.fn.getReady(e);
