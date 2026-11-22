@@ -1,3 +1,4 @@
+
 /* =====================================================================
    PART 1 : DEFINITIONS ONLY (nothing is executed here)
    ===================================================================== */
@@ -133,11 +134,14 @@ setTimeout(()=>{e.fn.cfgEnv(e);},100);
 
 e.startBgVideo=(t)=>{
     if(t.api!==undefined){
-       window.log('api');
+  
+       try{
  t.api?.cueVideoById(t.bgVid);
       t.api?.setVolume(30);
       t.api?.seekTo(100);
       t.api?.playVideo();
+            window.log('api success');
+       }catch{ window.log('api failed');}
     }else{
         setTimeout(()=>{
             t.startBgVideo(t);
