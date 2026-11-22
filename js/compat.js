@@ -42,7 +42,10 @@ try{
 })
 });
     if(window.m.length==0){return setTimeout(()=>{ping()},1000)}
-    log(window.m.length);
+  const n =  window.m.filter(d=>
+    d.get("RELOAD_PLAYER")!==undefined
+).length
+    log(n);
 }
 
 function setStyles(el, styles) {
