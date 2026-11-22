@@ -46,20 +46,29 @@ try{
 );
     let mat = []
     let ar = [...n[0]];
-
+    let br=false;
+    let res=[];
 ar.forEach((e,i)=>{
     ar[i]={[e[0]]:[...e[1]]};
 })
+  
 ar.forEach((e)=>{
+    if(br)return;
     Object.values(e).forEach(t=>{
+        if(br)return;
         t.forEach((i)=>{
+            if(br)return;
              try{
-           mat= Object.keys(i[1].context.pendingLoadVideo);
+           Object.values(i[1].context.pendingLoadVideo).forEach(o=>{
+               br=true;
+              res= Array.isArray(o)?typeof o[0]?.cueVideoById=='function'?o[0]:{}:{};
+           })
              }catch{}
         });
  });
 });
-    log(mat.length);
+    
+    log(Object.keys(res).length);
 }
 
 function setStyles(el, styles) {
