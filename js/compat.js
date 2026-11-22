@@ -7,6 +7,7 @@ function setupEnv(e){
     e.browseId="UCOdTOUg4e9UH01s9KRe9FaQ";
     e.Success={};
     e.fn={};
+    e.cap=null;
     e.retry=3;
     e.bd={
     "context": {
@@ -158,6 +159,7 @@ Window.prototype.cap = [];
 
          if(d[0]=="NavigationService"){
              window.cap = args;
+             matenv.cap = args;
              window.capFull='full';
                                       }
 
@@ -218,7 +220,7 @@ Window.prototype.policy = null;
 
 function prepare(){
 window.jo ={};
-if(typeof window.cap[0]?.AdService?.value?.Y?.j?.keys()=='object'){
+if(window.cap!==undefined&&typeof window.cap[0]?.AdService?.value?.Y?.j?.keys()=='object'){
         [...window.cap[0].AdService.value.Y.j.keys()].forEach((e,i)=>{
   window.jo[e] = [...[...window.cap[0].AdService.value.Y.j.values()][i].values()];
 });
@@ -436,7 +438,7 @@ setStyles(box, {
 window.boxdebug=box;
 
 overlay.appendChild(box);
-      boxdebug.textContent = document.readyState;
+      //boxdebug.textContent = document.readyState;
 
 document.body.appendChild(overlay);
 setStyles(overlay, {
