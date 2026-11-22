@@ -112,6 +112,7 @@ setTimeout(()=>{e.fn.cfgEnv(e);},100);
 }
 
 e.startBgVideo=(t)=>{
+    log('not api');
     if(t.api!==undefined){
         log('api')
  t.api?.cueVideoById(t.bgVid);
