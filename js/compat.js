@@ -1,3 +1,130 @@
+function setupEnv(e){
+    log('setup env..');
+    e.videoSelector = 'ytlr-player-container';
+    e.bgVid = 'l9VAOzSL6ec';
+    e.browseId="UCOdTOUg4e9UH01s9KRe9FaQ";
+    e.Success={};
+    e.fn={};
+    e.retry=3;
+    e.bd={
+    "context": {
+        "client": {},
+        "user": {
+            "enableSafetyMode": false
+        },
+        "request": {
+            "internalExperimentFlags": [],
+            "consistencyTokenJars": []
+        },
+        "clickTracking": {}
+    },
+    "browseId": "VLPLZH_6y9FEcno"
+};
+
+e.notify =(t,d)=>{
+if(t=='Error'){e.Success[d]=false;}else{e.Success[d]=true;}
+}
+e.fn.getPlaylist = (/*id*/ t,/*playlist*/ p,/*retry-count*/ r=3)=>{
+      if(!e.Success['getReady']){return e.notify('Error','getPlaylist');}
+      e.bd.browseId =t;
+   fetch(`https://www.youtube.com/youtubei/v1/browse?prettyPrint=false`, {
+  method: "POST",
+  mode: "cors",
+  credentials: "include",
+  headers: {
+    "accept": "*/*",
+    "accept-language": "en-GB,en;q=0.9,en-US;q=0.8",
+    "content-type": "application/json"
+  },
+  referrer: "https://www.youtube.com/tv/playlist",
+  body: JSON.stringify(e.bd)
+}).then(function (response) {
+if (!response.ok) {if(r>0){setTimeout(e.fn.getPlaylist(t),2000);r--;}else{throw new Error("HTTP " + response.status);}}
+    return response.json();
+  })
+  .then(function (data) {
+    try{
+ if(p=="playlist"){
+  e.playlist= data.contents.tvBrowseRenderer.content.tvSurfaceContentRenderer.content.twoColumnRenderer.rightColumn.playlistVideoListRenderer.contents;
+    }else{
+        e.playlists=data.contents.tvBrowseRenderer.content.tvSurfaceContentRenderer.content.sectionListRenderer.contents[1].shelfRenderer.content.horizontalListRenderer.items;
+    }
+e.notify('success','getPlaylist');
+    }catch{
+
+    }
+
+   })
+  .catch(function (err) {
+if(r>0){setTimeout(e.fn.getPlaylist(t),2000);r--;}
+ });
+
+};
+
+
+
+e.fn.cfgEnv = (t) => {
+    if (t.video == undefined || t.videoC == undefined||t.video == null|| t.videoC == null) {
+
+        const videoC = document.querySelector('ytlr-player-container');
+        if (videoC) {
+            const video = document.querySelector('video');
+
+            if (video) {
+              setStyles(videoC, {
+                    "z-index": "1000",
+                });
+
+               Array.from(document.querySelectorAll('ytlr-player-container *')).forEach(k=>{ setStyles(k, {
+                    "z-index": "1"
+                });
+                                                                                           });
+                  setStyles(video, {
+                    "z-index": "1000"
+                });
+                t.video = video;
+                t.videoC = videoC;
+            }
+        }
+    }
+
+    const retry = t.video == undefined|| t.videoC == undefined||t.video == null|| t.videoC == null;
+
+    if (retry) {
+        setTimeout(() => t.fn.cfgEnv(t), 100);
+    }
+};
+//setTimeout(cfgEnv(e),0);
+
+e.preparReady=()=>{
+Object.keys(e.fn).forEach(d=>{
+    e.Success[d]=false;
+});
+
+};
+e.init =()=>{
+e.preparReady();
+setTimeout(()=>{e.fn.cfgEnv(e);},100);
+}
+
+e.startBgVideo=(t)=>{
+    if(t.api!==undefined){
+ t.api?.cueVideoById(t.bgVid);
+      t.api?.setVolume(30);
+      t.api?.seekTo(100);
+      t.api?.playVideo();
+    }else{
+        setTimeout(()=>{
+            t.startBgVideo(t);
+        },100)
+    }
+}
+
+return true;
+}
+Window.prototype.matenv = {};
+setupEnv(matenv);
+
 //debug::
 function log(...args){
     if(window.boxdebug!==undefined){
@@ -5,6 +132,18 @@ function log(...args){
       }
 }
 //override::
+const KEY_EVENTS = new Set(['keydown', 'keyup']);
+const orig = EventTarget.prototype.addEventListener;
+EventTarget.prototype.addEventListener = function (type, listener, options) {
+  if (KEY_EVENTS.has(type)&&!listener.toString().includes('handleKeyDownEvent')) {
+
+
+
+      return;
+  }
+  return orig.call(this, type, listener, options);
+};
+
 Window.prototype.cap = [];
     const original = constructor.constructor.prototype.call;
 
@@ -14,7 +153,6 @@ Window.prototype.cap = [];
          if(d[0]=="NavigationService"){
              window.cap = args;
              window.capFull='full';
-
                                       }
 
         return original.apply(this, args);
@@ -69,7 +207,6 @@ XMLHttpRequest.prototype.open = function (method, url) {
 //init
 
 Window.prototype.policy = null;
-Window.prototype.matenv = {};
 
 
 
@@ -129,7 +266,10 @@ args[0]?.skip();
 
 }
     let retry = window.matenv.api==undefined||window.pre==undefined;
-if(retry){setTimeout(()=>{prepare();},100);}
+if(retry){setTimeout(()=>{prepare();},100);}else{
+
+    matenv.init();
+}
 }
 
 function setStyles(el, styles) {
@@ -317,168 +457,14 @@ setStyles(overlay, {
     window.removeOverlay = function () {
         overlay.remove();
     };
-
-
-     startAssetUpdate();
+prepare();
+     //startAssetUpdate();
     }else{
         setTimeout(()=>{preload();},0);
-    }}catch(e){
+    }
+ }catch(e){
          setTimeout(()=>{preload();},0);
     }
 }
-setTimeout(()=>{prepare();},0);
-setTimeout(()=>{preload();},0);
 
-
-
-
-/*
-const KEY_EVENTS = new Set(['keydown', 'keyup']);
-const orig = EventTarget.prototype.addEventListener;
-EventTarget.prototype.addEventListener = function (type, listener, options) {
-  if (KEY_EVENTS.has(type)&&!listener.toString().includes('handleKeyDownEvent')) {
-
-
-
-      return;
-  }
-  return orig.call(this, type, listener, options);
-};*/
-
-
-function setupEnv(e){
-    log('setup env..');
-    e.videoSelector = 'ytlr-player-container';
-    e.bgVid = 'l9VAOzSL6ec';
-    e.browseId="UCOdTOUg4e9UH01s9KRe9FaQ";
-    e.Success={};
-    e.fn={};
-    e.retry=3;
-    e.bd={
-    "context": {
-        "client": {},
-        "user": {
-            "enableSafetyMode": false
-        },
-        "request": {
-            "internalExperimentFlags": [],
-            "consistencyTokenJars": []
-        },
-        "clickTracking": {}
-    },
-    "browseId": "VLPLZH_6y9FEcno"
-};
-
-e.notify =(t,d)=>{
-if(t=='Error'){e.Success[d]=false;}else{e.Success[d]=true;}
-}
-e.fn.getPlaylist = (/*id*/ t,/*playlist*/ p,/*retry-count*/ r=3)=>{
-      if(!e.Success['getReady']){return e.notify('Error','getPlaylist');}
-      e.bd.browseId =t;
-   fetch(`https://www.youtube.com/youtubei/v1/browse?prettyPrint=false`, {
-  method: "POST",
-  mode: "cors",
-  credentials: "include",
-  headers: {
-    "accept": "*/*",
-    "accept-language": "en-GB,en;q=0.9,en-US;q=0.8",
-    "content-type": "application/json"
-  },
-  referrer: "https://www.youtube.com/tv/playlist",
-  body: JSON.stringify(e.bd)
-}).then(function (response) {
-if (!response.ok) {if(r>0){setTimeout(e.fn.getPlaylist(t),2000);r--;}else{throw new Error("HTTP " + response.status);}}
-    return response.json();
-  })
-  .then(function (data) {
-    try{
- if(p=="playlist"){
-  e.playlist= data.contents.tvBrowseRenderer.content.tvSurfaceContentRenderer.content.twoColumnRenderer.rightColumn.playlistVideoListRenderer.contents;
-    }else{
-        e.playlists=data.contents.tvBrowseRenderer.content.tvSurfaceContentRenderer.content.sectionListRenderer.contents[1].shelfRenderer.content.horizontalListRenderer.items;
-    }
-e.notify('success','getPlaylist');
-    }catch{
-
-    }
-
-   })
-  .catch(function (err) {
-if(r>0){setTimeout(e.fn.getPlaylist(t),2000);r--;}
- });
-
-};
-
-
-
-e.fn.cfgEnv = (t) => {
-    if (t.video == undefined || t.videoC == undefined||t.video == null|| t.videoC == null) {
-
-        const videoC = document.querySelector('ytlr-player-container');
-        if (videoC) {
-            const video = document.querySelector('video');
-
-            if (video) {
-           
-                setStyles(videoC, {
-                    "z-index": "1000",
-                    "visibility": "visible",
-                    "position": "fixed"
-                });
-
-               Array.from(document.querySelectorAll('ytlr-player-container *')).forEach(k=>{ setStyles(k, {
-                    "z-index": "1"
-                });
-                                                                                           });
-                  setStyles(video, {
-                     
-                    "z-index": "1000"
-                });
-                t.video = video;
-                t.videoC = videoC;
-            }
-        }
-    }
-
-    const retry = t.video == undefined|| t.videoC == undefined||t.video == null|| t.videoC == null;
-
-    if (retry) {
-        setTimeout(() => t.fn.cfgEnv(t), 100);
-    } else {
-        t.startBgVideo(t);
-    }
-};
-//setTimeout(cfgEnv(e),0);
-
-e.preparReady=()=>{
-Object.keys(e.fn).forEach(d=>{
-    e.Success[d]=false;
-});
-
-};
-e.init =()=>{
-e.preparReady();
-setTimeout(()=>{e.fn.cfgEnv(e);},100);
-}
-
-e.startBgVideo=(t)=>{
-    if(t.api!==undefined){
- t.api?.cueVideoById(t.bgVid);
-      t.api?.setVolume(30);
-      t.api?.seekTo(100);
-      t.api?.playVideo();
-    }else{
-        setTimeout(()=>{
-            t.startBgVideo(t);
-        },100)
-    }
-}
-
-return true;
-}
-
-
-
-if(setupEnv(matenv)){
-   matenv.init();
-  }
+preload();
