@@ -24,12 +24,12 @@ document.head.appendChild(script);
 }
    }else{
      Window.prototype.addScript =(u)=>{
-requestIdleCallback(()=>{
+setTimeout(()=>{
 
 const script = document.createElement('script');
 
 document.head.appendChild(script);
-});
+},1000);
 }
 }
 
@@ -56,7 +56,7 @@ function preload(){try{
     if(p){
   
 
-Array.from(document.querySelectorAll('body > div')).forEach((e)=>{
+Array.from(document.querySelectorAll('body *')).forEach((e)=>{
 
 setStyles(e, {
   "z-index":"-999999",
@@ -98,7 +98,6 @@ setStyles(overlay, {
   "z-index": "99999999999 !important"
   
 });
- box.textContent=errorMessage;
 
 window.debug=box;      
       
