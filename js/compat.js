@@ -1,6 +1,3 @@
-
-
-
 //debug::
 function log(...args){
     if(window.boxdebug!==undefined){
