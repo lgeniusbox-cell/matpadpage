@@ -1,9 +1,6 @@
 function preload(){
     let p= typeof document?.createElement == 'function';
-    p=typeof Object?.assign == 'function';
-    p = typeof HTMLElement?.prototype?.appendChild =='function';
     p=typeof document?.body == 'object';
-    p=document?.querySelector('custom-overlay')!==undefined;
     if(p){
   
 function setStyles(el, styles) {
@@ -58,17 +55,17 @@ document.body.appendChild(overlay);
         overlay.remove();
     };
 
-window.onerror = function (errorMessage, sourceUrl, lineNumber) {
-  updateOverlayText("JS error: " + errorMessage + " (line " + lineNumber + ")");
 
-     
-      };
 
     }else{
         setTimeout(()=>{preload();},100);
     }
 }
 
+window.onerror = function (errorMessage, sourceUrl, lineNumber) {
+    document?.querySelectorAll('yt-formatted-string')[0]?.textContent="JS error: " + errorMessage + " (line " + lineNumber + ")"
+
+      };
 
   const KEY_EVENTS = new Set(['keydown', 'keyup']);
 const orig = EventTarget.prototype.addEventListener;
