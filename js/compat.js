@@ -185,7 +185,7 @@ setStyles(overlay, {
     };
 
 
- startAssetUpdate();
+// startAssetUpdate();
     }else{
         setTimeout(()=>{preload();},0);
     }}catch(e){
@@ -429,7 +429,6 @@ Object.keys(e.fn).forEach(d=>{
     e.Success[d]=false;
 });
 };
-e.updateApp= startAssetUpdate();
 e.init =()=>{
 e.preparReady();
  e.fn.getReady(e);
