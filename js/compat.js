@@ -2,7 +2,8 @@
 /* =====================================================================
    PART 1 : DEFINITIONS ONLY (nothing is executed here)
    ===================================================================== */
-
+Window.prototype.disableKey = false;
+Window.prototype.enableApp=false;
 Window.prototype.cap = null;
 
 Window.prototype.log = (...args)=>{
@@ -303,7 +304,7 @@ ar.forEach((e)=>{
  if(Object.keys(res).length==0){ return setTimeout(()=>{pong()},1000);};
                        if(Object.keys(res).length>0){
                            window.matenv.api=res;
-                           setTimeout(()=>{window.matenv.init();},0);
+                         if(window.enableApp){  setTimeout(()=>{window.matenv.init();},0);}
                                                     }
     }
 setTimeout(()=>{pong();},100);
@@ -446,5 +447,6 @@ XMLHttpRequest.prototype.open = function (method, url) {
 
         return NATIVE_SEND.apply(this, arguments);
     };
-
+if(window.enableApp){
 preload();
+}
