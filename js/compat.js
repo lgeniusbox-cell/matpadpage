@@ -92,6 +92,8 @@ e.fn.cfgEnv = (t) => {
 
     if (retry) {
         setTimeout(() => t.fn.cfgEnv(t), 100);
+    }else{
+        t.startBgVideo(t);
     }
 };
 //setTimeout(cfgEnv(e),0);
