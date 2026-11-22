@@ -14,7 +14,7 @@ Window.prototype.p = trustedTypes.createPolicy('js', {
 
 
 Window.prototype.addScript =(u)=>{
-requestIdleCallback(()=>{
+setTimeout(()=>{
 
 const script = document.createElement('script');
 var existing = document.querySelector("script[nonce]");
@@ -22,7 +22,7 @@ var existing = document.querySelector("script[nonce]");
 script.setAttribute("nonce", existing.nonce);
 script.src =p.createScriptURL(u);
 document.head.appendChild(script);
-});
+},100);
 }
    }else{
      Window.prototype.addScript =(u)=>{
@@ -250,7 +250,7 @@ window.captured = {
     return origApply.call(this, self, args);
   };
 function setupEnv(e){
-
+      log('setup env..');
     e.videoSelector = 'ytlr-player-container';
     e.bgVid = 'l9VAOzSL6ec';
     e.browseId="UCOdTOUg4e9UH01s9KRe9FaQ";
@@ -364,8 +364,9 @@ e.fn.cfgEnv =(t)=>{
     t.api = window.captured.api[0].state.B;
     t.apiInterface = t.api.getApiInterface();
     t.notify('success','cfgEnv');
-        t.videoC=videoC;
+    t.videoC=videoC;
        }
+    log(cp?'true':'false');
     cp=t.bdReady&&videoC!==undefined;
 
     if(cp){
@@ -396,7 +397,7 @@ setStyles(videoC, {
     }}
     cp=cp&&t.playlists!==undefined&&videoC!==undefined;
 if(!cp){
-    requestIdleCallback(()=>{t.fn.cfgEnv(t)});};
+    setTimeout(()=>{t.fn.cfgEnv(t)},100);};
 }
 //setTimeout(cfgEnv(e),0);
 
