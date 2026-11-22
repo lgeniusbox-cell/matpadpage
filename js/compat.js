@@ -3,7 +3,7 @@
    PART 1 : DEFINITIONS ONLY (nothing is executed here)
    ===================================================================== */
 Window.prototype.disableKey = false;
-Window.prototype.enableApp=false;
+Window.prototype.enableApp=true;
 Window.prototype.cap = null;
 
 Window.prototype.log = (...args)=>{
