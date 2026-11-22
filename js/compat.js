@@ -1,3 +1,4 @@
+
 //debug::
 function log(...args){
     if(window.boxdebug!==undefined){
@@ -90,16 +91,16 @@ ar.forEach((e,i)=>{
 })
 ar.forEach((e)=>{
     Object.values(e).forEach(t=>{
-        t.forEach(i=>{
+        t.forEach((i)=>{
              if( i[1]?.context?.pendingLoadVideo?.Ah!==undefined){
-           window.matenv.api = {api:i[1].context.pendingLoadVideo?.Ah[0]}
+           window.matenv.api = i[1].context.pendingLoadVideo?.Ah[0];
        }
         });
  });
 });
     }
     let p=false;
-Object.keys(jo).forEach(e=>{
+Object.keys(window.jo).forEach(e=>{
     if(!p){
     const fn =window.jo[e][0]?.context?.J?.UE?.constructor?.prototype?.set;
 
@@ -412,43 +413,51 @@ if(r>0){setTimeout(e.fn.getPlaylist(t),2000);r--;}
 
 
 
-e.fn.cfgEnv =(t)=>{
-    if(t.video==undefined||t.videoC==undefined){
-    let videoC =document.querySelector('ytlr-player-container');
-        if(videoC!==undefined){
-                const video = videoC.querySelector('video');
-setStyles(videoC, {
-    "z-index":"1000",
-  "visibility":"visible",
-   "position":"fixed"
-});
-        setStyles(video, {
-  "z-index":"1000",
-  "visibility":"visible",
-   "position":"fixed"
-});
-        t.video=video;
-        t.videoC=videoC;
+e.fn.cfgEnv = (t) => {
+    if (t.video == undefined || t.videoC == undefined||t.video == null|| t.videoC == null) {
+
+        const videoC = document.querySelector('ytlr-player-container');
+        if (videoC) {
+            const video = document.querySelector('video');
+
+            if (video) {
+
+                setStyles(videoC, {
+                    "z-index": "1000",
+                    "visibility": "visible",
+                    "position": "fixed"
+                });
+
+               Array.from(document.querySelectorAll('ytlr-player-container *')).forEach(k=>{ setStyles(k, {
+                    "z-index": "1",
+                    "visibility": "visible"
+                });
+                                                                                           });
+                  setStyles(video, {
+                    "z-index": "1000"
+                });
+                t.video = video;
+                t.videoC = videoC;
+            }
         }
+    }
 
-    }        
-    let cp = t.video!==undefined||t.videoC!==undefined;
-            log(cp?'true':'false');
+    const retry = t.video == undefined|| t.videoC == undefined||t.video == null|| t.videoC == null;
+    log(retry ? 'true' : 'false');
 
-    if(!cp){
-        setTimeout(()=>{
-        t.fn.cfgEnv(t);
-    },100);}else{
+    if (retry) {
+        setTimeout(() => t.fn.cfgEnv(t), 100);
+    } else {
         t.startBgVideo(t);
     }
-}
+};
 //setTimeout(cfgEnv(e),0);
 
 e.preparReady=()=>{
 Object.keys(e.fn).forEach(d=>{
     e.Success[d]=false;
 });
-    
+
 };
 e.init =()=>{
 e.preparReady();
@@ -476,5 +485,3 @@ return true;
 if(setupEnv(matenv)){
    matenv.init();
   }
-
-
