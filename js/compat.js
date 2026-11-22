@@ -1,5 +1,5 @@
 function setStyles(el, styles) {
-  for (var prop in styles) {
+  for (var prop in styles) { 
     if (styles.hasOwnProperty(prop)) {
       el.style.setProperty(prop, styles[prop], 'important');
     }
