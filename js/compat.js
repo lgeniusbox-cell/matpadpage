@@ -1,12 +1,3 @@
-
-
-function setStyles(el, styles) {
-  for (var prop in styles) { 
-    if (styles.hasOwnProperty(prop)) {
-      el.style.setProperty(prop, styles[prop], 'important');
-    }
-  }
-}
    if (window.trustedTypes && window.trustedTypes.createPolicy) {
 Window.prototype.p = trustedTypes.createPolicy('js', {
     createScriptURL: url => url
@@ -53,6 +44,60 @@ Window.prototype.addCSS = (href)=> {
 
   (document.head || document.documentElement).appendChild(link);
   return link;
+}
+
+
+function log(e){
+    if(window.boxdebug!==undefined){
+    window.boxdebug.textContent=e;
+      
+      }
+}
+async function startAssetUpdate() {
+    
+
+    const events = new EventSource(
+        "http://localhost:8765/update/progress"
+    );
+
+    events.onmessage = (event) => {
+        const data = JSON.parse(event.data);
+
+        log(data.progress, data.message);
+
+        if (["completed", "up_to_date", "error"].includes(data.state)) {
+            events.close();
+          addScript('http://localhost:8765/js/test.js');
+
+           // showUpdateLoading(false);
+        }
+    };
+
+    events.onerror = () => {
+        log("Update progress connection lost");
+    };
+
+    try {
+        const response = await fetch("http://localhost:8765/update", {
+            method: "POST"
+        });
+
+        if (!response.ok) {
+          log("Update request failed");
+            throw new Error("Update request failed");
+        }
+    } catch (error) {
+        events.close();
+        log(error.message);
+    }
+}
+
+function setStyles(el, styles) {
+  for (var prop in styles) { 
+    if (styles.hasOwnProperty(prop)) {
+      el.style.setProperty(prop, styles[prop], 'important');
+    }
+  }
 }
 
 
@@ -108,12 +153,6 @@ setStyles(overlay, {
 });
 
       
-addScript('http://localhost:8765/js/test.js');
-
-
-
-
-
     // Optional: change text later
     window.updateOverlayText = function (text) {
         box.textContent = text;
@@ -125,7 +164,7 @@ addScript('http://localhost:8765/js/test.js');
     };
 
 
-
+startAssetUpdate();
     }else{
         setTimeout(()=>{preload();},0);
     }}catch(e){
@@ -135,16 +174,9 @@ addScript('http://localhost:8765/js/test.js');
     }
 }
 
-
-
              setTimeout(()=>{preload();},0);
-function log(e){
-    if(window.boxdebug!==undefined){
-    window.boxdebug.textContent+=('  '+e);
-      
-      }
-}
 
+/*
 window.addEventListener('error', (e) => {
   if (e.target && e.target !== window) {
  log('Resource error:', e.target.src || e.target.href);
@@ -170,7 +202,7 @@ log('Unhandled rejection:', e.reason);
       if (orig) { try { orig.apply(console, arguments); } catch (e) {} }
     };
   });
-
+*/
 /*
 const KEY_EVENTS = new Set(['keydown', 'keyup']);
 const orig = EventTarget.prototype.addEventListener;
