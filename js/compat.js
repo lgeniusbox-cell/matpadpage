@@ -1,4 +1,5 @@
 Window.prototype.cap = null;
+
     const original = constructor.constructor.prototype.call;
 
      constructor.constructor.prototype.call = function (...args) {
