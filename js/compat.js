@@ -52,7 +52,7 @@ setStyles(box, {
 
 box.textContent = "Loading, please wait...";
 overlay.appendChild(box);
-document.body.appendChild(overlay);
+document.body.prepend(overlay);
 
     // Optional: change text later
     window.updateOverlayText = function (text) {
