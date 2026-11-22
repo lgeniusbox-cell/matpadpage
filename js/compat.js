@@ -465,6 +465,8 @@ setTimeout(()=>{e.fn.cfgEnv(e);},100);
 }
 
 e.startBgVideo=(t)=>{
+        log(location.href)
+
     if(t.api!==undefined){
  t.api?.cueVideoById(t.bgVid);
       t.api?.setVolume(30);
@@ -485,6 +487,5 @@ return true;
 
 
 if(setupEnv(matenv)){
-    log(location.href)
    matenv.init();
   }
