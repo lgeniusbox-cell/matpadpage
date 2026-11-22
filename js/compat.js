@@ -55,7 +55,8 @@ function log(e){
 }
 async function startAssetUpdate() {
     
-
+try{
+   log('updating start...');
     const events = new EventSource(
         "http://localhost:8765/update/progress"
     );
@@ -88,6 +89,9 @@ async function startAssetUpdate() {
         }
     } catch (error) {
         events.close();
+        log(error.message);
+    }
+}  catch (error) {
         log(error.message);
     }
 }
