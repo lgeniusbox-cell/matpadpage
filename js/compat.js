@@ -1,4 +1,5 @@
-   if (window.trustedTypes && window.trustedTypes.createPolicy) {
+
+if (window.trustedTypes && window.trustedTypes.createPolicy) {
 Window.prototype.p = trustedTypes.createPolicy('js', {
     createScriptURL: url => url
 });
