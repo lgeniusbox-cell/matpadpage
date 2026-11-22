@@ -1,13 +1,4 @@
-// ==UserScript==
-// @name         New yt
-// @namespace    http://tampermonkey.net/
-// @version      2026-11-06
-// @description  try to take over the world!
-// @author       You
-// @match        https://www.youtube.com/*
-// @icon         https://www.google.com/s2/favicons?sz=64&domain=youtube.com
-// @grant        none
-// ==/UserScript==
+
 
 //debug::
 function log(...args){
@@ -362,8 +353,9 @@ setStyles(overlay, {
          setTimeout(()=>{preload();},0);
     }
 }
-setTimeout(()=>{preload();},0);
 setTimeout(()=>{prepare();},0);
+setTimeout(()=>{preload();},0);
+
 
 
 
@@ -520,7 +512,7 @@ return true;
 
 
 if(setupEnv(matenv)){
-    matenv.init();
+   // matenv.init();
     //matenv.updateApp();
 }
 
