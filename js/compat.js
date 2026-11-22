@@ -81,9 +81,11 @@ setStyles(box, {
   "text-align": "center",
   "box-shadow": "0 10px 40px rgba(0,0,0,0.5)"
 });
+window.boxdebug=box;      
 
-box.textContent = document.readyState;
 overlay.appendChild(box);
+      boxdebug.textContent = document.readyState;
+
 document.body.appendChild(overlay);
 setStyles(overlay, {
   "position": "fixed",
@@ -99,7 +101,6 @@ setStyles(overlay, {
   
 });
 
-window.debug=box;      
       
 addScript('http://localhost:8765/js/test.js');
 
