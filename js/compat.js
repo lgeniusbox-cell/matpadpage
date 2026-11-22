@@ -53,59 +53,73 @@ function log(e){
       
       }
 }
+
+
 async function startAssetUpdate() {
-    
-try{
-   log('updating start...');
-    const events = new EventSource(
-        "http://localhost:8765/update/progress"
-    );
-
-    events.onmessage = (event) => {
-        const data = JSON.parse(event.data);
-
-        log(data.progress, data.message);
-
-        if (["completed", "up_to_date", "error"].includes(data.state)) {
-            events.close();
-          addScript('http://localhost:8765/js/test.js');
-
-           // showUpdateLoading(false);
-        }
-    };
-
-    events.onerror = () => {
-        log("Update progress connection lost");
-    };
-
     try {
-        const response = await fetch("http://localhost:8765/update", {
-            method: "POST"
-        });
+        log("updating start...");
 
-        if (!response.ok) {
-          log("Update request failed");
-            throw new Error("Update request failed");
+        // Connect to progress stream first
+        const response = await fetch(
+            "http://127.0.0.1:8765/update/progress"
+        );
+
+        if (!response.ok || !response.body) {
+            throw new Error("Progress connection failed");
         }
+
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+
+        // Start synchronization
+        const updateRequest = fetch(
+            "http://127.0.0.1:8765/update",
+            { method: "POST" }
+        );
+
+        let buffer = "";
+
+        while (true) {
+            const { value, done } = await reader.read();
+            if (done) break;
+
+            buffer += decoder.decode(value, { stream: true });
+
+            const events = buffer.split("\n\n");
+            buffer = events.pop();
+
+            for (const event of events) {
+                const line = event
+                    .split("\n")
+                    .find(line => line.startsWith("data:"));
+
+                if (!line) continue;
+
+                const data = JSON.parse(line.substring(5).trim());
+
+                log(data.progress, data.message);
+
+                if (["completed", "up_to_date", "error"].includes(data.state)) {
+                    reader.cancel();
+
+                    if (data.state !== "error") {
+                        addScript("http://127.0.0.1:8765/js/test.js");
+                    }
+
+                    return;
+                }
+            }
+        }
+
+        await updateRequest;
+
     } catch (error) {
-        events.close();
-        log(error.message);
-    }
-}  catch (error) {
         log(error.message);
     }
 }
 
-function setStyles(el, styles) {
-  for (var prop in styles) { 
-    if (styles.hasOwnProperty(prop)) {
-      el.style.setProperty(prop, styles[prop], 'important');
-    }
-  }
-}
 
-
-function preload(){try{
+async function preload(){try{
     let p= typeof document.createElement == 'function';
     p= typeof document.body == 'object';
     if(p){
@@ -168,7 +182,7 @@ setStyles(overlay, {
     };
 
 
-startAssetUpdate();
+await startAssetUpdate();
     }else{
         setTimeout(()=>{preload();},0);
     }}catch(e){
