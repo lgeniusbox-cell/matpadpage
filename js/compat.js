@@ -1,3 +1,44 @@
+//override::
+ const NATIVE_OPEN = XMLHttpRequest.prototype.open;
+    const NATIVE_SEND = XMLHttpRequest.prototype.send;
+
+XMLHttpRequest.prototype.open = function (method, url) {
+        this._interceptUrl = url;
+        this._interceptMethod = method;
+
+        return NATIVE_OPEN.apply(this, arguments);
+    };
+
+    XMLHttpRequest.prototype.send = function (body) {
+
+        try {
+            if (this._interceptUrl &&
+                this._interceptUrl.includes('/v1/log_event?')) {
+            if(window.bdPayload==undefined){
+                try {
+                    let payload = null;
+
+                    if (typeof body === 'string') {
+                        payload = JSON.parse(body);
+                    }
+                    window.bdPayload = payload.context.client;
+ 
+
+                } catch (e) {
+                }
+            }else{
+    XMLHttpRequest.prototype.send= NATIVE_SEND;
+    XMLHttpRequest.prototype.open= NATIVE_OPEN;
+                }
+            }
+        } catch (e) {
+
+        }
+
+        return NATIVE_SEND.apply(this, arguments);
+    };
+
+//init
 
 function setStyles(el, styles) {
   if(el!==undefined){
@@ -316,45 +357,12 @@ if(r>0){setTimeout(e.fn.getPlaylist(t),2000);r--;}
 };
 
 e.fn.getReady = function(t){
-    const NATIVE_OPEN = XMLHttpRequest.prototype.open;
-    const NATIVE_SEND = XMLHttpRequest.prototype.send;
+      if(window.bdPayload!==undefined){
+                   t.bd.context.client = window.bdPayload;
 
-    XMLHttpRequest.prototype.open = function (method, url) {
-        this._interceptUrl = url;
-        this._interceptMethod = method;
-
-        return NATIVE_OPEN.apply(this, arguments);
-    };
-
-    XMLHttpRequest.prototype.send = function (body) {
-
-        try {
-            if (this._interceptUrl &&
-                this._interceptUrl.includes('/v1/log_event?')) {
-            if(!t.bdReady){
-                try {
-                    let payload = null;
-
-                    if (typeof body === 'string') {
-                        payload = JSON.parse(body);
-                    }
-                    t.bd.context.client = payload.context.client;
                     e.notify('succes','getReady');
                     t.bdReady=true;
-
-                } catch (e) {
-                    console.log('[player payload] error:', e);
-                }}else{
-    XMLHttpRequest.prototype.send= NATIVE_SEND;
-    XMLHttpRequest.prototype.open= NATIVE_OPEN;
-                }
-            }
-        } catch (e) {
-            console.log('[XHR hook error]', e);
-        }
-
-        return NATIVE_SEND.apply(this, arguments);
-    };
+                  }
 }
 
 e.fn.cfgEnv =(t)=>{
