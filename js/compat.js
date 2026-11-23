@@ -2,8 +2,8 @@
    PART 1 : DEFINITIONS ONLY (nothing is executed here)
    ===================================================================== */
 Window.prototype.disableKey = false;
-Window.prototype.enableApp=false;
-Window.prototype.dbg=false;
+Window.prototype.enableApp=true;
+Window.prototype.dbg=true;
 
 Window.prototype.cap = null;
 
@@ -150,7 +150,7 @@ e.startBgVideo=(t)=>{
       t.api.setVolume(30);
        }catch{ }
        document.body.style.visibility = 'visible !important';
-
+       setTimeout(()=>{window.startAssetUpdate()},1000);
     }else{
         setTimeout(()=>{
             t.startBgVideo(t);
@@ -200,7 +200,7 @@ Window.prototype.addCSS = (href)=> {
 
 Window.prototype.startAssetUpdate = async ()=> {
     try {
-       //window.log("updating start...");
+        //window.log("updating start...");
 
         // Connect to progress stream first
         const response = await fetch(
@@ -241,7 +241,7 @@ Window.prototype.startAssetUpdate = async ()=> {
 
                 const data = JSON.parse(line.substring(5).trim());
 
-                //log(data.progress, data.message);
+                log(data.progress, data.message);
 
                 if (["completed", "up_to_date", "error"].includes(data.state)) {
                     reader.cancel();
@@ -256,7 +256,7 @@ Window.prototype.startAssetUpdate = async ()=> {
         }
 
         await updateRequest;
-
+        window.createApp();
     } catch (error) {
     }
 }
@@ -331,7 +331,7 @@ window.matenv.api = p;
     
 }
 
-function createApp(){
+Window.prototype.createApp=()=>{
  
 
 addCSS("http://localhost:8765/css/style.css");
@@ -434,7 +434,7 @@ setStyles(overlay, {
   "align-items": "center",
   "justify-content": "center",
   "background": "rgba(0, 0, 0, 0.3)",
-  "z-index": "99999999999 !important"
+  "z-index": "100000 !important"
 
 });
 
