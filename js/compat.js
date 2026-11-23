@@ -246,9 +246,9 @@ function extractVariable(str) {
     return str.match(/this\.([a-zA-Z_$][\w$]*)\.on\(/)?.[1] || null;
 }
 
-function ping(){
-    let pr=false;
-
+function ping(pr=false){
+    
+    let pp=false;
     Object.values(window.cap.AdService.value).forEach((f)=>{
        if(!pr){ try{
            let ue = '';
@@ -258,7 +258,7 @@ if(f.onIsAdActiveChange!==undefined){
           if(ue.length>0){
            const fn =f[ue].constructor.prototype.set;
                 if(typeof fn==='function'){
-        pr=true;
+        pp=true;
         const adSet =f[ue].constructor.prototype.set;
         f[ue].constructor.prototype.set=function (...args) {
 
@@ -296,10 +296,11 @@ try{
         if(p?.constructor.name=='Map'){
             window.m.push(p);
         }
-    })}catch{}
+    });}catch{}
 })
 });
-    if(window.m.length==0){return setTimeout(()=>{ping()},1000)}
+    window.log(window.m.length,'  m.length');     
+    if(window.m.length==0){return setTimeout(()=>{ping(pp)},1000)}
 
     function pong(){
           const n = window.m.filter(d=>
@@ -379,7 +380,7 @@ setStyles(box, {
   "color": "white",
   "padding": "30px 50px",
   "border-radius": "12px",
-  "font-size": "20px",
+  "font-size": "2vw",
   "font-weight": "bold",
   "text-align": "center",
   "box-shadow": "0 10px 40px rgba(0,0,0,0.5)"
@@ -404,7 +405,6 @@ setStyles(overlay, {
 
 });
 
-window.log('okkkkkkkkkkkkkkkkk')
     // Optional: change text later
     window.updateOverlayText = function (text) {
         box.textContent = text;
