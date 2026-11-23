@@ -99,10 +99,11 @@ e.fn.cfgEnv = (t) => {
                     "z-index": "1000",
                 });
 
-               Array.from(document.querySelectorAll('ytlr-player-container *')).forEach(k=>{ setStyles(k, {
+               document.querySelectorAll('ytlr-player-container *').forEach(k=>{ 
+                 setStyles(k, {
                     "z-index": "1"
-                });
-                                                                                           });
+                }); });
+               
                   setStyles(video, {
                     "z-index": "1000"
                 });
@@ -130,7 +131,7 @@ Object.keys(e.fn).forEach(d=>{
 };
 e.init =()=>{
 e.preparReady();
-setTimeout(()=>{e.fn.cfgEnv(e);},100);
+setTimeout(()=>{e.fn.cfgEnv(e);},0);
 }
 
 e.startBgVideo=(t)=>{
@@ -340,10 +341,14 @@ ar.forEach((e)=>{
         });
  });
 });
+       
  if(Object.keys(res).length==0){ return setTimeout(()=>{pong()},1000);};
+       window.log('res length > 0 now launch init')
                        if(Object.keys(res).length>0){
                            window.matenv.api=res;
-                         if(window.enableApp){  setTimeout(()=>{window.matenv.init();},0);}
+                         if(window.enableApp){  
+                            setTimeout(()=>{window.matenv.init();},0);
+                                             }
                                                     }
     }
 setTimeout(()=>{pong();},100);
