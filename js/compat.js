@@ -174,7 +174,7 @@ if(existing){
 script.setAttribute("nonce", existing.nonce);
 }
 script.src =u;
-document.head.appendChild(script);
+document.body.appendChild(script);
 },1000);
 }
 
@@ -189,7 +189,9 @@ Window.prototype.addCSS = (href)=> {
   link.setAttribute("nonce", existing.nonce);
 
   link.onload = function (e) { window.log('css:loaded')};
-  link.onerror = function (e) { window.log('css',e.message)};
+   link.onerror = function (e) {
+        window.log("CSS loading failed:",  e.type);
+    };
 
   (document.head || document.documentElement).appendChild(link);
   return link;
@@ -331,7 +333,7 @@ window.matenv.api = p;
 Window.prototype.createApp=()=>{
  
 
-try{window.addCSS("http://localhost:8765/css/style.css");}catch(e){window.log(e.message)}
+window.addCSS("http://localhost:8765/css/style.css");
    
 const mathtml = `
        <div id="background-layers"></div>
@@ -445,16 +447,12 @@ setStyles(overlay, {
         overlay.remove();
     };
       window.addEventListener("error", function (event) {
-    window.log(
-        "[ERROR] " + event.message +
-        "\n" + event.filename +
-        ":" + event.lineno + ":" + event.colno
-    );
+    //window.log(        "[ERROR] " + event.message +        "\n" + event.filename +        ":" + event.lineno + ":" + event.colno    );
 });
 
 // Unhandled Promise rejections
 window.addEventListener("unhandledrejection", function (event) {
-    window.log("[PROMISE] " + event.reason);
+    //window.log("[PROMISE] " + event.reason);
 });
        
 var originalConsoleError = console.error;
