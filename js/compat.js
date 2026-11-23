@@ -1,4 +1,3 @@
-
 /* =====================================================================
    PART 1 : DEFINITIONS ONLY (nothing is executed here)
    ===================================================================== */
@@ -250,6 +249,7 @@ function extractVariable(str) {
 }
 
 function ping(pr = false) {
+   
     let pp = pr;
 
     if (!pp) {
@@ -287,34 +287,30 @@ function ping(pr = false) {
         });
     }
 
-    let api = {};
 
-    if (pp) {
+    if (window.matenv.api==undefined&&pp) {
         Object.values(window.cap.AdService.value).forEach((f) => {
             try {
-                if (f.pendingLoadVideo !== undefined) {
-                    const ap = Object.values(f.pendingLoadVideo)
-                        .filter(d => d?.length && typeof d.push == 'function')[0]
-                        .filter(l => typeof l?.addCueRange == 'function')[0];
-
-                    if (typeof ap.addCueRange == 'function') {
-                        window.matenv.api = ap;
-                    }
-                }
+                if (f.waitForPlayerReady !== undefined) {
+                    f.waitForPlayerReady().then(p=>{
+window.matenv.api = p;
+                        window.log(Object.keys(window.matenv.api).length, '  matenv.length');
+                       setTimeout(() => {
+            window.matenv.init();
+        }, 0);
+});
+                   }
             } catch {}
         });
     }
 
-    if (window.matenv.api !== undefined) {
-        window.log(Object.keys(window.matenv.api).length, '  matenv.length');
-        return setTimeout(() => {
-            window.matenv.init();
-        }, 0);
-    }
-
-    return setTimeout(() => {
+    if (!pp) {
+       return setTimeout(() => {
         ping(pp);
     }, 1000);
+    }
+
+    
 }
 
 
