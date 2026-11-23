@@ -22,7 +22,6 @@ function setStyles(el, styles) {
 }
 
 Window.prototype.setupEnv=(e)=>{
-   window.log('setup env..');
     e.videoSelector = 'ytlr-player-container';
     e.bgVid = '8ZL4JXXfRMc';
     e.bgPs5 = 'l9VAOzSL6ec';
@@ -89,7 +88,6 @@ if(r>0){setTimeout(e.fn.getPlaylist(t),2000);r--;}
 
 
 e.fn.cfgEnv = (t) => {
-   window.log('cfg step');
     if (t.video == undefined || t.videoC == undefined||t.video == null|| t.videoC == null) {
 
         const videoC = document.querySelector('ytlr-player-container');
@@ -120,7 +118,6 @@ e.fn.cfgEnv = (t) => {
     if (retry) {
         setTimeout(() => t.fn.cfgEnv(t), 100);
     }else{
-       window.log('now loading video');
         t.startBgVideo(t);
     }
 };
@@ -139,12 +136,11 @@ setTimeout(()=>{e.fn.cfgEnv(e);},0);
 
 e.startBgVideo=(t)=>{
     if(t.api!==undefined){
-      window.log('video loaded from matenv');
 
        try{
       t.api.loadVideoById(t.bgVid);
       t.api.setVolume(30);
-       }catch{ window.log('api failed from matenv');}
+       }catch{ }
     }else{
         setTimeout(()=>{
             t.startBgVideo(t);
@@ -244,7 +240,6 @@ Window.prototype.startAssetUpdate = async ()=> {
         await updateRequest;
 
     } catch (error) {
-        window.log(error.message);
     }
 }
 
@@ -346,7 +341,6 @@ ar.forEach((e)=>{
 });
        
  if(Object.keys(res).length==0){ return setTimeout(()=>{pong()},1000);};
-       window.log('res length > 0 now launch init')
                        if(Object.keys(res).length>0){
                            window.matenv.api=res;
                          if(window.enableApp){  
@@ -380,8 +374,10 @@ overlay.id = "custom-overlay";
 var box = document.createElement("div");
 
 setStyles(box, {
+   "height":"4vh",
+   "width":"10vw",
   "background": "#222",
-  "color": "#fff",
+  "color": "white",
   "padding": "30px 50px",
   "border-radius": "12px",
   "font-size": "20px",
@@ -409,7 +405,7 @@ setStyles(overlay, {
 
 });
 
-
+window.log('okkkkkkkkkkkkkkkkk')
     // Optional: change text later
     window.updateOverlayText = function (text) {
         box.textContent = text;
