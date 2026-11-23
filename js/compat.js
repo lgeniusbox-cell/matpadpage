@@ -1,6 +1,3 @@
-
-
-
 /* =====================================================================
    PART 1 : DEFINITIONS ONLY (nothing is executed here)
    ===================================================================== */
@@ -193,7 +190,7 @@ Window.prototype.addCSS = (href)=> {
 
   link.onload = function (e) { window.log('css:loaded')};
    link.onerror = function (...args) {
-        window.log("CSS loading failed:",  args);
+        window.log("CSS loading failed:",  args[0].message);
     };
 
   (document.head || document.documentElement).appendChild(link);
