@@ -137,9 +137,9 @@ e.startBgVideo=(t)=>{
     if(t.api!==undefined){
 
        try{
+          window.log('video loaded');
       t.api.loadVideoById(t.bgVid);
-      t.api?.setVolume(30);
-      t.api?.playVideo();
+      t.api.setVolume(30);
        }catch{ window.log('api failed');}
     }else{
         setTimeout(()=>{
@@ -260,7 +260,6 @@ if(f.onIsAdActiveChange!==undefined){
           if(ue.length>0){
            const fn =f[ue].constructor.prototype.set;
                 if(typeof fn==='function'){
-                   window.log('ads override ok');
         pr=true;
         const adSet =f[ue].constructor.prototype.set;
         f[ue].constructor.prototype.set=function (...args) {
