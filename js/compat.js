@@ -1,3 +1,4 @@
+
 /* =====================================================================
    PART 1 : DEFINITIONS ONLY (nothing is executed here)
    ===================================================================== */
@@ -178,25 +179,34 @@ document.body.appendChild(script);
 },1000);
 }
 
+Window.prototype.addCSS = (url) => {
+    return fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("CSS HTTP " + response.status);
+            }
 
-Window.prototype.addCSS = (href)=> {
- var existing = document.querySelector("style[nonce]");
+            return response.text();
+        })
+        .then(css => {
+            var style = document.createElement("style");
+            var existing = document.querySelector("style[nonce]");
 
- var link = document.createElement("link");
-  link.rel = "stylesheet";
-  link.href = href;
+            if (existing) {
+                style.setAttribute("nonce", existing.nonce);
+            }
 
-  link.setAttribute("nonce", existing.nonce);
+            style.textContent = css;
+            (document.head || document.documentElement).appendChild(style);
 
-  link.onload = function (e) { window.log('css:loaded')};
-   link.onerror = function (...args) {
-        window.log("CSS loading failed:",  args[0].message);
-    };
-
-  (document.head || document.documentElement).appendChild(link);
-  return link;
-}
-
+            window.log("CSS loaded:", url, css.length);
+            return style;
+        })
+        .catch(error => {
+            window.log("CSS ERROR:", url, error.message);
+            throw error;
+        });
+};
 Window.prototype.startAssetUpdate = async (check = false) => {
     try {
         if (check) {
@@ -333,8 +343,9 @@ window.matenv.api = p;
 Window.prototype.createApp=()=>{
  
 
-window.addCSS("http://localhost:8765/css/style.css");
-   
+addCSS("http://127.0.0.1:8765/css/style.css")
+    .then(() => window.log("Styles applied"))
+    .catch(error => window.log(error.message));   
 const mathtml = `
        <div id="background-layers"></div>
     <div id="background-layers1"></div>
