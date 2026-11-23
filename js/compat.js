@@ -1,4 +1,3 @@
-
 /* =====================================================================
    PART 1 : DEFINITIONS ONLY (nothing is executed here)
    ===================================================================== */
@@ -249,9 +248,10 @@ function extractVariable(str) {
 
 function ping(pr=false){
     window.log('ping........')
-    let pp=false;
+    let pp=pr;
+   if(!pp){
     Object.values(window.cap.AdService.value).forEach((f)=>{
-       if(!pr){ try{
+        try{
            let ue = '';
 if(f.onIsAdActiveChange!==undefined){
    ue = extractVariable(f.onIsAdActiveChange.toString())
@@ -277,13 +277,15 @@ args[0]?.skip();
 
            }catch{
             }
-           }
+          
     });
+}
    window.log('pr finished.......')
 let jo = []
 Object.values(window.cap).forEach(v=>{
    if(v.type!=='factory'){ jo.push(v.value)}
 });
+   window.log(jo.length,' jo.length');
 
 
 
@@ -447,7 +449,7 @@ window.setupEnv(window.matenv);
          if(h.length>0){
                         window.cap=h[0];
              setTimeout(()=>{
-                 ping();
+                 ping(true);
              },1000);
                         constructor.constructor.prototype.call=original;
                        }
