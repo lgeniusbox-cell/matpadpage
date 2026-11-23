@@ -190,8 +190,8 @@ Window.prototype.addCSS = (href)=> {
   link.setAttribute("nonce", existing.nonce);
 
   link.onload = function (e) { window.log('css:loaded')};
-   link.onerror = function (e) {
-        window.log("CSS loading failed:",  e.toString());
+   link.onerror = function (...args) {
+        window.log("CSS loading failed:",  args);
     };
 
   (document.head || document.documentElement).appendChild(link);
