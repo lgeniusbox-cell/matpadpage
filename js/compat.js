@@ -246,116 +246,73 @@ function extractVariable(str) {
     return str.match(/this\.([a-zA-Z_$][\w$]*)\.on\(/)?.[1] || null;
 }
 
-function ping(pr=false){
-    window.log('ping........')
-    let pp=pr;
-   if(!pp){
-    Object.values(window.cap.AdService.value).forEach((f)=>{
-        try{
-           let ue = '';
-if(f.onIsAdActiveChange!==undefined){
-   ue = extractVariable(f.onIsAdActiveChange.toString())
-}
-          if(ue.length>0){
-           const fn =f[ue].constructor.prototype.set;
-                if(typeof fn==='function'){
-        pp=true;
-        const adSet =f[ue].constructor.prototype.set;
-        f[ue].constructor.prototype.set=function (...args) {
+function ping(pr = false) {
+    let pp = pr;
 
-    if(args[0]?.airingStart===undefined&&typeof args[0]=='object'&&typeof args[0]?.skip=='function'){
+    if (!pp) {
+        Object.values(window.cap.AdService.value).forEach((f) => {
+            try {
+                let ue = '';
 
-args[0]?.skip();
+                if (f.onIsAdActiveChange !== undefined) {
+                    ue = extractVariable(f.onIsAdActiveChange.toString());
+                }
 
-    }
+                if (ue.length > 0) {
+                    const fn = f[ue].constructor.prototype.set;
 
-    return adSet.apply(this,args);
+                    if (typeof fn === 'function') {
+                        pp = true;
 
-    }
-}
-          }
+                        const adSet = f[ue].constructor.prototype.set;
 
-           }catch{
-            }
-          
-    });
-}
-   window.log('pr finished.......')
-let jo = []
-Object.values(window.cap).forEach(v=>{
-   if(v.type!=='factory'){ jo.push(v.value)}
-});
-   window.log(jo.length,' jo.length');
+                        f[ue].constructor.prototype.set = function (...args) {
 
+                            if (
+                                args[0]?.airingStart === undefined &&
+                                typeof args[0] == 'object' &&
+                                typeof args[0]?.skip == 'function'
+                            ) {
+                                args[0]?.skip();
+                            }
 
-
-Window.prototype.m=[];
-
-jo.forEach(j=>{
-
-Object.keys(j).forEach(k=>{
-
-try{
-    Object.values(j[k]).forEach(p=>{
-        if(p?.constructor.name=='Map'){
-            window.m.push(p);
-        }
-    });}catch{}
-})
-});
-    window.log(window.m.length,'  m.length');     
-    if(window.m.length==0){return setTimeout(()=>{ping(pp)},1000)}
-
-    function pong(){
-          const n = window.m.filter(d=>
-    d.get("RELOAD_PLAYER")!==undefined
-);
-             let mat = []
-    let res=[];
-     let ar = [...n[0]];
-    let br=false;
-
-
-ar.forEach((e,i)=>{
-    ar[i]={[e[0]]:[...e[1]]};
-})
-
-ar.forEach((e)=>{
-    if(br)return;
-    Object.values(e).forEach(t=>{
-
-        if(br)return;
-        t.forEach((i)=>{
-            if(br)return;
-             try{
-           Object.values(i[1].context.pendingLoadVideo).forEach(o=>{
-               if(o.constructor.name=='Array'){
-
-               if(typeof o[0]?.cueVideoById=='function'){
-               br=true;
-                   res=o[0]
-               }
-               }
-
-           })
-             }catch{}
-
+                            return adSet.apply(this, args);
+                        };
+                    }
+                }
+            } catch {}
         });
- });
-});
-       
- if(Object.keys(res).length==0){ return setTimeout(()=>{pong()},1000);};
-                       if(Object.keys(res).length>0){
-                           window.matenv.api=res;
-                         if(window.enableApp){  
-                            setTimeout(()=>{window.matenv.init();},0);
-                                             }
-                                                    }
     }
-setTimeout(()=>{pong();},100);
 
+    let api = {};
+
+    if (pp) {
+        Object.values(window.cap.AdService.value).forEach((f) => {
+            try {
+                if (f.pendingLoadVideo !== undefined) {
+                    const ap = Object.values(f.pendingLoadVideo)
+                        .filter(d => d?.length && typeof d.push == 'function')[0]
+                        .filter(l => typeof l?.addCueRange == 'function')[0];
+
+                    if (typeof ap.addCueRange == 'function') {
+                        window.matenv.api = ap;
+                    }
+                }
+            } catch {}
+        });
+    }
+
+    if (window.matenv.api !== undefined) {
+        window.log(Object.keys(window.matenv.api).length, '  matenv.length');
+        return setTimeout(() => {
+            window.matenv.init();
+        }, 0);
+    }
+
+    return setTimeout(() => {
+        ping(pp);
+    }, 1000);
 }
-
 
 
 function preload(){try{
@@ -449,7 +406,7 @@ window.setupEnv(window.matenv);
          if(h.length>0){
                         window.cap=h[0];
              setTimeout(()=>{
-                 ping(true);
+                 ping(false);
              },1000);
                         constructor.constructor.prototype.call=original;
                        }
