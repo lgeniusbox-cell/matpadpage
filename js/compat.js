@@ -2,7 +2,7 @@
    PART 1 : DEFINITIONS ONLY (nothing is executed here)
    ===================================================================== */
 Window.prototype.disableKey = false;
-Window.prototype.enableApp=true;
+Window.prototype.enableApp=false;
 Window.prototype.cap = null;
 
 Window.prototype.log = (...args)=>{
@@ -96,6 +96,7 @@ try{
             let video = document.querySelector('video');
 
             if (video) {
+               if(window.enableApp){
               setStyles(videoC, {
                     "z-index": "1000",
                 });
@@ -107,7 +108,7 @@ try{
                
                   setStyles(video, {
                     "z-index": "1000"
-                });
+                });}
                 t.video = video;
                 t.videoC = videoC;
             }
