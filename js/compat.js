@@ -1,6 +1,3 @@
-
-
-
 /* =====================================================================
    PART 1 : DEFINITIONS ONLY (nothing is executed here)
    ===================================================================== */
@@ -247,21 +244,26 @@ Window.prototype.startAssetUpdate = async ()=> {
     }
 }
 
+function extractVariable(str) {
+    return str.match(/this\.([a-zA-Z_$][\w$]*)\.on\(/)?.[1] || null;
+}
+
 function ping(){
     let pr=false;
 
     Object.values(window.cap.AdService.value).forEach((f)=>{
        if(!pr){ try{
+           let ue = '';
 if(f.onIsAdActiveChange!==undefined){
-window.log(f.onIsAdActiveChange.toString());
+   ue = extractVariable(f.onIsAdActiveChange.toString())
 }
-
-           /*  const fn =k?.UE?.constructor?.prototype?.set;
+          if(ue.length>0){
+           const fn =f[ue].constructor.prototype.set;
                 if(typeof fn==='function'){
                    window.log('ads override ok');
         pr=true;
-        const adSet =k.UE.constructor.prototype?.set;
-        k.UE.constructor.prototype.set=function (...args) {
+        const adSet =f[ue].constructor.prototype.set;
+        f[ue].constructor.prototype.set=function (...args) {
 
     if(args[0]?.airingStart===undefined&&typeof args[0]=='object'&&typeof args[0]?.skip=='function'){
 
@@ -272,7 +274,9 @@ args[0]?.skip();
     return adSet.apply(this,args);
 
     }
-}*/
+}
+          }
+
            }catch{
             }
            }
