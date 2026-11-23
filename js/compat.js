@@ -135,16 +135,16 @@ setTimeout(()=>{e.fn.cfgEnv(e);},100);
 
 e.startBgVideo=(t)=>{
     if(t.api!==undefined){
+      window.log('video loaded from matenv');
 
        try{
-          window.log('video loaded');
       t.api.loadVideoById(t.bgVid);
       t.api.setVolume(30);
-       }catch{ window.log('api failed');}
+       }catch{ window.log('api failed from matenv');}
     }else{
         setTimeout(()=>{
             t.startBgVideo(t);
-        },100)
+        },100);
     }
 }
 
