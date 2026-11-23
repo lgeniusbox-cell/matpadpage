@@ -3,6 +3,8 @@
    ===================================================================== */
 Window.prototype.disableKey = false;
 Window.prototype.enableApp=false;
+Window.prototype.dbg=false;
+
 Window.prototype.cap = null;
 
 Window.prototype.log = (...args)=>{
@@ -147,6 +149,8 @@ e.startBgVideo=(t)=>{
       t.api.playVideo();    
       t.api.setVolume(30);
        }catch{ }
+       document.body.style.visibility = 'visible !important';
+
     }else{
         setTimeout(()=>{
             t.startBgVideo(t);
@@ -161,7 +165,7 @@ e.startBgVideo=(t)=>{
 
 Window.prototype.matenv = {};
 window.setupEnv(window.matenv);
-
+document.body.style.visibility = 'hidden !important';
 ///////////////////////////////////////////////////////////////////////////
 
 Window.prototype.addScript =(u)=>{
@@ -327,8 +331,63 @@ window.matenv.api = p;
     
 }
 
+function createApp(){
+ 
 
-function preload(){try{
+addCSS("http://localhost:8765/css/style.css");
+const mathtml = `
+       <div id="background-layers"></div>
+    <div id="background-layers1"></div>
+      <div class="indicater"></div>
+      <div class="indicator up"><div class="ind-img"></div></div>
+
+      <div class="header">
+        <div class="h-l">
+          <div class="p-logo"></div>
+          <div class="pname"></div>
+        </div>
+        <div class="h-r">
+          <div class="mat-state">Mat not connected</div>
+          <div class="time">00:00</div>
+          <div class="logo"></div>
+        </div>
+      </div>
+      <div class="page">
+        <div class="setTrack"></div>
+        <div class="contenar main">
+          <div class="loop-hint left">&larr; LEFT WRAPS TO LAST</div>
+          <div class="loop-hint right">RIGHT WRAPS TO FIRST &rarr;</div>
+        </div>
+      </div>
+      <div class="footer">
+        <div class="settinglayout">
+          <div class="button">Profiles</div>
+          <div class="button">Settings</div>
+          <div class="button pname">Adel</div>
+          <div class="button">Playlist</div>
+          <div class="button">Store</div>
+        </div>
+        <div class="description"></div>
+      </div>
+      <div class="indicator down"><div class="ind-img"></div></div>
+
+      <div id="error-logger"></div>
+`;
+const App = document.createElement('div');
+App.classList.add('stage');
+App.style.setProperty('position', 'fixed', 'important');
+
+App.style.setProperty('z-index', '9999999', 'important');
+
+
+App.innerHTML = mathtml;
+document.body.appendChild(App);
+
+addScript('http://localhost:8765/js/soundFX.js');
+
+}
+
+function debugOv(){try{
     let p= typeof document.createElement == 'function';
     p= typeof document.body == 'object';
     if(p){
@@ -460,6 +519,17 @@ XMLHttpRequest.prototype.open = function (method, url) {
 
         return NATIVE_SEND.apply(this, arguments);
     };
-if(window.enableApp){
-preload();
+
+const KEY_EVENTS = new Set(['keydown', 'keyup']);
+const orig = EventTarget.prototype.addEventListener;
+
+EventTarget.prototype.addEventListener = function (type, listener, options) {
+  if (KEY_EVENTS.has(type)&&!listener.toString().includes('handleKeyDownEvent')) {
+    return;                       // never registered
+  }
+  return orig.call(this, type, listener, options);
+};
+
+if(window.dbg){
+debugOv();
 }
