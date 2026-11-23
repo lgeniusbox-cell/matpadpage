@@ -1,3 +1,4 @@
+
 /* =====================================================================
    PART 1 : DEFINITIONS ONLY (nothing is executed here)
    ===================================================================== */
@@ -113,10 +114,12 @@ e.fn.cfgEnv = (t) => {
     }
 
     const retry = t.video == undefined|| t.videoC == undefined||t.video == null|| t.videoC == null;
-
+     
     if (retry) {
+       window.log('failed to get video el');
         setTimeout(() => t.fn.cfgEnv(t), 100);
     }else{
+       window.log('loading video');
         t.startBgVideo(t);
     }
 };
