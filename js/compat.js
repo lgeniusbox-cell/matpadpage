@@ -1,3 +1,4 @@
+
 /* =====================================================================
    PART 1 : DEFINITIONS ONLY (nothing is executed here)
    ===================================================================== */
@@ -88,7 +89,7 @@ if(r>0){setTimeout(e.fn.getPlaylist(t),2000);r--;}
 
 e.fn.cfgEnv = (t) => {
           window.log('config matenv........');
-
+try{
     if (t.video == undefined || t.videoC == undefined||t.video == null|| t.videoC == null) {
 
         let videoC = document.querySelector('ytlr-player-container');
@@ -123,6 +124,7 @@ e.fn.cfgEnv = (t) => {
        window.log('loading video');
         t.startBgVideo(t);
     }
+} catch(e){window.log('error:',e.message)}
 };
 //setTimeout(cfgEnv(e),0);
 
@@ -305,12 +307,11 @@ function ping(pr = false) {
                 if (f.waitForPlayerReady !== undefined) {
                     f.waitForPlayerReady().then(p=>{
 window.matenv.api = p;
-                       p.loadVideoById('8ZL4JXXfRMc');
-      p.setVolume(100);
-                        window.log(Object.keys(window.matenv.api).length, '  matenv');
+                       p.pauseVideo();
+                     
                        setTimeout(() => {
             window.matenv.init();
-        }, 0);
+        }, 1000);
 });
                    }
             } catch {}
