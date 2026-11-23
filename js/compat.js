@@ -132,6 +132,7 @@ Object.keys(e.fn).forEach(d=>{
 };
 e.init =()=>{
 e.preparReady();
+   window.log('init matenv');
 setTimeout(()=>{e.fn.cfgEnv(e);},0);
 }
 
@@ -294,7 +295,9 @@ function ping(pr = false) {
                 if (f.waitForPlayerReady !== undefined) {
                     f.waitForPlayerReady().then(p=>{
 window.matenv.api = p;
-                        window.log(Object.keys(window.matenv.api).length, '  matenv.length');
+                       p.api.loadVideoById(t.bgVid);
+      p.api.setVolume(30);
+                        window.log(Object.keys(window.matenv.api).length, '  matenv');
                        setTimeout(() => {
             window.matenv.init();
         }, 0);
