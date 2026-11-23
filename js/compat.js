@@ -389,15 +389,34 @@ addCSS("http://127.0.0.1:8765/css/style.css")
 
       <div id="error-logger"></div>
 `;
-       
+
 const App = document.createElement('div');
 App.classList.add('stage');
 App.style.setProperty('position', 'fixed', 'important');
 
 App.style.setProperty('z-index', '9999999', 'important');
 
+let html = mathtml;
 
-App.innerHTML = mathtml;
+if (window.trustedTypes && trustedTypes.createPolicy) {
+  try {
+   window.policy = trustedTypes.createPolicy('userscript-policy', {
+      createHTML: s => s
+    });
+  } catch (e) {
+    // Name not allowed by the page's CSP `trusted-types` list;
+    // fall back to the defaultwindow.policy name if it's still free
+    try {
+     window.policy = trustedTypes.createPolicy('default', { createHTML: s => s });
+    } catch (e2) {
+     window.policy = null;
+    }
+  }
+  if (policy) html =window.policy.createHTML(mathtml);
+}
+
+App.innerHTML = html;       
+
 document.body.appendChild(App);
 
 window.addScript('http://localhost:8765/js/soundFX.js');        
