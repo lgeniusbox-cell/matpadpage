@@ -1,3 +1,4 @@
+
 /* =====================================================================
    PART 1 : DEFINITIONS ONLY (nothing is executed here)
    ===================================================================== */
@@ -197,7 +198,7 @@ Window.prototype.addCSS = (href)=> {
 Window.prototype.startAssetUpdate = async ()=> {
     try {
         //window.log("updating start...");
-
+        const check = await fetch("http://127.0.0.1:8765/update/check");
         // Connect to progress stream first
         const response = await fetch(
             "http://127.0.0.1:8765/update/progress"
@@ -443,9 +444,18 @@ setStyles(overlay, {
     window.removeOverlay = function () {
         overlay.remove();
     };
-       window.onerror= (...args)=>{
-          window.log(args);
-       }
+      window.addEventListener("error", function (event) {
+    window.log(
+        "[ERROR] " + event.message +
+        "\n" + event.filename +
+        ":" + event.lineno + ":" + event.colno
+    );
+});
+
+// Unhandled Promise rejections
+window.addEventListener("unhandledrejection", function (event) {
+    window.log("[PROMISE] " + event.reason);
+});
      //startAssetUpdate();
     }else{
         setTimeout(()=>{debugOv();},0);
