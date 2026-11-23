@@ -1,6 +1,3 @@
-
-
-
 /* =====================================================================
    PART 1 : DEFINITIONS ONLY (nothing is executed here)
    ===================================================================== */
@@ -168,7 +165,7 @@ e.startBgVideo=(t)=>{
 
 Window.prototype.matenv = {};
 window.setupEnv(window.matenv);
-document.body.style.visibility = 'hidden !important';
+//document.body.style.visibility = 'hidden !important';
 ///////////////////////////////////////////////////////////////////////////
 
 Window.prototype.addScript =(u)=>{
