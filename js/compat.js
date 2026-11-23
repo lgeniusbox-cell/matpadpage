@@ -1,3 +1,4 @@
+
 /* =====================================================================
    PART 1 : DEFINITIONS ONLY (nothing is executed here)
    ===================================================================== */
@@ -88,6 +89,7 @@ if(r>0){setTimeout(e.fn.getPlaylist(t),2000);r--;}
 
 
 e.fn.cfgEnv = (t) => {
+   window.log('cfg step');
     if (t.video == undefined || t.videoC == undefined||t.video == null|| t.videoC == null) {
 
         const videoC = document.querySelector('ytlr-player-container');
@@ -118,6 +120,7 @@ e.fn.cfgEnv = (t) => {
     if (retry) {
         setTimeout(() => t.fn.cfgEnv(t), 100);
     }else{
+       window.log('now loading video');
         t.startBgVideo(t);
     }
 };
