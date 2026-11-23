@@ -258,6 +258,7 @@ Window.prototype.startAssetUpdate = async (check = false) => {
                 if (!line) continue;
 
                 const data = JSON.parse(line.substring(5).trim());
+                                window.log(Object.values(data));
 
                 if (["completed", "up_to_date", "error"].includes(data.state)) {
                     await reader.cancel();
