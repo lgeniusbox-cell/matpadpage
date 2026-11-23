@@ -1,3 +1,4 @@
+
 /* =====================================================================
    PART 1 : DEFINITIONS ONLY (nothing is executed here)
    ===================================================================== */
@@ -247,7 +248,7 @@ function extractVariable(str) {
 }
 
 function ping(pr=false){
-    
+    window.log('ping........')
     let pp=false;
     Object.values(window.cap.AdService.value).forEach((f)=>{
        if(!pr){ try{
@@ -278,6 +279,7 @@ args[0]?.skip();
             }
            }
     });
+   window.log('pr finished.......')
 let jo = []
 Object.values(window.cap).forEach(v=>{
    if(v.type!=='factory'){ jo.push(v.value)}
