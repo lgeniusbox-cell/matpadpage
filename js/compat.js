@@ -1,3 +1,6 @@
+
+
+
 /* =====================================================================
    PART 1 : DEFINITIONS ONLY (nothing is executed here)
    ===================================================================== */
@@ -245,25 +248,20 @@ Window.prototype.startAssetUpdate = async ()=> {
 }
 
 function ping(){
-let jo = []
-Object.values(window.cap).forEach(v=>{
-   if(v.type!=='factory'){ jo.push(v.value)}
-});
+    let pr=false;
 
+    Object.values(window.cap.AdService.value).forEach((f)=>{
+       if(!pr){ try{
+if(f.onIsAdActiveChange!==undefined){
+window.log(f.onIsAdActiveChange.toString());
+}
 
-
-Window.prototype.m=[];
-let pr=false;
-
-jo.forEach(j=>{
-    if(!pr){ try{
-
-                const fn =j?.UE?.constructor?.prototype?.set;
+           /*  const fn =k?.UE?.constructor?.prototype?.set;
                 if(typeof fn==='function'){
                    window.log('ads override ok');
         pr=true;
-        const adSet =j.UE.constructor.prototype?.set;
-        j.UE.constructor.prototype.set=function (...args) {
+        const adSet =k.UE.constructor.prototype?.set;
+        k.UE.constructor.prototype.set=function (...args) {
 
     if(args[0]?.airingStart===undefined&&typeof args[0]=='object'&&typeof args[0]?.skip=='function'){
 
@@ -274,11 +272,24 @@ args[0]?.skip();
     return adSet.apply(this,args);
 
     }
-}
+}*/
            }catch{
             }
            }
+    });
+let jo = []
+Object.values(window.cap).forEach(v=>{
+   if(v.type!=='factory'){ jo.push(v.value)}
+});
+
+
+
+Window.prototype.m=[];
+
+jo.forEach(j=>{
+
 Object.keys(j).forEach(k=>{
+
 try{
     Object.values(j[k]).forEach(p=>{
         if(p?.constructor.name=='Map'){
@@ -358,13 +369,11 @@ overlay.id = "custom-overlay";
 var box = document.createElement("div");
 
 setStyles(box, {
-   "height":"6vh",
-   "width":"10vw",
   "background": "#222",
-  "color": "white",
+  "color": "#fff",
   "padding": "30px 50px",
   "border-radius": "12px",
-  "font-size": "2vw",
+  "font-size": "20px",
   "font-weight": "bold",
   "text-align": "center",
   "box-shadow": "0 10px 40px rgba(0,0,0,0.5)"
