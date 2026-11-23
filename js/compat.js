@@ -1,4 +1,3 @@
-
 /* =====================================================================
    PART 1 : DEFINITIONS ONLY (nothing is executed here)
    ===================================================================== */
@@ -47,7 +46,7 @@ Window.prototype.setupEnv=(e)=>{
 
 e.notify =(t,d)=>{
 if(t=='Error'){e.Success[d]=false;}else{e.Success[d]=true;}
-}
+};
 e.fn.getPlaylist = (/*id*/ t,/*playlist*/ p,/*retry-count*/ r=3)=>{
       if(!e.Success['getReady']){return e.notify('Error','getPlaylist');}
       e.bd.browseId =t;
@@ -88,11 +87,13 @@ if(r>0){setTimeout(e.fn.getPlaylist(t),2000);r--;}
 
 
 e.fn.cfgEnv = (t) => {
+          window.log('config matenv........');
+
     if (t.video == undefined || t.videoC == undefined||t.video == null|| t.videoC == null) {
 
-        const videoC = document.querySelector('ytlr-player-container');
+        let videoC = document.querySelector('ytlr-player-container');
         if (videoC) {
-            const video = document.querySelector('video');
+            let video = document.querySelector('video');
 
             if (video) {
               setStyles(videoC, {
@@ -151,7 +152,15 @@ e.startBgVideo=(t)=>{
     }
 }
 
-}
+};
+/* =====================================================================
+   PART 2 : STATE (needs the definitions above)
+   ===================================================================== */
+
+Window.prototype.matenv = {};
+window.setupEnv(window.matenv);
+
+///////////////////////////////////////////////////////////////////////////
 
 Window.prototype.addScript =(u)=>{
 setTimeout(()=>{
@@ -388,12 +397,7 @@ setStyles(overlay, {
 }
 
 
-/* =====================================================================
-   PART 2 : STATE (needs the definitions above)
-   ===================================================================== */
 
-Window.prototype.matenv = {};
-window.setupEnv(window.matenv);
 
 
 /* =====================================================================
