@@ -1,4 +1,3 @@
-
 /* =====================================================================
    PART 1 : DEFINITIONS ONLY (nothing is executed here)
    ===================================================================== */
@@ -138,9 +137,8 @@ e.startBgVideo=(t)=>{
     if(t.api!==undefined){
 
        try{
- t.api?.cueVideoById(t.bgVid);
+      t.api.loadVideoById(t.bgVid);
       t.api?.setVolume(30);
-      t.api?.seekTo(100);
       t.api?.playVideo();
        }catch{ window.log('api failed');}
     }else{
