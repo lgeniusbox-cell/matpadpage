@@ -1,4 +1,3 @@
-
 /* =====================================================================
    PART 1 : DEFINITIONS ONLY (nothing is executed here)
    ===================================================================== */
@@ -101,7 +100,7 @@ try{
                     "z-index": "1000",
                 });
 
-               document.querySelectorAll('ytlr-player-container *').forEach(k=>{ 
+               Array.from(document.querySelectorAll('ytlr-player-container *')).forEach(k=>{ 
                  setStyles(k, {
                     "z-index": "1"
                 }); });
