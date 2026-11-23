@@ -1,4 +1,3 @@
-
 /* =====================================================================
    PART 1 : DEFINITIONS ONLY (nothing is executed here)
    ===================================================================== */
@@ -359,11 +358,13 @@ overlay.id = "custom-overlay";
 var box = document.createElement("div");
 
 setStyles(box, {
+   "height":"6vh",
+   "width":"10vw",
   "background": "#222",
-  "color": "#fff",
+  "color": "white",
   "padding": "30px 50px",
   "border-radius": "12px",
-  "font-size": "20px",
+  "font-size": "2vw",
   "font-weight": "bold",
   "text-align": "center",
   "box-shadow": "0 10px 40px rgba(0,0,0,0.5)"
