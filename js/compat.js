@@ -241,7 +241,7 @@ Window.prototype.startAssetUpdate = async ()=> {
 
                 const data = JSON.parse(line.substring(5).trim());
 
-                window.log(data.progress, data.message);
+                //window.log(data.progress, data.message);
 
                 if (["completed", "up_to_date", "error"].includes(data.state)) {
                     reader.cancel();
@@ -255,8 +255,9 @@ Window.prototype.startAssetUpdate = async ()=> {
             }
         }
 
+        window.log('update finish')       
+       window.createApp();
         await updateRequest;
-        window.createApp();
     } catch (error) {
     }
 }
@@ -334,7 +335,8 @@ window.matenv.api = p;
 Window.prototype.createApp=()=>{
  
 
-window.addCSS("http://localhost:8765/css/style.css");
+try{window.addCSS("http://localhost:8765/css/style.css");}catch(e){window.log(e.message)}
+   
 const mathtml = `
        <div id="background-layers"></div>
     <div id="background-layers1"></div>
@@ -435,7 +437,6 @@ setStyles(overlay, {
   "justify-content": "center",
   "background": "rgba(0, 0, 0, 0.3)",
   "z-index": "100000 !important"
-
 });
 
     // Optional: change text later
