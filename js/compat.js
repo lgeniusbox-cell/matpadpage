@@ -1,4 +1,3 @@
-
 /* =====================================================================
    PART 1 : DEFINITIONS ONLY (nothing is executed here)
    ===================================================================== */
@@ -273,7 +272,7 @@ try{
     let res=[];
      let ar = [...n[0]];
     let br=false;
-
+     let pr=false;
 
 
 ar.forEach((e,i)=>{
@@ -298,6 +297,27 @@ ar.forEach((e)=>{
 
            })
              }catch{}
+          if(!pr){ try{
+                const fn =i[1].context?.J?.UE?.constructor?.prototype?.set;
+                if(typeof fn==='function'){
+                   window.log('ads override ok');
+        pr=true;
+        const adSet = i[1].context.J.UE.constructor.prototype.set;
+         i[1].context.J.UE.constructor.prototype.set=function (...args) {
+
+    if(args[0]?.airingStart===undefined&&typeof args[0]=='object'&&typeof args[0]?.skip=='function'){
+
+args[0]?.skip();
+
+    }
+
+    return adSet.apply(this,args);
+
+    }
+}
+           }catch{
+            }
+           }
         });
  });
 });
@@ -310,6 +330,8 @@ ar.forEach((e)=>{
 setTimeout(()=>{pong();},100);
 
 }
+
+
 
 function preload(){try{
     let p= typeof document.createElement == 'function';
