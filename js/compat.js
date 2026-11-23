@@ -188,35 +188,43 @@ Window.prototype.addCSS = (href)=> {
 
   link.setAttribute("nonce", existing.nonce);
 
-  link.onload = function () { };
-  link.onerror = function () { };
+  link.onload = function (e) { window.log('css:loaded')};
+  link.onerror = function (e) { window.log('css',e.message)};
 
   (document.head || document.documentElement).appendChild(link);
   return link;
 }
 
-Window.prototype.startAssetUpdate = async ()=> {
+Window.prototype.startAssetUpdate = async (check = false) => {
     try {
-        //window.log("updating start...");
-        const check = await fetch("http://127.0.0.1:8765/update/check");
-        // Connect to progress stream first
+        if (check) {
+            const response = await fetch(
+                "http://127.0.0.1:8765/update/check"
+            );
+
+            if (!response.ok)
+                throw new Error("Update check failed");
+
+            return await response.json();
+        }
+
         const response = await fetch(
             "http://127.0.0.1:8765/update/progress"
         );
 
-        if (!response.ok || !response.body) {
-            //log("Progress connection failed");
+        if (!response.ok || !response.body)
             throw new Error("Progress connection failed");
-        }
 
         const reader = response.body.getReader();
         const decoder = new TextDecoder();
 
-        // Start synchronization
-        const updateRequest = fetch(
+        const updateRequest = await fetch(
             "http://127.0.0.1:8765/update",
             { method: "POST" }
         );
+
+        if (!updateRequest.ok)
+            throw new Error("Update request failed");
 
         let buffer = "";
 
@@ -230,34 +238,26 @@ Window.prototype.startAssetUpdate = async ()=> {
             buffer = events.pop();
 
             for (const event of events) {
-                const line = event
-                    .split("\n")
-                    .find(line => line.startsWith("data:"));
+                const line = event.split("\n").find(
+                    line => line.startsWith("data:")
+                );
 
                 if (!line) continue;
 
                 const data = JSON.parse(line.substring(5).trim());
 
-                //window.log(data.progress, data.message);
-
                 if (["completed", "up_to_date", "error"].includes(data.state)) {
-                    reader.cancel();
-
-                    if (data.state !== "error") {
-                        //addScript("http://127.0.0.1:8765/js/test.js");
-                    }
-
-                    return;
+                    await reader.cancel();
+                    return data;
                 }
             }
         }
 
-     
-        await updateRequest;
     } catch (error) {
+        window.log(error.stack || error.message);
+        return { state: "error", message: error.message };
     }
-}
-
+};
 function extractVariable(str) {
     return str.match(/this\.([a-zA-Z_$][\w$]*)\.on\(/)?.[1] || null;
 }
@@ -381,7 +381,7 @@ App.style.setProperty('z-index', '9999999', 'important');
 App.innerHTML = mathtml;
 document.body.appendChild(App);
 
-//window.addScript('http://localhost:8765/js/soundFX.js');
+window.addScript('http://localhost:8765/js/soundFX.js');
 
 }
 
