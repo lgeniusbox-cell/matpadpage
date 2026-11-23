@@ -1,4 +1,3 @@
-
 /* =====================================================================
    PART 1 : DEFINITIONS ONLY (nothing is executed here)
    ===================================================================== */
@@ -90,7 +89,6 @@ if(r>0){setTimeout(e.fn.getPlaylist(t),2000);r--;}
 
 
 e.fn.cfgEnv = (t) => {
-          window.log('config matenv........');
 try{
     if (t.video == undefined || t.videoC == undefined||t.video == null|| t.videoC == null) {
 
@@ -121,10 +119,8 @@ try{
     const retry = t.video == undefined|| t.videoC == undefined||t.video == null|| t.videoC == null;
      
     if (retry) {
-       window.log('failed to get video el');
         setTimeout(() => t.fn.cfgEnv(t), 100);
     }else{
-       window.log('loading video');
         t.startBgVideo(t);
     }
 } catch(e){window.log('error:',e.message)}
@@ -139,7 +135,6 @@ Object.keys(e.fn).forEach(d=>{
 };
 e.init =()=>{
 e.preparReady();
-   window.log('init matenv');
 setTimeout(()=>{e.fn.cfgEnv(e);},0);
 }
 
@@ -151,7 +146,7 @@ e.startBgVideo=(t)=>{
       t.api.setVolume(30);
        }catch{ }
        //document.body.style.visibility = 'visible !important';
-       setTimeout(()=>{ window.startAssetUpdate().then(e=>{   window.log('update finish');  window.createApp();      });      },1000);
+       setTimeout(()=>{ window.startAssetUpdate().then(e=>{    window.createApp();      });      },1000);
     }else{
         setTimeout(()=>{
             t.startBgVideo(t);
@@ -448,6 +443,9 @@ setStyles(overlay, {
     window.removeOverlay = function () {
         overlay.remove();
     };
+       window.onerror= (...args)=>{
+          window.log(args);
+       }
      //startAssetUpdate();
     }else{
         setTimeout(()=>{debugOv();},0);
