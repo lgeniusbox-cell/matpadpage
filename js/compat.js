@@ -207,6 +207,7 @@ Window.prototype.addCSS = (url) => {
             throw error;
         });
 };
+
 Window.prototype.startAssetUpdate = async (check = false) => {
     try {
         if (check) {
@@ -344,9 +345,9 @@ Window.prototype.createApp=()=>{
  
 
 addCSS("http://127.0.0.1:8765/css/style.css")
-    .then(() => window.log("Styles applied"))
-    .catch(error => window.log(error.message));   
-const mathtml = `
+    .then(() =>{
+       window.log("Styles applied");
+       const mathtml = `
        <div id="background-layers"></div>
     <div id="background-layers1"></div>
       <div class="indicater"></div>
@@ -384,6 +385,7 @@ const mathtml = `
 
       <div id="error-logger"></div>
 `;
+       
 const App = document.createElement('div');
 App.classList.add('stage');
 App.style.setProperty('position', 'fixed', 'important');
@@ -394,7 +396,11 @@ App.style.setProperty('z-index', '9999999', 'important');
 App.innerHTML = mathtml;
 document.body.appendChild(App);
 
-window.addScript('http://localhost:8765/js/soundFX.js');
+window.addScript('http://localhost:8765/js/soundFX.js');        
+               
+               })
+    .catch(error => window.log(error.message));   
+
 
 }
 
