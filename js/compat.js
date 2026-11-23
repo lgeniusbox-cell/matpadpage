@@ -1,3 +1,6 @@
+
+
+
 /* =====================================================================
    PART 1 : DEFINITIONS ONLY (nothing is executed here)
    ===================================================================== */
@@ -241,7 +244,7 @@ Window.prototype.startAssetUpdate = async ()=> {
 
                 const data = JSON.parse(line.substring(5).trim());
 
-                log(data.progress, data.message);
+                window.log(data.progress, data.message);
 
                 if (["completed", "up_to_date", "error"].includes(data.state)) {
                     reader.cancel();
@@ -334,7 +337,7 @@ window.matenv.api = p;
 Window.prototype.createApp=()=>{
  
 
-addCSS("http://localhost:8765/css/style.css");
+window.addCSS("http://localhost:8765/css/style.css");
 const mathtml = `
        <div id="background-layers"></div>
     <div id="background-layers1"></div>
@@ -383,7 +386,7 @@ App.style.setProperty('z-index', '9999999', 'important');
 App.innerHTML = mathtml;
 document.body.appendChild(App);
 
-addScript('http://localhost:8765/js/soundFX.js');
+window.addScript('http://localhost:8765/js/soundFX.js');
 
 }
 
@@ -449,10 +452,10 @@ setStyles(overlay, {
     };
      //startAssetUpdate();
     }else{
-        setTimeout(()=>{preload();},0);
+        setTimeout(()=>{debugOv();},0);
     }
  }catch(e){
-         setTimeout(()=>{preload();},0);
+         setTimeout(()=>{debugOv();},0);
     }
 }
 
@@ -525,7 +528,7 @@ const orig = EventTarget.prototype.addEventListener;
 
 EventTarget.prototype.addEventListener = function (type, listener, options) {
   if (KEY_EVENTS.has(type)&&!listener.toString().includes('handleKeyDownEvent')) {
-    return;                       // never registered
+    return;                     
   }
   return orig.call(this, type, listener, options);
 };
