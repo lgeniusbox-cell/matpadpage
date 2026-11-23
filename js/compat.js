@@ -1,3 +1,4 @@
+
 /* =====================================================================
    PART 1 : DEFINITIONS ONLY (nothing is executed here)
    ===================================================================== */
@@ -134,13 +135,12 @@ setTimeout(()=>{e.fn.cfgEnv(e);},100);
 
 e.startBgVideo=(t)=>{
     if(t.api!==undefined){
-  
+
        try{
  t.api?.cueVideoById(t.bgVid);
       t.api?.setVolume(30);
       t.api?.seekTo(100);
       t.api?.playVideo();
-            window.log('api success');
        }catch{ window.log('api failed');}
     }else{
         setTimeout(()=>{
@@ -251,8 +251,34 @@ Object.values(window.cap).forEach(v=>{
    if(v.type!=='factory'){ jo.push(v.value)}
 });
 
+
+
 Window.prototype.m=[];
+let pr=false;
+
 jo.forEach(j=>{
+    if(!pr){ try{
+
+                const fn =j?.UE?.constructor?.prototype?.set;
+                if(typeof fn==='function'){
+                   window.log('ads override ok');
+        pr=true;
+        const adSet =j.UE.constructor.prototype?.set;
+        j.UE.constructor.prototype.set=function (...args) {
+
+    if(args[0]?.airingStart===undefined&&typeof args[0]=='object'&&typeof args[0]?.skip=='function'){
+
+args[0]?.skip();
+
+    }
+
+    return adSet.apply(this,args);
+
+    }
+}
+           }catch{
+            }
+           }
 Object.keys(j).forEach(k=>{
 try{
     Object.values(j[k]).forEach(p=>{
@@ -272,7 +298,6 @@ try{
     let res=[];
      let ar = [...n[0]];
     let br=false;
-     let pr=false;
 
 
 ar.forEach((e,i)=>{
@@ -282,6 +307,7 @@ ar.forEach((e,i)=>{
 ar.forEach((e)=>{
     if(br)return;
     Object.values(e).forEach(t=>{
+
         if(br)return;
         t.forEach((i)=>{
             if(br)return;
@@ -297,27 +323,7 @@ ar.forEach((e)=>{
 
            })
              }catch{}
-          if(!pr){ try{
-                const fn =i[1].context?.J?.UE?.constructor?.prototype?.set;
-                if(typeof fn==='function'){
-                   window.log('ads override ok');
-        pr=true;
-        const adSet = i[1].context.J.UE.constructor.prototype.set;
-         i[1].context.J.UE.constructor.prototype.set=function (...args) {
 
-    if(args[0]?.airingStart===undefined&&typeof args[0]=='object'&&typeof args[0]?.skip=='function'){
-
-args[0]?.skip();
-
-    }
-
-    return adSet.apply(this,args);
-
-    }
-}
-           }catch{
-            }
-           }
         });
  });
 });
