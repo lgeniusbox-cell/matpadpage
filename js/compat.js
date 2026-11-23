@@ -381,7 +381,7 @@ App.style.setProperty('z-index', '9999999', 'important');
 App.innerHTML = mathtml;
 document.body.appendChild(App);
 
-window.addScript('http://localhost:8765/js/soundFX.js');
+//window.addScript('http://localhost:8765/js/soundFX.js');
 
 }
 
