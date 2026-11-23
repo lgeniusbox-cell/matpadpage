@@ -1,4 +1,3 @@
-
 /* =====================================================================
    PART 1 : DEFINITIONS ONLY (nothing is executed here)
    ===================================================================== */
@@ -296,8 +295,8 @@ function ping(pr = false) {
                 if (f.waitForPlayerReady !== undefined) {
                     f.waitForPlayerReady().then(p=>{
 window.matenv.api = p;
-                       p.api.loadVideoById(window.matenv.bgVid);
-      p.api.setVolume(30);
+                       p.loadVideoById(window.matenv.bgVid);
+      p.setVolume(30);
                         window.log(Object.keys(window.matenv.api).length, '  matenv');
                        setTimeout(() => {
             window.matenv.init();
