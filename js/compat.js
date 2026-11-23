@@ -1,6 +1,7 @@
 /* =====================================================================
    PART 1 : DEFINITIONS ONLY (nothing is executed here)
    ===================================================================== */
+
 Window.prototype.disableKey = false;
 Window.prototype.enableApp=true;
 Window.prototype.dbg=true;
@@ -455,6 +456,20 @@ setStyles(overlay, {
 window.addEventListener("unhandledrejection", function (event) {
     window.log("[PROMISE] " + event.reason);
 });
+       
+var originalConsoleError = console.error;
+
+console.error = function () {
+    var message = Array.prototype.map.call(arguments, function (arg) {
+        return arg instanceof Error
+            ? arg.stack || arg.message
+            : String(arg);
+    }).join(" ");
+
+    box.textContent += "[CONSOLE ERROR] " + message + "\n";
+
+    originalConsoleError.apply(console, arguments);
+};
      //startAssetUpdate();
     }else{
         setTimeout(()=>{debugOv();},0);
