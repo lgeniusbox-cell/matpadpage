@@ -140,10 +140,10 @@ setTimeout(()=>{e.fn.cfgEnv(e);},0);
 }
 
 e.startBgVideo=(t)=>{
-    if(t.api!==undefined){
-
+    if(t.api!==undefined||!window.location.href.includes(t.bgVid)){
        try{
       t.api.loadVideoById(t.bgVid);
+      t.api.playVideo();    
       t.api.setVolume(30);
        }catch{ }
     }else{
