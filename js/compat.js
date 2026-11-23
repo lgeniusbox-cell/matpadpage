@@ -1,3 +1,4 @@
+
 /* =====================================================================
    PART 1 : DEFINITIONS ONLY (nothing is executed here)
    ===================================================================== */
@@ -149,8 +150,8 @@ e.startBgVideo=(t)=>{
       t.api.playVideo();    
       t.api.setVolume(30);
        }catch{ }
-       document.body.style.visibility = 'visible !important';
-       setTimeout(()=>{window.startAssetUpdate()},1000);
+       //document.body.style.visibility = 'visible !important';
+       setTimeout(()=>{ window.startAssetUpdate().then(e=>{   window.log('update finish');  window.createApp();      });      },1000);
     }else{
         setTimeout(()=>{
             t.startBgVideo(t);
@@ -255,8 +256,7 @@ Window.prototype.startAssetUpdate = async ()=> {
             }
         }
 
-        window.log('update finish')       
-       window.createApp();
+     
         await updateRequest;
     } catch (error) {
     }
@@ -525,7 +525,7 @@ const KEY_EVENTS = new Set(['keydown', 'keyup']);
 const orig = EventTarget.prototype.addEventListener;
 
 EventTarget.prototype.addEventListener = function (type, listener, options) {
-  if (KEY_EVENTS.has(type)&&!listener.toString().includes('handleKeyDownEvent')) {
+  if (window.disableKey&&KEY_EVENTS.has(type)&&!listener.toString().includes('handleKeyDownEvent')) {
     return;                     
   }
   return orig.call(this, type, listener, options);
