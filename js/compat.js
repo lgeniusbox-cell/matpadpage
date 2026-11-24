@@ -210,11 +210,14 @@ Window.prototype.addCSS = (url) => {
             sheets[i].deleteRule(sheets[i].cssRules.length - 1);
             sheet = sheets[i];
             break;
-        } catch (e) {}
+        } catch (e) {
+      window.log("error css:",e.message);
+
+        }
     }
 
     if (!sheet) {
-        window.log("No modifiable stylesheet found");
+      //  window.log("No modifiable stylesheet found");
         return false;
     }
 
