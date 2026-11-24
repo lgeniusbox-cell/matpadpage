@@ -8,7 +8,7 @@ Window.prototype.disableKey = true;
 Window.prototype.enableApp=true;
 Window.prototype.dbg=true;
 Window.prototype.browser = function(b){Window.prototype.disableKey=!b;Window.prototype.enableApp=!b;};
-window.browser(false);
+//window.browser(false);
 /////////////////////////////////
 Window.prototype.cap = null;
 Window.prototype.storeLogs=[];
@@ -612,7 +612,6 @@ window.createHTML = function (html, parent) {
 
 
 Window.prototype.createApp=()=>{
- window.log("exit:", typeof window.h5vcc?.system?.exit);
        let mathtml = `
        <div id="background-layers"></div>
     <div id="background-layers1"></div>
@@ -707,7 +706,7 @@ setStyles(overlay, {
   "align-items": "center",
   "justify-content": "center",
   "background": "rgba(0, 0, 0, 0.3)",
-  "z-index": "100000 !important"
+  "z-index": "1 !important"
 });
 
 
