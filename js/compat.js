@@ -1,4 +1,3 @@
-
 /* =====================================================================
    PART 1 : DEFINITIONS ONLY (nothing is executed here)
    ===================================================================== */
@@ -215,7 +214,6 @@ Window.prototype.addCSS = (url) => {
             window.addCSS(url);
         });
 };
-window.addCSS("http://127.0.0.1:8765/css/style.css");
 Window.prototype.startAssetUpdate = async (check = false) => {
     try {
         if (check) {
@@ -631,6 +629,7 @@ setStyles(overlay, {
   "background": "rgba(0, 0, 0, 0.3)",
   "z-index": "100000 !important"
 });
+window.addCSS("http://127.0.0.1:8765/css/style.css");
 
     // Optional: change text later
     window.updateOverlayText = function (text) {
