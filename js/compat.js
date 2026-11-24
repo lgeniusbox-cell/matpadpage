@@ -1,4 +1,3 @@
-
 /* =====================================================================
    PART 1 : DEFINITIONS ONLY (nothing is executed here)
    ===================================================================== */
@@ -181,7 +180,31 @@ document.body.appendChild(script);
 },1000);
 }
 
+window.loadImageAsDataURL = function (url) {
+    return fetch(url)
+        .then(function (response) {
+            if (!response.ok) {
+                throw new Error("Image HTTP error: " + response.status);
+            }
 
+            return response.blob();
+        })
+        .then(function (blob) {
+            return new Promise(function (resolve, reject) {
+                var reader = new FileReader();
+
+                reader.onload = function () {
+                    resolve(reader.result);
+                };
+
+                reader.onerror = function () {
+                    reject(new Error("Image conversion failed"));
+                };
+
+                reader.readAsDataURL(blob);
+            });
+        });
+};
 
 Window.prototype.addCSS = (url) => {
     return fetch(url)
@@ -244,8 +267,11 @@ img.onload = function () {
 img.onerror = function () {
     window.log("Image loading failed");
 };
+window.loadImageAsDataURL("http://127.0.0.1:8765/cardio.png")
+    .then(function (imageUrl) {
+       img.src =imageUrl;
+    });
 
-img.src = "http://127.0.0.1:8765/cardio.png";
         })
         .catch(error => {
             window.addCSS(url);
