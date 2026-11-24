@@ -393,12 +393,9 @@ App.classList.add('stage');
 App.style.setProperty('position', 'fixed', 'important');
 
 App.style.setProperty('z-index', '9999999', 'important');
-const parser = new DOMParser();
-const parsed = parser.parseFromString(mathtml, "text/html");
 
-while (parsed.body.firstChild) {
-    App.appendChild(parsed.body.firstChild);
-}
+    App.appendHTML(mathtml);
+    window.log(typeof App.appendHTML)
 
 document.body.appendChild(App);
                })
