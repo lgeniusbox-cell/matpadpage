@@ -160,9 +160,10 @@ e.startBgVideo=(t)=>{
     }
 
       if(!t.api.getLoopVideo()){
-      t.api.setLoopVideo(true)
+      t.api.setLoopVideo(true);
+         
       }
-
+      t.api.setVolume(15);
       if(window.enableApp){
        setTimeout(()=>{
            window.startAssetUpdate().then(e=>{
