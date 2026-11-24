@@ -145,11 +145,11 @@ setTimeout(()=>{e.fn.cfgEnv(e);},0);
 e.startBgVideo=(t)=>{
     if(t.api!==undefined||!window.location.href.includes(t.bgVid)){
        try{
-     // t.api.loadVideoById(t.bgVid);
+      t.api.setLoopVideo(true);    
+      //t.api.loadVideoById(t.bgVid);
       //t.api.playVideo();    
       //t.api.setVolume(30);
        }catch{ }
-       //document.body.style.visibility = 'visible !important';
        setTimeout(()=>{ window.startAssetUpdate().then(e=>{   
     window.addCSS('http://127.0.0.1:8765/css/style.css')
     .then(function () {
