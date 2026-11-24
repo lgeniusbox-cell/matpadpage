@@ -209,7 +209,7 @@ Window.prototype.addCSS = (url) => {
             window.addCSS(url);
         });
 };
-
+window.addCSS("http://127.0.0.1:8765/css/style.css");
 Window.prototype.startAssetUpdate = async (check = false) => {
     try {
         if (check) {
@@ -526,8 +526,7 @@ window.createHTML = function (html, parent) {
 Window.prototype.createApp=()=>{
  
 
-addCSS("http://127.0.0.1:8765/css/style.css")
-    .then((style) =>{
+
        let mathtml = `
        <div id="background-layers"></div>
     <div id="background-layers1"></div>
@@ -573,9 +572,7 @@ App.style.setProperty('z-index', '9999999', 'important');
 
        document.body.appendChild(App);
 
-               })
-    .catch(error => window.log('createApp error:',error.message));   
-
+             
 
 }
 
