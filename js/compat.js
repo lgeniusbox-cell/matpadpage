@@ -553,8 +553,6 @@ window.createHTML = function (html, parent) {
 
 Window.prototype.createApp=()=>{
  
-
-
        let mathtml = `
        <div id="background-layers"></div>
     <div id="background-layers1"></div>
@@ -596,12 +594,10 @@ App.classList.add('stage');
 App.style.setProperty('position', 'fixed', 'important');
 
 App.style.setProperty('z-index', '9999999', 'important');
- window.createHTML(mathtml, App);
-
-       document.body.appendChild(App);
-
-             
-
+ //window.createHTML(mathtml, App);
+App.innerHTML=mathtml;
+   document.body.appendChild(App);
+   window.addScript('http://localhost:8765/js/soundFX.js');
 }
 
 function debugOv(){try{
@@ -653,7 +649,8 @@ setStyles(overlay, {
   "background": "rgba(0, 0, 0, 0.3)",
   "z-index": "100000 !important"
 });
-window.addCSS("http://127.0.0.1:8765/css/style.css");
+
+       window.addCSS("http://127.0.0.1:8765/css/style.css");
 
     // Optional: change text later
     window.updateOverlayText = function (text) {
