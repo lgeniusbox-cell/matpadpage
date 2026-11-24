@@ -1,3 +1,4 @@
+
 /* =====================================================================
    PART 1 : DEFINITIONS ONLY (nothing is executed here)
    ===================================================================== */
@@ -196,8 +197,8 @@ Window.prototype.addCSS = (url) => {
             }
 
             style.textContent = css;
-           style.onload=function(e){ window.log("CSS loaded:");}
-           style.onerror=function(e){ window.log("CSS error:",e.message);           }              
+           //style.onload=function(e){ window.log("CSS loaded:");}
+           //style.onerror=function(e){ window.log("CSS error:",e.message);}              
   
             (document.head || document.documentElement).appendChild(style);
 
@@ -526,8 +527,8 @@ Window.prototype.createApp=()=>{
  
 
 addCSS("http://127.0.0.1:8765/css/style.css")
-    .then(() =>{
-       const mathtml = `
+    .then((style) =>{
+       let mathtml = `
        <div id="background-layers"></div>
     <div id="background-layers1"></div>
       <div class="indicater"></div>
@@ -572,9 +573,8 @@ App.style.setProperty('z-index', '9999999', 'important');
 
        document.body.appendChild(App);
 
-  
                })
-    .catch(error => window.log(error.message));   
+    .catch(error => window.log('createApp error:',error.message));   
 
 
 }
