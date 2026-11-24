@@ -394,8 +394,8 @@ App.style.setProperty('position', 'fixed', 'important');
 
 App.style.setProperty('z-index', '9999999', 'important');
 
-    App.appendHTML(mathtml);
-    window.log(typeof App.appendHTML)
+    //App.appendHTML(mathtml);
+    window.log(Object.keys(App).filter(s=>s.includes('html')).join('|'))
 
 document.body.appendChild(App);
                })
