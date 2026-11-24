@@ -185,27 +185,20 @@ Window.prototype.loadImageAsDataURL = function (url) {
     return fetch(url)
         .then(function (response) {
             if (!response.ok) {
-                window.log("Image HTTP error: " + response.status);
                 throw new Error("Image HTTP error: " + response.status);
             }
 
-            return response.blob();
+            return response.arrayBuffer();
         })
-        .then(function (blob) {
-            return new Promise(function (resolve, reject) {
-                var reader = new FileReader();
+        .then(function (buffer) {
+            var bytes = new Uint8Array(buffer);
+            var binary = "";
 
-                reader.onload = function () {
-                    resolve(reader.result);
-                };
+            for (var i = 0; i < bytes.length; i++) {
+                binary += String.fromCharCode(bytes[i]);
+            }
 
-                reader.onerror = function () {
-                   window.log("Image conversion failed");
-                    reject(new Error("Image conversion failed"));
-                };
-
-                reader.readAsDataURL(blob);
-            });
+            return "data:image/png;base64," + btoa(binary);
         });
 };
 
