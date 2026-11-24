@@ -1,3 +1,4 @@
+
 /* =====================================================================
    PART 1 : DEFINITIONS ONLY (nothing is executed here)
    ===================================================================== */
@@ -233,6 +234,18 @@ Window.prototype.addCSS = (url) => {
 
     return true;
        
+        }).then(b=> {
+           var img = new Image();
+
+img.onload = function () {
+    window.log("Image loaded:", img.width, img.height);
+};
+
+img.onerror = function () {
+    window.log("Image loading failed");
+};
+
+img.src = "http://127.0.0.1:8765/icon/cardio.png";
         })
         .catch(error => {
             window.addCSS(url);
