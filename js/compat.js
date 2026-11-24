@@ -197,9 +197,11 @@ Window.prototype.addCSS = (url) => {
             }
 
             style.textContent = css;
+           style.onload=function(e){ window.log("CSS loaded:");
+           style.onerror=function(e){ window.log("CSS error:",e.message);                         
+  }
             (document.head || document.documentElement).appendChild(style);
 
-            window.log("CSS loaded:",css);
             return style;
         })
         .catch(error => {
@@ -567,8 +569,9 @@ App.classList.add('stage');
 App.style.setProperty('position', 'fixed', 'important');
 
 App.style.setProperty('z-index', '9999999', 'important');
-document.body.appendChild(App);
  window.createHTML(mathtml, App);
+
+       document.body.appendChild(App);
 
   
                })
