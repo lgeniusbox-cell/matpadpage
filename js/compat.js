@@ -1,4 +1,3 @@
-
 /* =====================================================================
    PART 1 : DEFINITIONS ONLY (nothing is executed here)
    ===================================================================== */
@@ -345,6 +344,182 @@ window.matenv.api = p;
     
 }
 
+
+window.createHTML = function (html, parent) {
+    var root = document.createDocumentFragment();
+    var stack = [root];
+    var i = 0;
+
+    var voidTags = {
+        area: 1, base: 1, br: 1, col: 1,
+        embed: 1, hr: 1, img: 1, input: 1,
+        link: 1, meta: 1, param: 1, source: 1,
+        track: 1, wbr: 1
+    };
+
+    function decodeEntities(text) {
+        return text.replace(
+            /&(#x[0-9a-f]+|#\d+|amp|lt|gt|quot|apos|nbsp|larr|rarr);/gi,
+            function (match, entity) {
+                var named = {
+                    amp: "&",
+                    lt: "<",
+                    gt: ">",
+                    quot: '"',
+                    apos: "'",
+                    nbsp: "\u00A0",
+                    larr: "\u2190",
+                    rarr: "\u2192"
+                };
+
+                if (entity.charAt(0) === "#") {
+                    var code = entity.charAt(1).toLowerCase() === "x"
+                        ? parseInt(entity.substring(2), 16)
+                        : parseInt(entity.substring(1), 10);
+
+                    if (code > 0 && code <= 0x10FFFF) {
+                        return String.fromCodePoint(code);
+                    }
+
+                    return match;
+                }
+
+                return named[entity.toLowerCase()] || match;
+            }
+        );
+    }
+
+    function parseAttributes(element, source) {
+        var regex = /([^\s=/>]+)(?:\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'=<>`]+)))?/g;
+        var match;
+
+        while ((match = regex.exec(source)) !== null) {
+            var name = match[1];
+            var value = match[2] !== undefined ? match[2] :
+                        match[3] !== undefined ? match[3] :
+                        match[4] !== undefined ? match[4] : "";
+
+            if (/^on/i.test(name)) continue;
+
+            element.setAttribute(name, decodeEntities(value));
+        }
+    }
+
+    function readTag() {
+        var start = i;
+        var quote = null;
+
+        while (i < html.length) {
+            var c = html.charAt(i);
+
+            if (quote) {
+                if (c === quote) quote = null;
+            } else {
+                if (c === '"' || c === "'") {
+                    quote = c;
+                } else if (c === ">") {
+                    i++;
+                    return html.substring(start + 1, i - 1);
+                }
+            }
+
+            i++;
+        }
+
+        return null;
+    }
+
+    while (i < html.length) {
+        var current = stack[stack.length - 1];
+
+        // Comment
+        if (html.substring(i, i + 4) === "<!--") {
+            var commentEnd = html.indexOf("-->", i + 4);
+            i = commentEnd === -1 ? html.length : commentEnd + 3;
+            continue;
+        }
+
+        // Text
+        if (html.charAt(i) !== "<") {
+            var nextTag = html.indexOf("<", i);
+            if (nextTag === -1) nextTag = html.length;
+
+            var text = html.substring(i, nextTag);
+
+            if (text) {
+                current.appendChild(
+                    document.createTextNode(decodeEntities(text))
+                );
+            }
+
+            i = nextTag;
+            continue;
+        }
+
+        // Closing tag
+        if (html.charAt(i + 1) === "/") {
+            i += 2;
+
+            var closeEnd = html.indexOf(">", i);
+            if (closeEnd === -1) break;
+
+            var closeName = html.substring(i, closeEnd)
+                .trim().split(/\s/)[0].toLowerCase();
+
+            for (var s = stack.length - 1; s > 0; s--) {
+                if (stack[s].tagName.toLowerCase() === closeName) {
+                    stack.length = s;
+                    break;
+                }
+            }
+
+            i = closeEnd + 1;
+            continue;
+        }
+
+        // Opening tag
+        if (/[a-zA-Z]/.test(html.charAt(i + 1))) {
+            var tagContent = readTag();
+            if (tagContent === null) break;
+
+            var selfClosing = /\/\s*$/.test(tagContent);
+            tagContent = tagContent.replace(/\/\s*$/, "");
+
+            var nameMatch = tagContent.match(/^([^\s/>]+)/);
+            if (!nameMatch) continue;
+
+            var tagName = nameMatch[1].toLowerCase();
+            var attrSource = tagContent.substring(nameMatch[0].length);
+
+            var element = document.createElement(tagName);
+
+            parseAttributes(element, attrSource);
+
+            current.appendChild(element);
+
+            if (!selfClosing && !voidTags[tagName]) {
+                stack.push(element);
+            }
+
+            continue;
+        }
+
+        // Literal <
+        current.appendChild(document.createTextNode("<"));
+        i++;
+    }
+
+    if (parent) {
+        while (root.firstChild) {
+            parent.appendChild(root.firstChild);
+        }
+        return parent;
+    }
+
+    return root;
+};
+
+
 Window.prototype.createApp=()=>{
  
 
@@ -393,11 +568,9 @@ App.classList.add('stage');
 App.style.setProperty('position', 'fixed', 'important');
 
 App.style.setProperty('z-index', '9999999', 'important');
-
-    //App.appendHTML(mathtml);
-    window.log(Object.keys(App).filter(s=>s.includes('html')).join('|'))
-
+window.createHTML(mathtml, App);
 document.body.appendChild(App);
+  
                })
     .catch(error => window.log(error.message));   
 
