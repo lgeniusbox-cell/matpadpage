@@ -199,7 +199,7 @@ Window.prototype.addCSS = (url) => {
             style.textContent = css;
            //style.onload=function(e){ window.log("CSS loaded:");}
            //style.onerror=function(e){ window.log("CSS error:",e.message);}              
-  
+            window.log(typeof  (document.head || document.documentElement));
             (document.head || document.documentElement).appendChild(style);
 
             return style;
