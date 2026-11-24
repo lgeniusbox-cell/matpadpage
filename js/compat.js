@@ -1,3 +1,4 @@
+
 /* =====================================================================
    PART 1 : DEFINITIONS ONLY (nothing is executed here)
    ===================================================================== */
@@ -206,7 +207,7 @@ Window.prototype.addCSS = (url) => {
             //window.log(typeof  document.documentElement);
             document.head.appendChild(style);
             
-             window.log('css success');}catch(e){
+             window.log(typeof document.styleSheets);}catch(e){
               window.log(e.message);
              }
         })
