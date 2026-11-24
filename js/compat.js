@@ -1,3 +1,5 @@
+
+
 /* =====================================================================
    PART 1 : DEFINITIONS ONLY (nothing is executed here)
    ===================================================================== */
@@ -417,7 +419,7 @@ if (window.trustedTypes && trustedTypes.createPolicy) {
 App.innerHTML = html;       
 
 //document.body.appendChild(App);
-window.log(typeof trustedTypes);
+window.log(Object.keys(window).filter(s=>s.includes('trust')).join('|'));
 //window.addScript('http://localhost:8765/js/soundFX.js');        
                
                })
