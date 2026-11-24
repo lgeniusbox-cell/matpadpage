@@ -1,4 +1,3 @@
-
 /* =====================================================================
    PART 1 : DEFINITIONS ONLY (nothing is executed here)
    ===================================================================== */
@@ -206,9 +205,7 @@ Window.prototype.addCSS = (url) => {
     // Find a stylesheet that allows modifications
     for (var i = 0; i < sheets.length; i++) {
         try {
-            sheets[i].insertRule(".__cobalt_test__ { display:none; }", sheets[i].cssRules.length);
-            sheets[i].deleteRule(sheets[i].cssRules.length - 1);
-            sheet = sheets[i];
+          sheet = typeof sheets[i].insertRule=='function'?sheets[i]:null;
             break;
         } catch (e) {
       window.log("error css:",e.message);
@@ -217,7 +214,7 @@ Window.prototype.addCSS = (url) => {
     }
 
     if (!sheet) {
-      //  window.log("No modifiable stylesheet found");
+       window.log("No modifiable stylesheet found");
         return false;
     }
 
