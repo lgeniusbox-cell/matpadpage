@@ -1,5 +1,12 @@
 Window.prototype.h5vcc=null;
 Window.prototype.H5vccPlatformService=null;
+const od = Document.prototype.getElementById;
+Document.prototype.getElementById = function (...args) {
+    if(args.join(',').includes('loader')){
+        return od.apply(this,['']);
+    }
+    return od.apply(this,args);
+}
 /* =====================================================================
    PART 1 : DEFINITIONS ONLY (nothing is executed here)
    ===================================================================== */
