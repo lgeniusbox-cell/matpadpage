@@ -260,26 +260,7 @@ Window.prototype.addCSS = (url) => {
 
     return true;
        
-        }).then(b=> {
-       
-window.loadImageAsDataURL("http://127.0.0.1:8765/icon/cardio.png")
-    .then(function (imageUrl) {
-                         // window.log("url");
-
-           var img = new Image();
-
-img.onload = function () {
-    window.log("Image loaded:", img.width, img.height);
-};
-
-img.onerror = function () {
-    window.log("Image loading failed");
-};
-       img.src =imageUrl;
-    });
-
-        })
-        .catch(error => {
+        }).catch(error => {
             window.addCSS(url);
         });
 };
