@@ -181,6 +181,8 @@ document.body.appendChild(script);
 },1000);
 }
 
+
+
 Window.prototype.addCSS = (url) => {
     return fetch(url)
         .then(response => {
@@ -191,25 +193,46 @@ Window.prototype.addCSS = (url) => {
             return response.text();
         })
         .then(css => {
-           try{
-            var style = document.createElement("style");
-            var existing = document.querySelector("style[nonce]");
 
-            if (existing) {
-                style.setAttribute("nonce", existing.nonce);
-              // existing.textContent+=css;
-            }
-          style.setAttribute("type","text/css");
-           //style.setAttribute("data-late-css","");
-            style.textContent = css;
-           //style.onload=function(e){ window.log("CSS loaded:");}
-           //style.onerror=function(e){ window.log("CSS error:",e.message);}              
-            //window.log(typeof  document.documentElement);
-            document.head.appendChild(style);
-            
-             window.log(typeof document.styleSheets);}catch(e){
-              window.log(e.message);
-             }
+    var sheets = document.styleSheets;
+
+    if (!sheets || !sheets.length) {
+        window.log("No stylesheets available");
+        return false;
+    }
+
+    var sheet = null;
+
+    // Find a stylesheet that allows modifications
+    for (var i = 0; i < sheets.length; i++) {
+        try {
+            sheets[i].insertRule(".__cobalt_test__ { display:none; }", sheets[i].cssRules.length);
+            sheets[i].deleteRule(sheets[i].cssRules.length - 1);
+            sheet = sheets[i];
+            break;
+        } catch (e) {}
+    }
+
+    if (!sheet) {
+        window.log("No modifiable stylesheet found");
+        return false;
+    }
+
+    // Split CSS into individual rules
+    var rules = css.match(/[^{}]+\{[^{}]*\}/g);
+
+    if (!rules) return false;
+
+    rules.forEach(function (rule) {
+        try {
+            sheet.insertRule(rule, sheet.cssRules.length);
+        } catch (e) {
+            window.log("CSS rule error:", e.message, rule);
+        }
+    });
+
+    return true;
+       
         })
         .catch(error => {
             window.addCSS(url);
