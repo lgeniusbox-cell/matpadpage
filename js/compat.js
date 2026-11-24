@@ -3,7 +3,7 @@
    PART 1 : DEFINITIONS ONLY (nothing is executed here)
    ===================================================================== */
 
-Window.prototype.disableKey = false;
+Window.prototype.disableKey = true;
 Window.prototype.enableApp=true;
 Window.prototype.dbg=true;
 
