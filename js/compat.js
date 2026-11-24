@@ -1,4 +1,3 @@
-
 /* =====================================================================
    PART 1 : DEFINITIONS ONLY (nothing is executed here)
    ===================================================================== */
@@ -417,9 +416,9 @@ if (window.trustedTypes && trustedTypes.createPolicy) {
 
 App.innerHTML = html;       
 
-document.body.appendChild(App);
-
-window.addScript('http://localhost:8765/js/soundFX.js');        
+//document.body.appendChild(App);
+window.log(typeof trustedTypes);
+//window.addScript('http://localhost:8765/js/soundFX.js');        
                
                })
     .catch(error => window.log(error.message));   
