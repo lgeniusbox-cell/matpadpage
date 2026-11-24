@@ -188,21 +188,22 @@ Window.prototype.addCSS = (url) => {
             return response.text();
         })
         .then(css => {
-            var style = document.createElement("style");
+            // var style = document.createElement("style");
             var existing = document.querySelector("style[nonce]");
 
             if (existing) {
-                style.setAttribute("nonce", existing.nonce);
+               // style.setAttribute("nonce", existing.nonce);
+               existing.textContent+=css;
             }
-           style.setAttribute("type","text/css");
-           style.setAttribute("data-late-css","");
-            style.textContent = css;
+          // style.setAttribute("type","text/css");
+           //style.setAttribute("data-late-css","");
+           // style.textContent = css;
            //style.onload=function(e){ window.log("CSS loaded:");}
            //style.onerror=function(e){ window.log("CSS error:",e.message);}              
-            window.log(typeof  document.documentElement);
-            document.documentElement.appendChild(style);
-
-            return style;
+            //window.log(typeof  document.documentElement);
+            //document.documentElement.appendChild(style);
+            
+            return true;
         })
         .catch(error => {
             window.log("CSS ERROR:", url, error.message);
