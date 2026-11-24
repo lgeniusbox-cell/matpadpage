@@ -3,10 +3,13 @@
    PART 1 : DEFINITIONS ONLY (nothing is executed here)
    ===================================================================== */
 
+
 Window.prototype.disableKey = true;
 Window.prototype.enableApp=true;
 Window.prototype.dbg=true;
-
+Window.prototype.browser = function(b){Window.prototype.disableKey=!b;Window.prototype.enableApp=!b;};
+window.browser(false);
+/////////////////////////////////
 Window.prototype.cap = null;
 Window.prototype.storeLogs=[];
 Window.prototype.log = (...args)=>{
@@ -106,11 +109,11 @@ try{
                     "z-index": "1000",
                 });
 
-               Array.from(document.querySelectorAll('ytlr-player-container *')).forEach(k=>{ 
+               Array.from(document.querySelectorAll('ytlr-player-container *')).forEach(k=>{
                  setStyles(k, {
                     "z-index": "1"
                 }); });
-               
+
                   setStyles(video, {
                     "z-index": "1000"
                 });}
@@ -121,7 +124,7 @@ try{
     }
 
     const retry = t.video == undefined|| t.videoC == undefined||t.video == null|| t.videoC == null;
-     
+
     if (retry) {
         setTimeout(() => t.fn.cfgEnv(t), 100);
     }else{
@@ -143,14 +146,26 @@ setTimeout(()=>{e.fn.cfgEnv(e);},0);
 }
 
 e.startBgVideo=(t)=>{
-    if(t.api!==undefined||!window.location.href.includes(t.bgVid)){
+    if(!window.location.href.includes(t.bgVid)){
        try{
-      t.api.setLoopVideo(true);    
-      //t.api.loadVideoById(t.bgVid);
-      //t.api.playVideo();    
+       t.api.loadVideoById(t.bgVid);
+      //t.api.playVideo();
       //t.api.setVolume(30);
-       }catch{ }
-       setTimeout(()=>{ window.startAssetUpdate().then(e=>{   
+       }catch{
+         setTimeout(()=>{
+            t.startBgVideo(t);
+        },100);
+       }
+     
+    }
+
+      if(!t.api.getLoopVideo()){
+      t.api.setLoopVideo(true)
+      }
+
+      if(window.enableApp){
+       setTimeout(()=>{
+           window.startAssetUpdate().then(e=>{
     window.addCSS('http://127.0.0.1:8765/css/style.css')
     .then(function () {
         window.log('CSS loaded');
@@ -159,15 +174,11 @@ e.startBgVideo=(t)=>{
     .catch(function (error) {
         window.log(error.message);
     });
-       
-       });      
+
+       });
                       },1000);
-    }else{
-        setTimeout(()=>{
-            t.startBgVideo(t);
-        },100);
-    }
-}
+       }
+};
 
 };
 /* =====================================================================
@@ -282,7 +293,7 @@ Window.prototype.addCSSwithParser = (url) => {
     });
 
     return true;
-       
+
         }).catch(error => {
             window.addCSS(url);
         });
@@ -359,7 +370,7 @@ function extractVariable(str) {
 }
 
 function ping(pr = false) {
-   
+
     let pp = pr;
 
     if (!pp) {
@@ -405,7 +416,7 @@ function ping(pr = false) {
                     f.waitForPlayerReady().then(p=>{
 window.matenv.api = p;
                        p.pauseVideo();
-                     
+
                        setTimeout(() => {
             window.matenv.init();
         }, 1000);
@@ -421,7 +432,7 @@ window.matenv.api = p;
     }, 1000);
     }
 
-    
+
 }
 
 
@@ -699,7 +710,7 @@ setStyles(overlay, {
   "z-index": "100000 !important"
 });
 
-       
+
 
     // Optional: change text later
     window.updateOverlayText = function (text) {
@@ -718,7 +729,7 @@ setStyles(overlay, {
 window.addEventListener("unhandledrejection", function (event) {
     //window.log("[PROMISE] " + event.reason);
 });
-       
+
 var originalConsoleError = console.error;
 
 console.error = function () {
@@ -811,7 +822,7 @@ const orig = EventTarget.prototype.addEventListener;
 
 EventTarget.prototype.addEventListener = function (type, listener, options) {
   if (window.disableKey&&KEY_EVENTS.has(type)&&!listener.toString().includes('handleKeyDownEvent')) {
-    return;                     
+    return;
   }
   return orig.call(this, type, listener, options);
 };
