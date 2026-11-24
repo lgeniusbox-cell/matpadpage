@@ -180,10 +180,11 @@ document.body.appendChild(script);
 },1000);
 }
 
-window.loadImageAsDataURL = function (url) {
+Window.prototype.loadImageAsDataURL = function (url) {
     return fetch(url)
         .then(function (response) {
             if (!response.ok) {
+                window.log("Image HTTP error: " + response.status);
                 throw new Error("Image HTTP error: " + response.status);
             }
 
@@ -198,6 +199,7 @@ window.loadImageAsDataURL = function (url) {
                 };
 
                 reader.onerror = function () {
+                   window.log("Image conversion failed");
                     reject(new Error("Image conversion failed"));
                 };
 
@@ -258,6 +260,11 @@ Window.prototype.addCSS = (url) => {
     return true;
        
         }).then(b=> {
+       
+window.loadImageAsDataURL("http://127.0.0.1:8765/icon/cardio.png")
+    .then(function (imageUrl) {
+                         // window.log("url");
+
            var img = new Image();
 
 img.onload = function () {
@@ -267,8 +274,6 @@ img.onload = function () {
 img.onerror = function () {
     window.log("Image loading failed");
 };
-window.loadImageAsDataURL("http://127.0.0.1:8765/cardio.png")
-    .then(function (imageUrl) {
        img.src =imageUrl;
     });
 
