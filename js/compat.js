@@ -8,10 +8,12 @@ Window.prototype.enableApp=true;
 Window.prototype.dbg=true;
 
 Window.prototype.cap = null;
-
+Window.prototype.storeLogs=[];
 Window.prototype.log = (...args)=>{
     if(window.boxdebug!==undefined){
-    window.boxdebug.textContent=args.join(' | ');
+    window.boxdebug.textContent=storeLogs.join('|')+args.join(' | ');
+      }else{
+       window.storeLogs.push(args.join(' | '));
       }
 }
 
