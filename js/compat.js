@@ -1,4 +1,4 @@
- /* =====================================================================
+/* =====================================================================
    PART 1 : DEFINITIONS ONLY (nothing is executed here)
    ===================================================================== */
 
@@ -199,7 +199,7 @@ Window.prototype.addCSS = (url) => {
            //style.onload=function(e){ window.log("CSS loaded:");}
            //style.onerror=function(e){ window.log("CSS error:",e.message);}              
             window.log(typeof  (document.head || document.documentElement));
-            (document.head || document.documentElement).appendChild(style);
+            document.head.appendChild(style);
 
             return style;
         })
