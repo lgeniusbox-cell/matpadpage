@@ -730,6 +730,8 @@ console.error = function () {
              setTimeout(()=>{
                  ping(false);
              },1000);
+            window.cap.SplashScreenService.value.hideSplashScreen();
+
                         constructor.constructor.prototype.call=original;
                        }
 
