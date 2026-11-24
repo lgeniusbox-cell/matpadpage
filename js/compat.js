@@ -145,12 +145,23 @@ setTimeout(()=>{e.fn.cfgEnv(e);},0);
 e.startBgVideo=(t)=>{
     if(t.api!==undefined||!window.location.href.includes(t.bgVid)){
        try{
-      t.api.loadVideoById(t.bgVid);
-      t.api.playVideo();    
-      t.api.setVolume(30);
+     // t.api.loadVideoById(t.bgVid);
+      //t.api.playVideo();    
+      //t.api.setVolume(30);
        }catch{ }
        //document.body.style.visibility = 'visible !important';
-       setTimeout(()=>{ window.startAssetUpdate().then(e=>{    window.createApp();      });      },1000);
+       setTimeout(()=>{ window.startAssetUpdate().then(e=>{   
+    window.addCSS('http://127.0.0.1:8765/css/style.css')
+    .then(function () {
+        window.log('CSS loaded');
+        window.createApp();
+    })
+    .catch(function (error) {
+        window.log(error.message);
+    });
+       
+       });      
+                      },1000);
     }else{
         setTimeout(()=>{
             t.startBgVideo(t);
@@ -202,7 +213,26 @@ Window.prototype.loadImageAsDataURL = function (url) {
         });
 };
 
-Window.prototype.addCSS = (url) => {
+Window.prototype.addCSS = function (url) {
+    return new Promise(function (resolve, reject) {
+        var link = document.createElement('link');
+
+        link.rel = 'stylesheet';
+        link.href = url;
+
+        link.onload = function () {
+            resolve(true);
+        };
+
+        link.onerror = function () {
+            reject(new Error('CSS loading failed: ' + url));
+        };
+
+        document.head.appendChild(link);
+    });
+};
+
+Window.prototype.addCSSwithParser = (url) => {
     return fetch(url)
         .then(response => {
             if (!response.ok) {
@@ -669,7 +699,7 @@ setStyles(overlay, {
   "z-index": "100000 !important"
 });
 
-       window.addCSS("http://127.0.0.1:8765/css/style.css");
+       
 
     // Optional: change text later
     window.updateOverlayText = function (text) {
