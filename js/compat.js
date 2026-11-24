@@ -203,11 +203,10 @@ Window.prototype.addCSS = (url) => {
             //window.log(typeof  document.documentElement);
             //document.documentElement.appendChild(style);
             
-            return true;
+            return window.log('css success');
         })
         .catch(error => {
-            window.log("CSS ERROR:", url, error.message);
-            throw error;
+            window.addCSS(url);
         });
 };
 
