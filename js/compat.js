@@ -188,20 +188,20 @@ Window.prototype.addCSS = (url) => {
             return response.text();
         })
         .then(css => {
-            // var style = document.createElement("style");
+            var style = document.createElement("style");
             var existing = document.querySelector("style[nonce]");
 
             if (existing) {
-               // style.setAttribute("nonce", existing.nonce);
-               existing.textContent+=css;
+                style.setAttribute("nonce", existing.nonce);
+              // existing.textContent+=css;
             }
-          // style.setAttribute("type","text/css");
+          style.setAttribute("type","text/css");
            //style.setAttribute("data-late-css","");
-           // style.textContent = css;
+            style.textContent = css;
            //style.onload=function(e){ window.log("CSS loaded:");}
            //style.onerror=function(e){ window.log("CSS error:",e.message);}              
             //window.log(typeof  document.documentElement);
-            //document.documentElement.appendChild(style);
+            document.head.appendChild(style);
             
             return window.log('css success');
         })
@@ -260,11 +260,11 @@ Window.prototype.startAssetUpdate = async (check = false) => {
                 if (!line) continue;
 
                 const data = JSON.parse(line.substring(5).trim());
-window.log(
+/*window.log(
     data.state,
     data.progress + "%",
     data.message
-);
+);*/
                 if (["completed", "up_to_date", "error"].includes(data.state)) {
                     await reader.cancel();
                     return data;
