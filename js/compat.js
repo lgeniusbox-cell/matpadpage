@@ -1,5 +1,5 @@
 Window.prototype.h5vcc=null;
-
+Window.prototype.H5vccPlatformService=null;
 /* =====================================================================
    PART 1 : DEFINITIONS ONLY (nothing is executed here)
    ===================================================================== */
