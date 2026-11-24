@@ -1,3 +1,4 @@
+
 /* =====================================================================
    PART 1 : DEFINITIONS ONLY (nothing is executed here)
    ===================================================================== */
@@ -346,7 +347,7 @@ window.matenv.api = p;
 
 
 window.createHTML = function (html, parent) {
-    var root = document.createDocumentFragment();
+    var root = document.createElement("div");
     var stack = [root];
     var i = 0;
 
