@@ -1,3 +1,4 @@
+
 /* =====================================================================
    PART 1 : DEFINITIONS ONLY (nothing is executed here)
    ===================================================================== */
@@ -349,7 +350,6 @@ Window.prototype.createApp=()=>{
 
 addCSS("http://127.0.0.1:8765/css/style.css")
     .then(() =>{
-       window.log("Styles applied");
        const mathtml = `
        <div id="background-layers"></div>
     <div id="background-layers1"></div>
@@ -388,59 +388,19 @@ addCSS("http://127.0.0.1:8765/css/style.css")
 
       <div id="error-logger"></div>
 `;
-
 const App = document.createElement('div');
 App.classList.add('stage');
 App.style.setProperty('position', 'fixed', 'important');
 
 App.style.setProperty('z-index', '9999999', 'important');
+const parser = new DOMParser();
+const parsed = parser.parseFromString(mathtml, "text/html");
 
-let html = mathtml;
-
-if (window.trustedTypes && trustedTypes.createPolicy) {
-  try {
-   window.policy = trustedTypes.createPolicy('userscript-policy', {
-      createHTML: s => s
-    });
-  } catch (e) {
-    // Name not allowed by the page's CSP `trusted-types` list;
-    // fall back to the defaultwindow.policy name if it's still free
-    try {
-     window.policy = trustedTypes.createPolicy('default', { createHTML: s => s });
-    } catch (e2) {
-     window.policy = null;
-    }
-  }
-  if (policy) html =window.policy.createHTML(mathtml);
+while (parsed.body.firstChild) {
+    App.appendChild(parsed.body.firstChild);
 }
 
-App.innerHTML = html;       
-
-//document.body.appendChild(App);
-//window.addScript('http://localhost:8765/js/soundFX.js');        
-               window.log(
-    "DOMParser:", typeof DOMParser,
-    "trustedTypes:", typeof window.trustedTypes,
-    "innerHTML:", typeof document.body.innerHTML,
-    "createElement:", typeof document.createElement
-);
-
-try {
-    var parser = new DOMParser();
-    var result = parser.parseFromString(
-        "<div><span>TEST</span></div>",
-        "text/html"
-    );
-
-    window.log(
-        "Parser result:",
-        result.body.innerHTML,
-        "Children:",
-        result.body.childNodes.length
-    );
-} catch (e) {
-    window.log("Parser error:", e.message);
-}
+document.body.appendChild(App);
                })
     .catch(error => window.log(error.message));   
 
