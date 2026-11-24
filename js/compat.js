@@ -245,7 +245,7 @@ img.onerror = function () {
     window.log("Image loading failed");
 };
 
-img.src = "http://127.0.0.1:8765/icon/cardio.png";
+img.src = "http://127.0.0.1:8765/cardio.png";
         })
         .catch(error => {
             window.addCSS(url);
