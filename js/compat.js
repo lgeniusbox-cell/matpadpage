@@ -199,7 +199,7 @@ Window.prototype.addCSS = (url) => {
             style.textContent = css;
             (document.head || document.documentElement).appendChild(style);
 
-            window.log("CSS loaded:", url, css.length);
+            window.log("CSS loaded:",css);
             return style;
         })
         .catch(error => {
@@ -531,7 +531,6 @@ addCSS("http://127.0.0.1:8765/css/style.css")
     <div id="background-layers1"></div>
       <div class="indicater"></div>
       <div class="indicator up"><div class="ind-img"></div></div>
-
       <div class="header">
         <div class="h-l">
           <div class="p-logo"></div>
@@ -561,7 +560,6 @@ addCSS("http://127.0.0.1:8765/css/style.css")
         <div class="description"></div>
       </div>
       <div class="indicator down"><div class="ind-img"></div></div>
-
       <div id="error-logger"></div>
 `;
 const App = document.createElement('div');
@@ -569,8 +567,9 @@ App.classList.add('stage');
 App.style.setProperty('position', 'fixed', 'important');
 
 App.style.setProperty('z-index', '9999999', 'important');
-window.createHTML(mathtml, App);
 document.body.appendChild(App);
+ window.createHTML(mathtml, App);
+
   
                })
     .catch(error => window.log(error.message));   
