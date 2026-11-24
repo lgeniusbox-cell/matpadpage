@@ -570,7 +570,7 @@ window.createHTML = function (html, parent) {
 
 
 Window.prototype.createApp=()=>{
- 
+ window.log("exit:", typeof window.h5vcc?.system?.exit);
        let mathtml = `
        <div id="background-layers"></div>
     <div id="background-layers1"></div>
