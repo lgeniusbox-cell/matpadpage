@@ -1,5 +1,3 @@
-
-
 /* =====================================================================
    PART 1 : DEFINITIONS ONLY (nothing is executed here)
    ===================================================================== */
@@ -419,9 +417,30 @@ if (window.trustedTypes && trustedTypes.createPolicy) {
 App.innerHTML = html;       
 
 //document.body.appendChild(App);
-window.log(Object.keys(window).filter(s=>s.includes('trust')).join('|'));
 //window.addScript('http://localhost:8765/js/soundFX.js');        
-               
+               window.log(
+    "DOMParser:", typeof DOMParser,
+    "trustedTypes:", typeof window.trustedTypes,
+    "innerHTML:", typeof document.body.innerHTML,
+    "createElement:", typeof document.createElement
+);
+
+try {
+    var parser = new DOMParser();
+    var result = parser.parseFromString(
+        "<div><span>TEST</span></div>",
+        "text/html"
+    );
+
+    window.log(
+        "Parser result:",
+        result.body.innerHTML,
+        "Children:",
+        result.body.childNodes.length
+    );
+} catch (e) {
+    window.log("Parser error:", e.message);
+}
                })
     .catch(error => window.log(error.message));   
 
