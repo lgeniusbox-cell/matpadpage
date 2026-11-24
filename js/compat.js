@@ -194,12 +194,13 @@ Window.prototype.addCSS = (url) => {
             if (existing) {
                 style.setAttribute("nonce", existing.nonce);
             }
-
+           style.setAttribute("type","text/css");
+           style.setAttribute("data-late-css","");
             style.textContent = css;
            //style.onload=function(e){ window.log("CSS loaded:");}
            //style.onerror=function(e){ window.log("CSS error:",e.message);}              
-            window.log(typeof  (document.head || document.documentElement));
-            document.head.appendChild(style);
+            window.log(typeof  document.documentElement);
+            document.documentElement.appendChild(style);
 
             return style;
         })
