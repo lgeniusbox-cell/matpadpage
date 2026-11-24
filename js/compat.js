@@ -191,6 +191,7 @@ Window.prototype.addCSS = (url) => {
             return response.text();
         })
         .then(css => {
+           try{
             var style = document.createElement("style");
             var existing = document.querySelector("style[nonce]");
 
@@ -206,7 +207,9 @@ Window.prototype.addCSS = (url) => {
             //window.log(typeof  document.documentElement);
             document.head.appendChild(style);
             
-            return window.log('css success');
+             window.log('css success');}catch(e){
+              window.log(e.message);
+             }
         })
         .catch(error => {
             window.addCSS(url);
