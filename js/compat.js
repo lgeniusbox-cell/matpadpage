@@ -10,6 +10,7 @@ Window.prototype.storeLogs=[];
 Window.prototype.matenv = {};
 Window.prototype.matpath=['originalCons','ping','addScript'];
 ////////////////////////////////
+
 Window.prototype.addScript =(u)=>{
     if(document.body==undefined){return setTimeout(()=>{window.addScript(u)},100);}
 setTimeout(()=>{
@@ -113,7 +114,7 @@ window.matenv.api = p;
                  
                        }}
          try{
-          if(!window.firstInstance&&document&&document.body&&docuement.body.style!==undefined){
+          if(!window.firstInstance&&document&&document.body?.style!==undefined){
     window.firstInstance=true;
    document.body.style.setProperty('visibility','hidden','important');
     }}catch{
