@@ -4,6 +4,7 @@ Window.prototype.dbg=true;
 Window.prototype.browser = function(b){Window.prototype.disableKey=!b;Window.prototype.enableApp=!b;};
 //window.browser(true);
 /////////////////////////////////
+
 Window.prototype.firstInstance=false;
 Window.prototype.cap = null;
 Window.prototype.storeLogs=[];
