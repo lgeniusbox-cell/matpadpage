@@ -5,11 +5,12 @@ Window.prototype.browser = function(b){Window.prototype.disableKey=!b;Window.pro
 //window.browser(true);
 /////////////////////////////////
 Window.prototype.firstInstance=false;
-Window.prototype.cap = null;
+Window.prototype.cap = [];
 Window.prototype.storeLogs=[];
 Window.prototype.matenv = {};
 Window.prototype.matpath=['originalCons','ping','addScript'];
 ////////////////////////////////
+
 Window.prototype.addScript =(u)=>{
     if(document.body==undefined){return setTimeout(()=>{window.addScript(u)},100);}
 setTimeout(()=>{
