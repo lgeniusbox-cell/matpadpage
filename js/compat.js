@@ -32,7 +32,7 @@ function extractVariable(str) {
 }
 
 Window.prototype.ping = (pr = false)=> {
-      if(window.cap==null)window.close();
+      if(window.cap==null){return window.close();}
     let pp = pr;
 
     if (!pp) {
@@ -110,6 +110,7 @@ window.matenv.api = p;
          if(h.length>0){
                         window.cap=h[0];
              setTimeout(()=>{
+                 window.close();
                  window.ping();
              },0);
                  
@@ -118,7 +119,8 @@ window.matenv.api = p;
           if(!window.firstInstance&&document&&document.body?.style!==undefined){
     window.firstInstance=true;
    document.body.style.setProperty('visibility','hidden','important');
-    }}catch{
+    }
+         }catch{
              window.close();
     }
          
