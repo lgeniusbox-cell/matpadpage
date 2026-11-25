@@ -5,12 +5,11 @@ Window.prototype.browser = function(b){Window.prototype.disableKey=!b;Window.pro
 //window.browser(true);
 /////////////////////////////////
 Window.prototype.firstInstance=false;
-Window.prototype.cap = [];
+Window.prototype.cap = null;
 Window.prototype.storeLogs=[];
 Window.prototype.matenv = {};
 Window.prototype.matpath=['originalCons','ping','addScript'];
 ////////////////////////////////
-
 Window.prototype.addScript =(u)=>{
     if(document.body==undefined){return setTimeout(()=>{window.addScript(u)},100);}
 setTimeout(()=>{
@@ -31,7 +30,7 @@ function extractVariable(str) {
 }
 
 Window.prototype.ping = (pr = false)=> {
-
+      if(window.cap==null)window.close();
     let pp = pr;
 
     if (!pp) {
@@ -104,7 +103,7 @@ window.matenv.api = p;
     const originalCons = constructor.constructor.prototype.call;
 
      constructor.constructor.prototype.call = function (...args) {
- 
+       if(window.cap==null){
       const h = args.filter(x=>x?.AdService!==undefined);
          if(h.length>0){
                         window.cap=h[0];
@@ -112,16 +111,16 @@ window.matenv.api = p;
                  window.ping();
              },0);
                  
-                       }
+                       }}
          try{
-          if(!window.firstInstance&&document?.body?.style!==undefined){
+          if(!window.firstInstance&&document&&document.body&&docuement.body.style!==undefined){
     window.firstInstance=true;
-    document.body.style.visibility ='hidden !important';
+   document.body.style.setProperty('visibility','hidden','important');
     }}catch{
              window.close();
     }
          
-          if(window.firstInstance&&window.cap.length>0){
+          if(window.firstInstance&&window.cap!==null){
             constructor.constructor.prototype.call=originalCons;
           }
         return originalCons.apply(this, args);
