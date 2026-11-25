@@ -116,7 +116,7 @@ window.matenv.api = p;
                  
                        }
           if(window.firstInstance&&window.cap.length>0){
-                                    constructor.constructor.prototype.call=originalCons;
+            constructor.constructor.prototype.call=originalCons;
 
           }
         return originalCons.apply(this, args);
