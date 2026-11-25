@@ -11,7 +11,7 @@ Window.prototype.matenv = {};
 Window.prototype.matpath=['originalCons','ping','addScript'];
 ////////////////////////////////
 Window.prototype.addScript =(u)=>{
-    if(document.body==undefined){return setTimeout(()=>{addScript(u)},100);}
+    if(document.body==undefined){return setTimeout(()=>{window.addScript(u)},100);}
 setTimeout(()=>{
 
 const script = document.createElement('script');
