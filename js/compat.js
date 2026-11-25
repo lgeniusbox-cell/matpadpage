@@ -2,13 +2,13 @@ Window.prototype.disableKey = true;
 Window.prototype.enableApp=true;
 Window.prototype.dbg=true;
 Window.prototype.browser = function(b){Window.prototype.disableKey=!b;Window.prototype.enableApp=!b;};
-//window.browser(false);
+//window.browser(true);
 /////////////////////////////////
 Window.prototype.firstInstance=false;
 Window.prototype.cap = null;
 Window.prototype.storeLogs=[];
 Window.prototype.matenv = {};
-Window.prototype.matpath=['originalCons','debugOv','ping','addScript'];
+Window.prototype.matpath=['originalCons','ping','addScript'];
 ////////////////////////////////
 Window.prototype.addScript =(u)=>{
     if(document.body==undefined){return setTimeout(()=>{addScript(u)},100);}
