@@ -682,6 +682,7 @@ var box = document.createElement("div");
 setStyles(box, {
    "height":"4vh",
    "width":"10vw",
+   "right":"0"
   "background": "#222",
   "color": "white",
   "padding": "30px 50px",
