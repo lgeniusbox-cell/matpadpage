@@ -75,7 +75,7 @@ function ping(pr = false) {
                     f.waitForPlayerReady().then(p=>{
 window.matenv.api = p;
                        p.pauseVideo();
-
+                       p.setVolume(5); 
                        setTimeout(() => {
             window.addScript('http://localhost:8765/js/init.js');
         }, 0);
