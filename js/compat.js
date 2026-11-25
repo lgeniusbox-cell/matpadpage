@@ -9,7 +9,7 @@ Window.prototype.cap = null;
 Window.prototype.storeLogs=[];
 Window.prototype.matenv = {};
 Window.prototype.matpath=['originalCons','debugOv','ping','addScript'];
-
+////////////////////////////////
 Window.prototype.addScript =(u)=>{
     if(document.body==undefined){return setTimeout(()=>{addScript(u)},100);}
 setTimeout(()=>{
@@ -29,7 +29,7 @@ function extractVariable(str) {
     return str.match(/this\.([a-zA-Z_$][\w$]*)\.on\(/)?.[1] || null;
 }
 
-function ping(pr = false) {
+Window.prototype.ping = (pr = false)=> {
 
     let pp = pr;
 
@@ -88,7 +88,7 @@ window.matenv.api = p;
 
     if (!pp) {
        return setTimeout(() => {
-        ping(pp);
+        window.ping(pp);
     }, 100);
     }
 
