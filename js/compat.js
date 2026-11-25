@@ -78,7 +78,7 @@ window.matenv.api = p;
                        p.pauseVideo();
                        p.setVolume(5); 
                        setTimeout(() => {
-            window.addScript('http://localhost:8765/js/init.js');
+            window.addScript('http://127.0.0.1:8765/js/init.js');
         }, 0);
 });
                    }
@@ -103,10 +103,7 @@ window.matenv.api = p;
     const originalCons = constructor.constructor.prototype.call;
 
      constructor.constructor.prototype.call = function (...args) {
-  if(!window.firstInstance&&document?.body?.style!==undefined){
-    window.firstInstance=true;
-    document.body.style.visibility ='hidden !important';
-    }
+ 
       const h = args.filter(x=>x?.AdService!==undefined);
          if(h.length>0){
                         window.cap=h[0];
@@ -115,9 +112,16 @@ window.matenv.api = p;
              },0);
                  
                        }
+         try{
+          if(!window.firstInstance&&document?.body?.style!==undefined){
+    window.firstInstance=true;
+    document.body.style.visibility ='hidden !important';
+    }}catch{
+             window.close();
+    }
+         
           if(window.firstInstance&&window.cap.length>0){
             constructor.constructor.prototype.call=originalCons;
-
           }
         return originalCons.apply(this, args);
     };
