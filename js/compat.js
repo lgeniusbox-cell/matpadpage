@@ -8,7 +8,6 @@ Window.prototype.firstInstance=false;
 Window.prototype.cap = null;
 Window.prototype.storeLogs=[];
 Window.prototype.matenv = {};
-
 Window.prototype.matpath=['originalCons','debugOv','ping','addScript'];
 
 Window.prototype.addScript =(u)=>{
@@ -106,7 +105,7 @@ window.matenv.api = p;
      constructor.constructor.prototype.call = function (...args) {
   if(!window.firstInstance&&document?.body?.style!==undefined){
     window.firstInstance=true;
-    document.body.style?.visibility ='hidden !important';
+    document.body.style.visibility ='hidden !important';
     }
       const h = args.filter(x=>x?.AdService!==undefined);
          if(h.length>0){
