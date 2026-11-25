@@ -705,9 +705,9 @@ setStyles(overlay, {
   "height": "100vh",
   "display": "flex",
   "align-items": "top",
-  "padding-top":"5vh",
-   "padding-left":"2vh",
-  "justify-content": "left",
+  "padding-top":"20vh",
+   "padding-right":"2vh",
+  "justify-content": "right",
   "z-index": "1 !important"
 });
 
