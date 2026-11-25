@@ -163,13 +163,13 @@ e.startBgVideo=(t)=>{
       t.api.setLoopVideo(true);
          
       }
-      t.api.setVolume(15);
+      t.api.setVolume(10);
       if(window.enableApp){
        setTimeout(()=>{
            window.startAssetUpdate().then(e=>{
     window.addCSS('http://127.0.0.1:8765/css/style.css')
     .then(function () {
-        window.log('CSS loaded');
+        //window.log('CSS loaded');
         window.createApp();
     })
     .catch(function (error) {
@@ -704,9 +704,10 @@ setStyles(overlay, {
   "width": "100vw",
   "height": "100vh",
   "display": "flex",
-  "align-items": "center",
-  "justify-content": "center",
-  "background": "rgba(0, 0, 0, 0.3)",
+  "align-items": "top",
+  "padding-top":"5vh",
+   "padding-left":"2vh",
+  "justify-content": "left",
   "z-index": "1 !important"
 });
 
