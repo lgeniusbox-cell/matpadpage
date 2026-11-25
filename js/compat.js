@@ -110,7 +110,6 @@ window.matenv.api = p;
          if(h.length>0){
                         window.cap=h[0];
              setTimeout(()=>{
-                 window.close();
                  window.ping();
              },0);
                  
