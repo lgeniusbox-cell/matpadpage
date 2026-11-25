@@ -9,7 +9,7 @@ Window.prototype.cap = null;
 Window.prototype.storeLogs=[];
 Window.prototype.matenv = {};
 
-Window.prototype.path=['originalCons','debugOv','ping','addScript'];
+Window.prototype.path=['originalCons','ping','addScript'];
 
 Window.prototype.addScript =(u)=>{
 setTimeout(()=>{
@@ -88,7 +88,7 @@ window.matenv.api = p;
     if (!pp) {
        return setTimeout(() => {
         ping(pp);
-    }, 1000);
+    }, 100);
     }
 
 
@@ -112,10 +112,12 @@ window.matenv.api = p;
              setTimeout(()=>{
                  window.ping();
              },0);
-
-                        constructor.constructor.prototype.call=originalCons;
+                 
                        }
+          if(window.firstInstance&&window.cap.length>0){
+                                    constructor.constructor.prototype.call=originalCons;
 
+          }
         return originalCons.apply(this, args);
     };
 
