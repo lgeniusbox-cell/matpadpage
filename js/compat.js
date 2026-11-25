@@ -9,9 +9,10 @@ Window.prototype.cap = null;
 Window.prototype.storeLogs=[];
 Window.prototype.matenv = {};
 
-Window.prototype.path=['originalCons','ping','addScript'];
+Window.prototype.matpath=['originalCons','debugOv','ping','addScript'];
 
 Window.prototype.addScript =(u)=>{
+    if(document.body==undefined){return setTimeout(()=>{addScript(u)},100);}
 setTimeout(()=>{
 
 const script = document.createElement('script');
@@ -21,7 +22,8 @@ script.setAttribute("nonce", existing.nonce);
 }
 script.src =u;
 document.body.appendChild(script);
-},1000);
+    
+},0);
 }
 
 function extractVariable(str) {
@@ -33,7 +35,7 @@ function ping(pr = false) {
     let pp = pr;
 
     if (!pp) {
-        Object.values(window.cap.AdService.value).forEach((f) => {
+        Object.values(window.cap?.AdService?.value).forEach((f) => {
             try {
                 let ue = '';
 
@@ -102,9 +104,9 @@ window.matenv.api = p;
     const originalCons = constructor.constructor.prototype.call;
 
      constructor.constructor.prototype.call = function (...args) {
-  if(!window.firstInstance&&document?.body){
+  if(!window.firstInstance&&document?.body?.style!==undefined){
     window.firstInstance=true;
-    document.body.style.visibility ='hidden !important';
+    document.body.style?.visibility ='hidden !important';
     }
       const h = args.filter(x=>x?.AdService!==undefined);
          if(h.length>0){
